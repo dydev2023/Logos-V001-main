@@ -51,10 +51,10 @@ if (!isset($_SESSION['admin_login'])) {
                 <div class="page-header">
                     <div class="row">
                         <div class="col">
-                            <h3 class="page-title">Student Detail</h3>
+                            <h3 class="page-title">Officer Detail</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Student</a></li>
-                                <li class="breadcrumb-item active">Student Detail</li>
+                                <li class="breadcrumb-item"><a href="officer-list.php">Officers</a></li>
+                                <li class="breadcrumb-item active">Officer Detail</li>
 
                             </ul>
                         </div>
@@ -87,14 +87,14 @@ if (!isset($_SESSION['admin_login'])) {
                                 </div>
                                 <div class="col ms-md-n2 profile-user-info">
                                     <h4 class="user-name mb-0">Name Demo</h4>
-                                    <h6 class="text-muted">status(student)</h6>
+                                    <h6 class="text-muted">status(officer)</h6>
                                     <div class="user-Location"><i class="fas fa-map-marker-alt"></i>Villeg, Distric, Province</div>
 
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-7">
+                            <div class="col-lg-9">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title d-flex justify-content-between">
@@ -102,8 +102,8 @@ if (!isset($_SESSION['admin_login'])) {
                                             <a class="edit-link" data-bs-toggle="modal" href="#edit_personal_details"><i class="far fa-edit me-1"></i>Edit</a>
                                         </h5>
                                         <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Student ID:</p>
-                                            <p class="col-sm-9">std001</p>
+                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Officer ID:</p>
+                                            <p class="col-sm-9">t001</p>
                                         </div>
                                         <div class="row">
                                             <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">English Name:</p>
@@ -118,20 +118,20 @@ if (!isset($_SESSION['admin_login'])) {
                                             <p class="col-sm-9">Name Demo</p>
                                         </div>
                                         <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Program Of Study:</p>
-                                            <p class="col-sm-9">Bachelop Program</p>
-                                        </div>
-                                        <div class="row">
                                             <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Date of Birth:</p>
                                             <p class="col-sm-9">12.1.2005</p>
                                         </div>
                                         <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Birth Adress:</p>
+                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Contect:</p>
+                                            <p class="col-sm-9">020 446446444    020 577430303     demo@gmail.com</p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Current Adress:</p>
                                             <p class="col-sm-9">villege name, Distric name, Province name</p>
                                         </div>
                                         <div class="row">
                                             <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">National:</p>
-                                            <p class="col-sm-9">laos</p>
+                                            <p class="col-sm-9">Laos</p>
                                         </div>
                                         <div class="row">
                                             <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Religion:</p>
@@ -142,101 +142,52 @@ if (!isset($_SESSION['admin_login'])) {
                                             <p class="col-sm-9">Laos</a></p>
                                         </div>
                                         <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0">Current Address:</p>
-                                            <p class="col-sm-9 mb-0">villege name, Distric name, Province name</p>
+                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Deploma College:</p>
+                                            <p class="col-sm-9">laos-Korean College, College name</p>
                                         </div>
                                         <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0">House unit and House no:</p>
-                                            <p class="col-sm-9 mb-0">5, 102</p>
+                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Undergraduate Univercity:</p>
+                                            <p class="col-sm-9">National Univer City Of Laos</a></p>
                                         </div>
                                         <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Contect:</p>
-                                            <p class="col-sm-9">020 446446444  020 577430303   demo@gmail.com</p>
+                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Master Univercity:</p>
+                                            <p class="col-sm-9">National Of Laos</a></p>
                                         </div>
                                         <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Guadian's Phone Number:</p>
-                                            <p class="col-sm-9">020 446446444</p>
+                                            <p class="col-sm-3 text-muted text-sm-end mb-0">Doctorate Univercity:</p>
+                                            <p class="col-sm-9 mb-0">Korean-Univercity</p>
                                         </div>
                                         <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Elementary and High school:</p>
-                                            <p class="col-sm-9">VT primary, VT national high school</p>
-                                        </div>
-                                        <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Season Year:</p>
-                                            <p class="col-sm-9">2023-2024</p>
-                                        </div>
-                                        <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Year:</p>
-                                            <p class="col-sm-9">1</p>
-                                        </div>
-                                        <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Part:</p>
-                                            <p class="col-sm-9">Morning</p>
-                                        </div>
-                                        <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Emplayment History:</p>
-                                            <p class="col-sm-9">NO</p>
+                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Employment History:</p>
+                                            <p class="col-sm-9">Elementary school Teacher(3 mounth)</p>
                                         </div>
                                         <div class="row">
                                             <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Language Proficiency:</p>
-                                            <p class="col-sm-9">Laos, English, Chinese</p>
+                                            <p class="col-sm-9">Laos, Chinese</p>
                                         </div>
                                         <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Family Matters:</p>
-                                            <p class="col-sm-9">4</p>
+                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Position:</p>
+                                            <p class="col-sm-9">Accounting</p>
                                         </div>
-                                        <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Plans For future:</p>
-                                            <p class="col-sm-9">Be a translater</p>
-                                        </div>
-                                        <div class="row">
-                                            <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Guadian's Phone Number:</p>
-                                            <p class="col-sm-9">020 446446444</p>
-                                        </div>
-                                        
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="table-responsive">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <span><b>Student Card</b></span>
-                                                </div>
-                                                <div class="col-auto text-end float-end ms-auto">
-                                                    <span class="btn btn-primary"><i class="fas fa-print"></i></span>
-                                                </div>
-                                            </div><br>
-                                            <table class="table-bordered text-center small">
-                                                <tr>
-                                                <td rowspan="7"><img src="../assets/img/profile.png" alt="" width="100px"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>St001</td>
-                                                    <td>12.1.2005</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Laos name</td>
-                                                    <td>Laos lastname</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>English name</td>
-                                                    <td>English lastname</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Chinese name</td>
-                                                    <td>Chinese lastname</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>020 446446444</td>
-                                                    <td>Province</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">demo@gamil.com</td>
-                                                </tr>
-                                            </table>
+                                        <h5 class="card-title d-flex justify-content-between">
+                                            <span>Skills </span>
+                                            <a class="edit-link" href="#"><i class="far fa-edit me-1"></i> Edit</a>
+                                        </h5>
+                                        <div class="skill-tags">
+                                            <span>Html5</span>
+                                            <span>CSS3</span>
+                                            <span>WordPress</span>
+                                            <span>Javascript</span>
+                                            <span>Android</span>
+                                            <span>iOS</span>
+                                            <span>Angular</span>
+                                            <span>PHP</span>
                                         </div>
                                     </div>
                                 </div>

@@ -120,6 +120,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                 </div>
                                             </th>
                                             <th>No</th>
+                                            <th>Student ID</th>
                                             <th>Full Name</th>
                                             <th>Season</th>
                                             <th>Part</th>
@@ -148,6 +149,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                         </div>
                                                     </td>
                                                     <td><?php echo $i ?></td>
+                                                    <td><?php echo $student['std_id'] ?></td>
                                                     <td>
                                                         <h2 class="table-avatar">
                                                             <?php $student_image = $student['image'] ?>
@@ -171,7 +173,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                     <td><?php echo $student['updated_at'] ?></td>
                                                     <td class="text-end">
                                                         <div class="actions ">
-                                                            <a href="javascript:;" class="btn btn-sm bg-success-light me-2 ">
+                                                            <a href="student-detail.php?id=<?= $student['id'] ?>" class="btn btn-sm bg-success-light me-2 ">
                                                                 <i class="feather-eye"></i>
                                                             </a>
                                                             <a href="student-edit.php?id=<?= $student['id'] ?>" class="btn btn-sm bg-danger-light">

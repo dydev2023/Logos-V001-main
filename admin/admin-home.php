@@ -86,21 +86,6 @@
                             <div class="card-body">
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
                                     <div class="db-info">
-                                        <h6>Officers</h6>
-                                        <h3>5</h3>
-                                    </div>
-                                    <div class="db-icon">
-                                        <img src="../assets/img/icons/woman.png" alt="Dashboard Icon" width=50>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 col-12 d-flex">
-                        <div class="card bg-comman w-100">
-                            <div class="card-body">
-                                <div class="db-widgets d-flex justify-content-between align-items-center">
-                                    <div class="db-info">
                                         <h6>Students</h6>
                                         <h3><?php echo $allStudents ?></h3>
                                     </div>
@@ -121,6 +106,21 @@
                                     </div>
                                     <div class="db-icon">
                                         <img src="../assets/img/icons/teacher.png" alt="Dashboard Icon" width=50>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                        <div class="card bg-comman w-100">
+                            <div class="card-body">
+                                <div class="db-widgets d-flex justify-content-between align-items-center">
+                                    <div class="db-info">
+                                        <h6>Officers</h6>
+                                        <h3>5</h3>
+                                    </div>
+                                    <div class="db-icon">
+                                        <img src="../assets/img/icons/woman.png" alt="Dashboard Icon" width=50>
                                     </div>
                                 </div>
                             </div>

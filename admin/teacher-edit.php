@@ -5,15 +5,18 @@ include "admin-datas/teacher-db.php";
 
 $t_id = $fname_en = $lname_en = $gender = $fname_la = $lname_la = $dob = $fname_ch = '';
 $lname_ch = $tel = $whatsapp = $email = $village = $district = $province = '';
-$nation = $religion = $highschool = $university = $image_file = '';
+$nation = $religion = $university = $image_file = $ethnicity =  '';
+$th_type = $deploma = $deploma_amount = $undergraduate = $undergraduate_amount = $master = $doctorate = $graduation = '';
 
 $t_id_err = $fname_en_err = $lname_en_err = $gender_err = $fname_la_err = $lname_la_err = $dob_err = $fname_ch_err = '';
 $lname_ch_err = $tel_err = $whatsapp_err = $email_err = $village_err = $district_err = $province_err = '';
-$nation_err = $religion_err = $highschool_err = $university_err = $image_file_err = '';
+$nation_err = $religion_err  = $university_err = $image_file_err = $ethnicity_err = '';
+$th_type_err = $deploma_err = $deploma_amount_err = $undergraduate_err = $undergraduate_amount_err = $master_err = $doctorate_err = $graduation_err = '';
 
 $t_id_red_border = $fname_en_red_border = $lname_en_red_border = $gender_red_border = $fname_la_red_border = $lname_la_red_border = $dob_red_border = $fname_ch_red_border = '';
 $lname_ch_red_border = $tel_red_border = $whatsapp_red_border = $email_red_border = $village_red_border = $district_red_border = $province_red_border = '';
-$nation_red_border = $religion_red_border = $highschool_red_border = $university_red_border = '';
+$nation_red_border = $religion_red_border = $university_red_border = $ethnicity_red_border = '';
+$th_type_red_border = $deploma_red_border = $deploma_amount_red_border = $undergraduate_red_border = $undergraduate_amount_red_border = $master_red_border = $doctorate_red_border = $graduation_red_border = '';
 
 if (!isset($_SESSION['admin_login'])) {
     header('location: ../index.php');
@@ -183,27 +186,71 @@ if (!isset($_SESSION['admin_login'])) {
                 $religion = $_REQUEST['religion'];
             }
 
-            if (empty($_REQUEST['highschool'])) {
-                $highschool_err = 'Highschool is required!';
-                $highschool_red_border = 'red_border';
+            if (empty($_REQUEST['ethnicity'])) {
+                $ethnicity_err = 'Ethnicity is required!';
+                $ethnicity_red_border = 'red_border';
             } else {
-                $highschool = $_REQUEST['highschool'];
+                $ethnicity = $_REQUEST['ethnicity'];
+            }
+            if (empty($_REQUEST['th_type'])) {
+                $th_type_err = 'Teacher type is required!';
+                $th_type_red_border = 'red_border';
+            } else {
+                $th_type = $_REQUEST['th_type'];
+            }
+            if (!empty($_REQUEST['deploma_amount'])){
+                $deploma_amount = $_REQUEST['deploma_amount'];
+            }
+            if (!empty($_REQUEST['deploma'])){
+                $deploma = $_REQUEST['deploma'];
+            }
+    
+            if (empty($_REQUEST['undergraduate_amount'])) {
+                $undergraduate_amount_err = 'Undergraduate certificate amount is required!';
+                $undergraduate_amount_red_border = 'red_border';
+            }elseif ($_REQUEST['undergraduate_amount'] < 1) {
+                $undergraduate_amount_err = 'Invlid amount!';
+                $undergraduate_amount_red_border = 'red_border';
+                $undergraduate_amount = $_REQUEST['undergraduate_amount'];
+            } else {
+                $undergraduate_amount = $_REQUEST['undergraduate_amount'];
+            }
+            if (empty($_REQUEST['undergraduate'])) {
+                $undergraduate_err = 'Undergraduate certificate amount is required!';
+                $undergraduate_red_border = 'red_border';
+            } else {
+                $undergraduate = $_REQUEST['undergraduate'];
+            }
+            if (empty($_REQUEST['graduation'])) {
+                $graduation_err = 'Graduation year is required!';
+                $graduation_red_border = 'red_border';
+            } else {
+                $graduation = $_REQUEST['graduation'];
+            }
+            if (!empty($_REQUEST['master'])){
+                $master = $_REQUEST['master'];
             }
 
-            if (empty($_REQUEST['university'])) {
-                $university_err = 'University is required!';
-                $university_red_border = 'red_border';
-            } else {
-                $university = $_REQUEST['university'];
-            }
-
-            if (
-                !empty($t_id) && !empty($fname_en) && !empty($lname_en) && !empty($gender) && !empty($fname_la) &&
-                !empty($lname_la) && !empty($dob) && !empty($fname_ch) && !empty($lname_ch) && !empty($tel) &&
-                !empty($whatsapp) && !empty($email) && !empty($village) && !empty($district) && !empty($province) &&
-                !empty($nation) && !empty($religion) && !empty($highschool) && !empty($university) && filter_var($_REQUEST['email'],FILTER_VALIDATE_EMAIL)
+            if  (
+                !empty($t_id) && !empty($fname_en) && !empty($lname_en) && !empty($gender) && !empty($fname_la) && !empty($th_type) && !empty($deploma) && !empty($doctorate) &&
+                !empty($lname_la) && !empty($dob) && !empty($fname_ch) && !empty($lname_ch) && !empty($tel) && !empty($deploma_amount) && !empty($undergraduate) && !empty($graduation) &&
+                !empty($whatsapp) && !empty($email) && !empty($village) && !empty($district) && !empty($province) && !empty($undergraduate_amount) && !empty($master) && !empty($ethnicity) &&
+                !empty($nation) && !empty($religion) && !empty($university) && filter_var($_REQUEST['email'], FILTER_VALIDATE_EMAIL)
             ) {
                 try {
+
+                    // New valiable that still not connect to database yet! //
+                    /*
+                    $th_type        // teacher type
+                    $deploma
+                    $deploma_amount
+                    $undergraduate
+                    $undergraduate_amount
+                    $master
+                    $doctorate
+                    $graduation
+                    $ethnicity
+                    */
 
                     $image_file_err = "Teacher image is required!";
                     $image_file = $_FILES['txt_file']['name'];
@@ -260,8 +307,10 @@ if (!isset($_SESSION['admin_login'])) {
                     } else {
                         $stmt2->bindParam(':image', $image_file);
                     }
-                    $stmt1->execute();
-                    $stmt2->execute();
+
+                    // $stmt1->execute();
+                    // $stmt2->execute();
+                    
                     $_SESSION['success'] = "Update Admin successfully.";
                     header('location: teacher-list.php');
                     exit;
@@ -470,7 +519,7 @@ if (!isset($_SESSION['admin_login'])) {
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Nation <span class="login-danger">*</span> </label>
+                                                <label>National <span class="login-danger">*</span> </label>
                                                 <input class="form-control <?php echo $nation_red_border ?>" type="text" name="nation" value="<?php echo $row['nation'] ?>">
                                                 <div class="error"><?php echo $nation_err ?></div>
                                             </div>
@@ -490,26 +539,69 @@ if (!isset($_SESSION['admin_login'])) {
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>University <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $university_red_border ?>" type="text" name="university" value="<?php echo $row['university'] ?>">
-                                                <div class="error"><?php echo $university_err ?></div>
+                                                <label>Ethnicity <span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $ethnicity_red_border ?>" type="text" name="ethnicity">
+                                                <div class="error"><?php echo $ethnicity_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">
+                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
                                             <div class="form-group local-forms">
-                                                <label>High School <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $highschool_red_border ?>" type="text" name="highschool" value="<?php echo $row['highschool'] ?>">
-                                                <div class="error"><?php echo $highschool_err ?></div>
+                                                <label>Teacher Type <span class="login-danger">*</span></label>
+                                                <select class="form-control select <?php echo $th_type_red_border ?>" name="th_type">
+                                                    <option></option>
+                                                    <option>Regular Professor</option>
+                                                    <option>Invited Professor</option>
+                                                </select>
+                                                <div class="error"><?php echo $th_type_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group students-up-files">
-                                                <label>Upload Teacher Photo (<?php echo $row['image'] ?>) <span class="login-danger">*</span> </label>
-                                                <?php $teacherImage_file = $row['image'] ?>
-                                                <img src="<?php echo "upload/teacher_profile/$teacherImage_file" ?>" alt="Logo" width="150px">
-                                                <label class="file-upload image-upbtn mb-0 ml-2">
-                                                    Choose File <input type="file" name="txt_file" value="<?php echo $row['image'] ?>">
-                                                </label>
+                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                            <div class="form-group local-forms">
+                                                <label>Deploma amount </label>
+                                                <input class="form-control <?php echo $deploma_amount_red_border ?>" type="number" name="deploma_amount">
+                                                <div class="error"><?php echo $deploma_amount_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                            <div class="form-group local-forms">
+                                                <label>Deploma College</label>
+                                                <input class="form-control <?php echo $deploma_red_border ?>" type="text" name="deploma">
+                                                <div class="error"><?php echo $deploma_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                            <div class="form-group local-forms">
+                                                <label>Undergraduate amount <span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $undergraduate_amount_red_border ?>" type="number" name="undergraduate_amount">
+                                                <div class="error"><?php echo $undergraduate_amount_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                            <div class="form-group local-forms">
+                                                <label>Undergraduate Univercity<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $undergraduate_red_border ?>" type="text" name="undergraduate">
+                                                <div class="error"><?php echo $undergraduate_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                            <div class="form-group local-forms">
+                                                <label>Master Univercity </label>
+                                                <input class="form-control <?php echo $master_red_border ?>" type="number" name="master">
+                                                <div class="error"><?php echo $master_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                            <div class="form-group local-forms">
+                                                <label>Doctorate Univercity </label>
+                                                <input class="form-control <?php echo $doctorate_red_border ?>" type="number" name="doctorate">
+                                                <div class="error"><?php echo $doctorate_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                            <div class="form-group local-forms">
+                                                <label>Graduation Year<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $graduation_red_border ?>" type="number" name="graduation">
+                                                <div class="error"><?php echo $graduation_err ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
@@ -518,7 +610,16 @@ if (!isset($_SESSION['admin_login'])) {
                                                 <input class="form-control" type="text" name="password" placeholder="*************">
                                             </div>
                                         </div>
-
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group students-up-files">
+                                                <label>Upload Teacher Photo 3x4cm (<?php echo $row['image'] ?>) <span class="login-danger">*</span> </label>
+                                                <?php $teacherImage_file = $row['image'] ?>
+                                                <img src="<?php echo "upload/teacher_profile/$teacherImage_file" ?>" alt="Logo" width="150px">
+                                                <label class="file-upload image-upbtn mb-0 ml-2">
+                                                    Choose File <input type="file" name="txt_file" value="<?php echo $row['image'] ?>">
+                                                </label>
+                                            </div>
+                                        </div>
                                         <div class="col-12">
                                             <div class="student-submit">
                                                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>

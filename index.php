@@ -13,6 +13,7 @@ if(isset($_REQUEST['submit'])){
         $u_id_redborder = "red_border";
     }else{
         $u_id = $_REQUEST['u_id'];
+        $u_id_redborder = "green_border";
     }
 
     if(empty($_POST["password"])){
@@ -20,6 +21,7 @@ if(isset($_REQUEST['submit'])){
         $password_redborder = "red_border";
     }else {
         $password = $_REQUEST['password'];
+        $password_redborder = "green_border";
     }
 
     if(!empty($_POST["u_id"]) && !empty($_POST["password"])){

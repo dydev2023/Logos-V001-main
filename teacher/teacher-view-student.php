@@ -1,11 +1,9 @@
 <?php
 session_start();
 require_once '../config/dbcon.php';
-if (!isset($_SESSION['admin_login'])) {
+if (!isset($_SESSION['teacher_login'])) {
     header('location: ../index.php');
 } else {
-    include "admin-datas/teacher-db.php";
-    $teachers = getAllTeachers($conn);
 }
 
 ?>
@@ -50,11 +48,11 @@ if (!isset($_SESSION['admin_login'])) {
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Teachers</h3>
-                            
+                            <h3 class="page-title">Students</h3>
+
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="teacher-list.php">Teacher</a></li>
-                                <li class="breadcrumb-item active">All Teachers</li>
+                                <li class="breadcrumb-item"><a href="teacher-home.php">Dashboard</a></li>
+                                <li class="breadcrumb-item active">All Students</li>
                             </ul>
                         </div>
                     </div>
@@ -90,7 +88,7 @@ if (!isset($_SESSION['admin_login'])) {
                     <div class="card card-table comman-shadow">
                         <div class="card-body">
 
-                        <?php if (isset($_SESSION['success'])) { ?>
+                            <?php if (isset($_SESSION['success'])) { ?>
                                 <div class="alert alert-success" role="alert">
                                     <?php
                                     echo $_SESSION['success'];
@@ -102,10 +100,9 @@ if (!isset($_SESSION['admin_login'])) {
                             <div class="page-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h3 class="page-title">Teachers</h3>
+                                        <h3 class="page-title">Students</h3>
                                     </div>
                                     <div class="col-auto text-end float-end ms-auto download-grp">
-                                        <a href="teacher-add.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -120,12 +117,12 @@ if (!isset($_SESSION['admin_login'])) {
                                                 </div>
                                             </th>
                                             <th>No</th>
-                                            <th>Teacher ID</th>
+                                            <th>Student ID</th>
                                             <th>Full Name</th>
-                                            <th>Gender</th>
+                                            <th>Season</th>
+                                            <th>Part</th>
                                             <th>Date Of Birth</th>
-                                            <th>Phone Number</th>
-                                            <th>WhatsApp Number</th>
+                                            <th>Tel</th>
                                             <th>Email Address</th>
                                             <th>Created At</th>
                                             <th>Updated At</th>
@@ -133,53 +130,35 @@ if (!isset($_SESSION['admin_login'])) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i = 0;
-                                        if ($teachers == "No Teacher!") { ?>
-                                            <tr>
-                                                <td>No Teacher!</td>
-                                            </tr>
-                                            <?php } else {
-                                            foreach ($teachers as $teacher) {
-                                                $i++; ?>
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check check-tables">
-                                                            <input class="form-check-input" type="checkbox" value="something">
-                                                        </div>
-                                                    </td>
-                                                    <td><?php echo $i ?></td>
-                                                    <td><?php echo $teacher['t_id'] ?></td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <?php $teacher_image = $teacher['image'] ?>
-                                                            <a href="teacher-detail.php?$id=<? $teacher['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/teacher_profile/$teacher_image" ?>" alt="User Image"></a>
-                                                            <a href="teacher-detail.php?$id=<? $teacher['id'] ?>"><?php echo $teacher['fname_en'] . " " . $teacher['lname_en'] ?></a>
-                                                        </h2>
-                                                    </td>
-                                                    <td><?php echo $teacher['gender'] ?></td>
-                                                    <td><?php echo $teacher['dob'] ?></td>
-                                                    <td><?php echo $teacher['tel'] ?></td>
-                                                    <td><?php echo $teacher['whatsapp'] ?></td>
-                                                    <td><?php echo $teacher['email'] ?></td>
-                                                    <td><?php echo $teacher['created_at'] ?></td>
-                                                    <td><?php echo $teacher['updated_at'] ?></td>
-                                                    <td class="text-end">
-                                                        <div class="actions ">
-                                                            <a href="teacher-detail.php?id=<?= $teacher['id'] ?>" class="btn btn-sm bg-success-light me-2 ">
-                                                                <i class="feather-eye"></i>
-                                                            </a>
-                                                            <a href="teacher-edit.php?id=<?= $teacher['id'] ?>" class="btn btn-sm bg-danger-light">
-                                                                <i class="feather-edit"></i>
-                                                            </a>
-                                                            <a href="teacher-delete.php?id=<?= $teacher['id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
-                                                                <i class="feather-delete"></i>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                        <?php }
-                                        } ?>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check check-tables">
+                                                    <input class="form-check-input" type="checkbox" value="something">
+                                                </div>
+                                            </td>
+                                            <td>1</td>
+                                            <td>std001</td>
+                                            <td>
+                                                <h2 class="table-avatar">
+                                                    <a href="../admin/student-detail.php?$id=" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="../assets/img/profile.png" alt="User Image"></a>
+                                                    <a href="../admin/student-detail.php?$id=">Mr/Ms Fisrtname Lastname</a>
+                                                </h2>
+                                            </td>
+                                            <td>2022-2023</td>
+                                            <td>Morning</td>
+                                            <td>4.6.2004</td>
+                                            <td>030 2483932</td>
+                                            <td>demo@gmail.com</td>
+                                            <td>10.6.2023</td>
+                                            <td>10.6.2023</td>
+                                            <td class="text-end">
+                                                <div class="actions ">
+                                                    <a href="../admin/student-detail.php?id=" class="btn btn-sm bg-success-light me-2 ">
+                                                        <i class="feather-eye"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

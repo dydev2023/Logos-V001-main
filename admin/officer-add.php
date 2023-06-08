@@ -2,19 +2,19 @@
 session_start();
 require_once '../config/dbcon.php';
 
-$t_id = $fname_en = $lname_en = $gender = $fname_la = $lname_la = $dob = $fname_ch = '';
-$lname_ch = $tel = $whatsapp = $email = $village = $district = $province = '';
-$nation = $religion = $university = $image_file = $ethnicity = '';
+$officer = $fname_en = $lname_en = $gender = $fname_la = $lname_la = $dob = $fname_ch = '';
+$lname_ch = $tel = $whatsapp = $email = $village = $district = $province = $emp_history = '';
+$nation = $religion = $university = $image_file = $ethnicity = $position = $lg_proficiency = '';
 $th_type = $deploma = $deploma_amount = $undergraduate = $undergraduate_amount = $master = $doctorate = $graduation = '';
 
-$t_id_err = $fname_en_err = $lname_en_err = $gender_err = $fname_la_err = $lname_la_err = $dob_err = $fname_ch_err = '';
+$officer_err = $fname_en_err = $lname_en_err = $gender_err = $fname_la_err = $lname_la_err = $dob_err = $fname_ch_err = '';
 $lname_ch_err = $tel_err = $whatsapp_err = $email_err = $village_err = $district_err = $province_err = '';
-$nation_err = $religion_err  = $university_err = $image_file_err = $ethnicity_err = '';
+$nation_err = $religion_err  = $university_err = $image_file_err = $ethnicity_err = $position_err =  '';
 $th_type_err = $deploma_err = $deploma_amount_err = $undergraduate_err = $undergraduate_amount_err = $master_err = $doctorate_err = $graduation_err = '';
 
-$t_id_red_border = $fname_en_red_border = $lname_en_red_border = $gender_red_border = $fname_la_red_border = $lname_la_red_border = $dob_red_border = $fname_ch_red_border = '';
+$officer_red_border = $fname_en_red_border = $lname_en_red_border = $gender_red_border = $fname_la_red_border = $lname_la_red_border = $dob_red_border = $fname_ch_red_border = '';
 $lname_ch_red_border = $tel_red_border = $whatsapp_red_border = $email_red_border = $village_red_border = $district_red_border = $province_red_border = '';
-$nation_red_border = $religion_red_border = $university_red_border = $ethnicity_red_border = '';
+$nation_red_border = $religion_red_border = $university_red_border = $ethnicity_red_border = $position_red_border = '';
 $th_type_red_border = $deploma_red_border = $deploma_amount_red_border = $undergraduate_red_border = $undergraduate_amount_red_border = $master_red_border = $doctorate_red_border = $graduation_red_border = '';
 
 if (!isset($_SESSION['admin_login'])) {
@@ -23,7 +23,7 @@ if (!isset($_SESSION['admin_login'])) {
 } else {
     // Select The E-mail in Database For Check
     $check_u_id = $conn->prepare("SELECT u_id FROM users WHERE u_id = :u_id");
-    $check_u_id->bindParam(":u_id", $_REQUEST['t_id']);
+    $check_u_id->bindParam(":u_id", $_REQUEST['officer_id']);
     $check_u_id->execute();
 
     $check_u_email = $conn->prepare("SELECT u_email FROM users WHERE u_email = :u_email");
@@ -31,7 +31,7 @@ if (!isset($_SESSION['admin_login'])) {
     $check_u_email->execute();
 
 
-    // Select Teacher data in Database For Check
+    // Select officer data in Database For Check
     $check_tel = $conn->prepare("SELECT tel FROM teachers WHERE tel = :tel");
     $check_tel->bindParam(":tel", $_REQUEST['tel']);
     $check_tel->execute();
@@ -42,15 +42,15 @@ if (!isset($_SESSION['admin_login'])) {
 
     if (isset($_REQUEST['submit'])) {
 
-        if (empty($_REQUEST['t_id'])) {
-            $t_id_err = 'Teacher ID is required!';
-            $t_id_red_border = 'red_border';
+        if (empty($_REQUEST['officer'])) {
+            $officer_err = 'Officer ID is required!';
+            $officer_red_border = 'red_border';
         } elseif ($check_u_id->rowCount() > 0) {
-            $t_id_err = 'This teacher ID is already exsist!';
-            $t_id_red_border = 'red_border';
-            $t_id = $_REQUEST['t_id'];
+            $officer_err = 'This Officer ID is already exsist!';
+            $officer_red_border = 'red_border';
+            $officer = $_REQUEST['officer'];
         } else {
-            $t_id = $_REQUEST['t_id'];
+            $officer = $_REQUEST['officer'];
         }
 
         if (empty($_REQUEST['fname_en'])) {
@@ -187,12 +187,6 @@ if (!isset($_SESSION['admin_login'])) {
         } else {
             $ethnicity = $_REQUEST['ethnicity'];
         }
-        if (empty($_REQUEST['th_type'])) {
-            $th_type_err = 'Teacher type is required!';
-            $th_type_red_border = 'red_border';
-        } else {
-            $th_type = $_REQUEST['th_type'];
-        }
         if (!empty($_REQUEST['deploma_amount'])){
             $deploma_amount = $_REQUEST['deploma_amount'];
         }
@@ -222,12 +216,24 @@ if (!isset($_SESSION['admin_login'])) {
         } else {
             $graduation = $_REQUEST['graduation'];
         }
+        if (!empty($_REQUEST['emp_history'])){
+            $emp_history = $_REQUEST['emp_history'];
+        }
+        if (!empty($_REQUEST['lg_proficiency'])){
+            $lg_proficiency = $_REQUEST['lg_proficiency'];
+        }
+        if (empty($_REQUEST['position'])) {
+            $position_err = 'Position is required!';
+            $position_red_border = 'red_border';
+        } else {
+            $position = $_REQUEST['position'];
+        }
         if (!empty($_REQUEST['master'])){
             $master = $_REQUEST['master'];
         }
 
         if (empty($_FILES['txt_file']['name'])) {
-            $image_file_err = "Teacher image is required!";
+            $image_file_err = "Officer image is required!";
         } else {
             $image_file = $_FILES['txt_file']['name'];
             $type = $_FILES['txt_file']['type'];
@@ -236,43 +242,29 @@ if (!isset($_SESSION['admin_login'])) {
         }
 
         if (
-            !empty($t_id) && !empty($fname_en) && !empty($lname_en) && !empty($gender) && !empty($fname_la) && !empty($th_type) && !empty($deploma) && !empty($doctorate) &&
+            !empty($officer) && !empty($fname_en) && !empty($lname_en) && !empty($gender) && !empty($fname_la) && !empty($th_type) && !empty($deploma) && !empty($doctorate) &&
             !empty($lname_la) && !empty($dob) && !empty($fname_ch) && !empty($lname_ch) && !empty($tel) && !empty($deploma_amount) && !empty($undergraduate) && !empty($graduation) &&
             !empty($whatsapp) && !empty($email) && !empty($village) && !empty($district) && !empty($province) && !empty($undergraduate_amount) && !empty($master) && !empty($ethnicity) &&
-            !empty($nation) && !empty($religion) && !empty($university) && !empty($image_file) && filter_var($_REQUEST['email'], FILTER_VALIDATE_EMAIL)
+            !empty($nation) && !empty($religion) && !empty($university) && !empty($image_file) && filter_var($_REQUEST['email'], FILTER_VALIDATE_EMAIL) && !empty($position)
         ) {
             try {
-                $status = 'Teacher';
-
-                 
-                // New valiable that still not connect to database yet! //
-                /*
-                $th_type        // teacher type
-                $deploma
-                $deploma_amount
-                $undergraduate
-                $undergraduate_amount
-                $master
-                $doctorate
-                $graduation
-                $ethnicity
-                */
+                $status = 'Officer';
 
                 if ($type == "image/jpg" || $type == 'image/jpeg' || $type == "image/png" || $type == "image/gif") {
-                    $passwordHash = password_hash($t_id, PASSWORD_DEFAULT);
+                    $passwordHash = password_hash($officer, PASSWORD_DEFAULT);
 
                     // Add User
                     $stmt1 = $conn->prepare('INSERT INTO users(u_id, u_email, u_pass, status) 
                                                                 VALUES (:u_id, :u_email, :u_pass, :status)');
-                    $stmt1->bindParam(':u_id', $t_id);
+                    $stmt1->bindParam(':u_id', $officer);
                     $stmt1->bindParam(':u_email', $email);
                     $stmt1->bindParam(':u_pass', $passwordHash);
                     $stmt1->bindParam(':status', $status);
 
                     // Add Admin
-                    $stmt2 = $conn->prepare('INSERT INTO teachers(id,t_id, fname_en, lname_en, fname_la, lname_la, fname_ch, lname_ch, gender, dob, tel, whatsapp, email, village, district, province, nation, religion, university, image) 
-                                        VALUES(LAST_INSERT_ID(), :t_id, :fname_en, :lname_en, :fname_la, :lname_la, :fname_ch, :lname_ch, :gender, :dob, :tel, :whatsapp, :email, :village, :district, :province, :nation, :religion, :university, :image)');
-                    $stmt2->bindParam(':t_id', $t_id);
+                    $stmt2 = $conn->prepare('INSERT INTO teachers(id,officer, fname_en, lname_en, fname_la, lname_la, fname_ch, lname_ch, gender, dob, tel, whatsapp, email, village, district, province, nation, religion, university, image) 
+                                        VALUES(LAST_INSERT_ID(), :officer, :fname_en, :lname_en, :fname_la, :lname_la, :fname_ch, :lname_ch, :gender, :dob, :tel, :whatsapp, :email, :village, :district, :province, :nation, :religion, :university, :image)');
+                    $stmt2->bindParam(':officer', $officer);
                     $stmt2->bindParam(':fname_en', $fname_en);
                     $stmt2->bindParam(':fname_la', $fname_la);
                     $stmt2->bindParam(':fname_ch', $fname_ch);
@@ -295,15 +287,15 @@ if (!isset($_SESSION['admin_login'])) {
                     // $stmt1->execute();
                     // $stmt2->execute();
 
-                    $path = "upload/teacher_profile/" . $image_file; // set upload folder path
-                    move_uploaded_file($temp, 'upload/teacher_profile/' . $image_file); // move upload file temperory directory to your upload folder
+                    $path = "upload/officer_profile/" . $image_file; // set upload folder path
+                    move_uploaded_file($temp, 'upload/officer_profile/' . $image_file); // move upload file temperory directory to your upload folder
 
-                    $_SESSION['success'] = "Add Teacher successfully. <a href='teacher-list.php'> Click here to see the detail. </a>";
-                    header('location: teacher-add.php');
+                    $_SESSION['success'] = "Add officer successfully. <a href='officer-list.php'> Click here to see the detail. </a>";
+                    header('location: officer-add.php');
                     exit;
                 } else {
                     $_SESSION['error'] = "Upload JPG, JPEG & PNG file formate!";
-                    header('location: teacher-add.php');
+                    header('location: officer-add.php');
                     exit;
                 }
             } catch (PDOException $e) {
@@ -360,10 +352,10 @@ if (!isset($_SESSION['admin_login'])) {
                     <div class="row align-items-center">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">Add Teacher</h3>
+                                <h3 class="page-title">Add Officer</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="teacher-list.php">Teacher</a></li>
-                                    <li class="breadcrumb-item active">Add Teacher</li>
+                                    <li class="breadcrumb-item"><a href="officer-list.php">Officers</a></li>
+                                    <li class="breadcrumb-item active">Add Officer</li>
                                 </ul>
                             </div>
                         </div>
@@ -396,20 +388,20 @@ if (!isset($_SESSION['admin_login'])) {
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <h5 class="form-title student-info">Teacher Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
+                                            <h5 class="form-title student-info">Officer Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Teacher ID <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $t_id_red_border ?>" type="text" name="t_id" value="<?php echo $t_id ?>">
-                                                <div class="error"><?php echo $t_id_err ?></div>
+                                                <label>Officer ID <span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $officer_red_border ?>" type="text" name="officer" value="<?php echo $officer ?>">
+                                                <div class="error"><?php echo $officer_err ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
                                                 <label>First Name(English) <span class="login-danger">*</span></label>
                                                 <input class="form-control <?php echo $fname_en_red_border ?>" type="text" name="fname_en" value="<?php echo $fname_en ?>">
-                                                <div class="error"><?php echo $fname_en_red_border ?></div>
+                                                <div class="error"><?php echo $fname_en_err ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
@@ -536,17 +528,6 @@ if (!isset($_SESSION['admin_login'])) {
                                         </div>
                                         <div class="col-12 col-sm-4">       <!-- New elemant -->
                                             <div class="form-group local-forms">
-                                                <label>Teacher Type <span class="login-danger">*</span></label>
-                                                <select class="form-control select <?php echo $th_type_red_border ?>" name="th_type">
-                                                    <option><?php echo $th_type ?></option>
-                                                    <option>Regular Professor</option>
-                                                    <option>Invited Professor</option>
-                                                </select>
-                                                <div class="error"><?php echo $th_type_err ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
-                                            <div class="form-group local-forms">
                                                 <label>Deploma amount </label>
                                                 <input class="form-control <?php echo $deploma_amount_red_border ?>" type="number" name="deploma_amount" value="<?php echo $deploma_amount ?>">
                                                 <div class="error"><?php echo $deploma_amount_err ?></div>
@@ -576,14 +557,14 @@ if (!isset($_SESSION['admin_login'])) {
                                         <div class="col-12 col-sm-4">       <!-- New elemant -->
                                             <div class="form-group local-forms">
                                                 <label>Master Univercity </label>
-                                                <input class="form-control <?php echo $master_red_border ?>" type="number" name="master" value="<?php echo $master ?>">
+                                                <input class="form-control <?php echo $master_red_border ?>" type="text" name="master" value="<?php echo $master ?>">
                                                 <div class="error"><?php echo $master_err ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">       <!-- New elemant -->
                                             <div class="form-group local-forms">
                                                 <label>Doctorate Univercity </label>
-                                                <input class="form-control <?php echo $doctorate_red_border ?>" type="number" name="doctorate" value="<?php echo $doctorate ?>">
+                                                <input class="form-control <?php echo $doctorate_red_border ?>" type="text" name="doctorate" value="<?php echo $doctorate ?>">
                                                 <div class="error"><?php echo $doctorate_err ?></div>
                                             </div>
                                         </div>
@@ -592,6 +573,25 @@ if (!isset($_SESSION['admin_login'])) {
                                                 <label>Graduation Year<span class="login-danger">*</span> </label>
                                                 <input class="form-control <?php echo $graduation_red_border ?>" type="number" name="graduation" value="<?php echo $graduation ?>">
                                                 <div class="error"><?php echo $graduation_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                            <div class="form-group local-forms">
+                                                <label>Employment History </label>
+                                                <input class="form-control" type="text" name="emp_history" value="<?php echo $emp_history ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                            <div class="form-group local-forms">
+                                                <label>Language Proficiency </label>
+                                                <input class="form-control" type="text" name="lg_proficiency" value="<?php echo $lg_proficiency ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                            <div class="form-group local-forms">
+                                                <label>Position <span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $position_red_border ?>" type="text" name="position" value="<?php echo $position ?>">
+                                                <div class="error"><?php echo $position_err ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">

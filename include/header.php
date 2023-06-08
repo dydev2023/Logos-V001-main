@@ -1,7 +1,4 @@
 <?php
-
-
-
 if (isset($_SESSION['admin_login'])) {
     $id = $_SESSION['admin_login'];
     // User
@@ -73,7 +70,7 @@ if (isset($_SESSION['student_login'])) {
 
         <div class="header-left">
             <a href="admin-home.php" class="logo">
-                <img src="../assets/img/logo_logos.png" alt="Logo">
+                <img src="../assets/img/logos_logo_slogram.jpeg" alt="Logo">
             </a>
             <a href="admin-home.php" class="logo logo-small">
                 <img src="../assets/img/logo_logos.png" alt="Logo" width="30" height="30">
@@ -148,7 +145,7 @@ if (isset($_SESSION['student_login'])) {
 
         <div class="header-left">
             <a href="teacher-home.php" class="logo">
-                <img src="../assets/img/logo_logos.png" alt="Logo">
+                <img src="../assets/img/logos_logo_slogram.jpeg" alt="Logo">
             </a>
             <a href="teacher-home.php" class="logo logo-small">
                 <img src="../assets/img/logo_logos.png" alt="Logo" width="30" height="30">
@@ -222,7 +219,7 @@ if (isset($_SESSION['student_login'])) {
 
         <div class="header-left">
             <a href="student-home.php" class="logo">
-                <img src="../assets/img/logo_logos.png" alt="Logo">
+                <img src="../assets/img/logos_logo_slogram.jpeg" alt="Logo">
             </a>
             <a href="student-home.php" class="logo logo-small">
                 <img src="../assets/img/logo_logos.png" alt="Logo" width="30" height="30">

@@ -66,7 +66,7 @@ if (!isset($_SESSION['admin_login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>Logos Institute of Foreign Language</title>
 
-    <link rel="shortcut icon" href="assets/img/favicon.png">
+    <link rel="shortcut icon" href="../assets/img/logo_logos.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
@@ -100,10 +100,10 @@ if (!isset($_SESSION['admin_login'])) {
                     <div class="row align-items-center">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">Eid Time Teble</h3>
+                                <h3 class="page-title">Time Teble List</h3>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="timetable-list.php">Time Tebles</a></li>
-                                    <li class="breadcrumb-item active">Eid Time Teble</li>
+                                    <li class="breadcrumb-item active">Time Teble List</li>
                                 </ul>
                             </div>
                         </div>
@@ -197,81 +197,127 @@ if (!isset($_SESSION['admin_login'])) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="container">
+                                                    <div class="timetable-img text-center">
+                                                        <img src="img/content/timetable.png" alt="">
+                                                    </div>
+                                                    <p class="text-center"><b>Bachelor Chinese Studies Learning-Teaching Schedule</b></p>
+                                                    <p class="text-center">For 1st Semester, in Academic year 2022-2023</p>
                                                     <div class="table-responsive">
-                                                        <table class="table mb-0">
+                                                        <table class="table table-bordered text-center">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Days</th>
-                                                                    <th>Times</th>
-                                                                    <th>Subjects And Teachers</th>
-                                                                    <th>Classroom</th>
+                                                                <tr class="bg-light-gray">
+                                                                    <th class="text-uppercase">Time</th>
+                                                                    <th class="text-uppercase">Monday</th>
+                                                                    <th class="text-uppercase">Tuesday</th>
+                                                                    <th class="text-uppercase">Wednesday</th>
+                                                                    <th class="text-uppercase">Thursday</th>
+                                                                    <th class="text-uppercase">Friday</th>
+                                                                    <th class="text-uppercase">Saturday</th>
                                                                 </tr>
                                                             </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="align-middle">9:00-10:00</td>
+                                                                    <td>
+                                                                        <span>Dance</span>
+                                                                        <div class="margin-10px-top font-size14">Ivana Wong</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>Yoga</span>
+                                                                        <div class="margin-10px-top font-size14">Ivana Wong</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                    </td>
 
+                                                                    <td>
+                                                                        <span">Music</span>
+                                                                        <div class="margin-10px-top font-size14">Kate Alley</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                            
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>Dance</span>
+                                                                        <div class="margin-10px-top font-size14">Ivana Wong</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>Art</span>
+                                                                        <div class="margin-10px-top font-size14">Marta Healy</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>English</span>
+                                                                        <div class="margin-10px-top font-size14">James Smith</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                    </td>
+                                                                </tr>
 
-                                                            <?php
-                                                            if (isset($_POST['search'])) {
-                                                                $season = $_REQUEST['season'];
-                                                                $semester = $_REQUEST['semester'];
-                                                                $times = $_REQUEST['times'];
-                                                                try {
-                                                                    $addLoop = 0;
-                                                                    foreach ($timetables as $timetable) {
-                                                                        $addLoop++;
-                                                                        if ($timetable['season'] == $season && $timetable['semester'] == $semester && !empty($times)) {
-                                                                            $subject1 = getSubjectById($timetable['subject1_id'], $conn);
-                                                                            $subject2 = getSubjectById($timetable['subject2_id'], $conn);
-                                                                            $teacher1 = getTeacherById($subject1['teacher_id'], $conn);
-                                                                            $teacher2 = getTeacherById($subject2['teacher_id'], $conn);
-                                                            ?>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td><?php echo $timetable['days'] ?></td>
+                                                                <tr>
+                                                                    <td class="align-middle">10:00am</td>
+                                                                    <td>
+                                                                        <span>Dance</span>
+                                                                        <div class="margin-10px-top font-size14">Ivana Wong</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>Yoga</span>
+                                                                        <div class="margin-10px-top font-size14">Ivana Wong</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                    </td>
 
-                                                                                    <?php
-                                                                                    if ($times == 'Morning') { ?>
-                                                                                        <td>
-                                                                                            08:00-09:30 <br>
-                                                                                            10:00-11:30
-                                                                                        </td>
-                                                                                    <?php } else if ($times == 'Afternoon') { ?>
-                                                                                        <td>
-                                                                                            13:00-14:30 <br>
-                                                                                            15:00-16:30
-                                                                                        </td>
-                                                                                    <?php } else { ?>
-                                                                                        <td>
-                                                                                            17:30-16:45 <br>
-                                                                                            19:00-20:30
-                                                                                        </td>
-                                                                                    <?php }?>
-
-
-                                                                                    <td>
-                                                                                        <?php echo $subject1['name'] . ' (Prof: ' . $teacher1['fname_en'] . ' ' . $teacher1['lname_en'] . ')' ?> <br>
-                                                                                        <?php echo $subject2['name'] . ' (Prof: ' . $teacher2['fname_en'] . ' ' . $teacher2['lname_en'] . ')' ?>
-                                                                                    </td>
-                                                                                    <td><?php echo $timetable['classroom'] ?></td>
-                                                                                </tr>
-                                                                            </tbody>
-
-                                                                <?php
-                                                                        }
-                                                                    }
-                                                                } catch (PDOException $e) {
-                                                                    $e->getMessage();
-                                                                }
-                                                            } else { ?>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <th>No Timetable</th>
-                                                                    </tr>
-                                                                </tbody>
-                                                            <?php }  ?>
-
+                                                                    <td>
+                                                                        <span">Music</span>
+                                                                        <div class="margin-10px-top font-size14">Kate Alley</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>Dance</span>
+                                                                        <div class="margin-10px-top font-size14">Ivana Wong</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>Art</span>
+                                                                        <div class="margin-10px-top font-size14">Marta Healy</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>English</span>
+                                                                        <div class="margin-10px-top font-size14">James Smith</div>
+                                                                        <div class="small text-secondary">(book id: B001)</div>
+                                                                        <div class="small text-secondary">(Room: Ch001)</div>
+                                                                        <div class="small text-secondary">(Prf: Chon)</div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
                                                         </table>
-                                                    </div>
+                                                    </div><br><br>
+                                                    <p><i><b>Remark: </b></i></p>
+                                                    <p><i>1. Google Meet Link will be post on Google Classroom.</i></p>
+                                                    <p><i>2. Join your online class as scheduled everyday.</i></p>
+                                                    <p><i>3. Don't be LATE! Attendance will be taken!</i></p>
                                                 </div>
                                             </div>
                                         </div>
