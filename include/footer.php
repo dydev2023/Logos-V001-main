@@ -1,3 +1,3 @@
 <footer>
-    <p>Logos Institute of Foreign Language.</p>
+    <p>Copyright © Logos Institute of Foreign Language.</p>
 </footer>

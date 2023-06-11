@@ -651,37 +651,16 @@ if (!isset($_SESSION['admin_login'])) {
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Elementary School <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $elementaryschool_red_border ?>" type="text" name="elementaryschool" value="<?php echo $elementaryschool ?>">
-                                                <div class="error"><?php echo $elementaryschool_err ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
                                                 <label>Season Year<span class="login-danger">*</span></label>
-                                                <select class="form-control select <?php echo $season_red_border ?>" name="season">
-                                                    <option><?php echo $season ?></option>
-                                                    <?php $i = 0;
-                                                    foreach ($seasons as $season) {
-                                                        $i++; ?>
-                                                        <option> <?php echo $season['season'] ?> </option>
-                                                    <?php } ?>
-                                                </select>
+                                                <input class="form-control <?php echo $season_red_border ?>" type="text" name="season" value="<?php echo $season ?>" >
                                                 <div class="error"><?php echo $season_err ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">       <!--New element -->
-                                            <div class="form-group local-forms">
-                                                <label>Year <span class="login-danger">*</span></label>
-                                                <input class="form-control <?php echo $year_red_border ?>" type="text" name="year" value="<?php echo $year ?>">
-                                                <div class="error"><?php echo $year_err ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
                                                 <label>Part <span class="login-danger">*</span></label>
                                                 <select class="form-control select <?php echo $part_red_border ?>" name="part">
-                                                    <option><?php echo $part ?></option>
+                                                    <option></option>
                                                     <option>Morning</option>
                                                     <option>Afternoon</option>
                                                     <option>Evening</option>
@@ -691,7 +670,7 @@ if (!isset($_SESSION['admin_login'])) {
                                         </div>
                                         <div class="col-12 col-sm-4">       <!--New element -->
                                             <div class="form-group local-forms">
-                                                <label>Employment History <span class="login-danger">*</span></label>
+                                                <label>Employment History</label>
                                                 <input class="form-control" type="text" name="emp_history" value="<?php echo $emp_history ?>">
                                             </div>
                                         </div>
