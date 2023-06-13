@@ -4,13 +4,13 @@ require_once '../config/dbcon.php';
 
 if (isset($_REQUEST['submit'])) {
     try {
-        $am_id = $_REQUEST['am_id'];
+        $u_id = $_REQUEST['u_id'];
         $fname_en = $_REQUEST['fname_en'];
         $lname_en = $_REQUEST['lname_en'];
         $gender = $_REQUEST['gender'];
         $tel = $_REQUEST['tel'];
         $email = $_REQUEST['email'];
-        $status = 'Admins';
+        $status = 'Admin';
 
         $image_file = $_FILES['txt_file']['name'];
         $type = $_FILES['txt_file']['type'];
@@ -22,20 +22,21 @@ if (isset($_REQUEST['submit'])) {
         if ($type == "image/jpg" || $type == 'image/jpeg' || $type == "image/png" || $type == "image/gif") {
             move_uploaded_file($temp, 'upload/admin_profile/' . $image_file); // move upload file temperory directory to your upload folder
 
-            $passHash = password_hash($am_id, PASSWORD_DEFAULT);
+            $passHash = password_hash($u_id, PASSWORD_DEFAULT);
 
             // Add User
-            $stmt1 = $conn->prepare('INSERT INTO users(u_id, u_email, u_pass, status) 
-                                                  VALUES (:u_id, :u_email, :u_pass, :status)');
-            $stmt1->bindParam(':u_id', $am_id);
-            $stmt1->bindParam(':u_email', $email);
+            $stmt1 = $conn->prepare('INSERT INTO users(u_id, email, u_pass, status) 
+                                                  VALUES (:u_id, :email, :u_pass, :status)');
+            $stmt1->bindParam(':u_id', $u_id);
+            $stmt1->bindParam(':email', $email);
             $stmt1->bindParam(':u_pass', $passHash);
             $stmt1->bindParam(':status', $status);
 
             // Add Admin
-            $stmt2 = $conn->prepare('INSERT INTO admins(id,am_id, fname_en, lname_en, gender, tel, email, image) 
-                                    VALUES(LAST_INSERT_ID(), :am_id, :fname_en, :lname_en, :gender, :tel, :email, :image)');
-            $stmt2->bindParam(':am_id', $am_id);
+            $stmt2 = $conn->prepare('INSERT INTO admins(am_id,u_id, fname_en, lname_en, gender, tel, email, image) 
+                                    VALUES(:am_id, :u_id, :fname_en, :lname_en, :gender, :tel, :email, :image)');
+            $stmt2->bindParam(':am_id', $u_id);
+            $stmt2->bindParam(':u_id', $u_id);
             $stmt2->bindParam(':fname_en', $fname_en);
             $stmt2->bindParam(':lname_en', $lname_en);
             $stmt2->bindParam(':gender', $gender);
@@ -142,7 +143,7 @@ if (isset($_REQUEST['submit'])) {
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
                                                 <label>Admin ID <span class="login-danger">*</span> </label>
-                                                <input class="form-control" type="text" name="am_id" required oninvalid="this.setCustomValidity('Enter Admin ID!')" oninput="setCustomValidity('')">
+                                                <input class="form-control" type="text" name="u_id" required oninvalid="this.setCustomValidity('Enter Admin ID!')" oninput="setCustomValidity('')">
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">

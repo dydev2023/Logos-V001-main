@@ -1,7 +1,7 @@
 <?php
 // All students
 function getAllStudents($conn) {
-    $sql = "SELECT * FROM students ORDER BY id DESC";
+    $sql = "SELECT * FROM students ORDER BY std_id DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
@@ -17,7 +17,7 @@ function getAllStudents($conn) {
 
 // Get Student By ID
 function getStudentById($id, $conn) {
-    $sql = "SELECT * FROM students WHERE id=?";
+    $sql = "SELECT * FROM students WHERE std_id=?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
 
@@ -30,7 +30,7 @@ function getStudentById($id, $conn) {
 }
 // Get User By ID
 function studentGetUserById($id, $conn) {
-    $sql = "SELECT * FROM users WHERE id=?";
+    $sql = "SELECT * FROM users WHERE u_id=?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
 
@@ -45,15 +45,10 @@ function studentGetUserById($id, $conn) {
 
 // Delete 
 function removeStudentById($id, $conn) {
-    $sql1 = "DELETE FROM users WHERE id=?";
-    $sql2 = "DELETE FROM student_scores WHERE id=?";
-
-    $stmt1 = $conn->prepare($sql1);
-    $stmt2 = $conn->prepare($sql2);
-
-    $re1 = $stmt1->execute([$id]);
-    $re2 = $stmt2->execute([$id]);
-    if ($re1 and $re2) {
+    $sql = "DELETE FROM users WHERE u_id=?";
+    $stmt = $conn->prepare($sql);
+    $re = $stmt->execute([$id]);
+    if ($re) {
         return 1;
     } else {
         return 0;

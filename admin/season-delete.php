@@ -1,14 +1,15 @@
 <?php  
 
+
     session_start();
     require_once '../config/dbcon.php';
+    include "admin-datas/season-db.php";
     
     if(!isset($_SESSION['admin_login'])) {
         header('location: ../index.php');
     } else {
         if(isset($_GET['id'])) {
             $id = $_GET['id'];
-            include "data/season-db.php";
             if (removeSeasonByID($id, $conn)) {
                 $_SESSION['success'] = "Successfully deleted!";
                 header('location: season-list.php');

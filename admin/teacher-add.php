@@ -26,9 +26,9 @@ if (!isset($_SESSION['admin_login'])) {
     $check_u_id->bindParam(":u_id", $_REQUEST['t_id']);
     $check_u_id->execute();
 
-    $check_u_email = $conn->prepare("SELECT u_email FROM users WHERE u_email = :u_email");
-    $check_u_email->bindParam(":u_email", $_REQUEST['email']);
-    $check_u_email->execute();
+    $check_email = $conn->prepare("SELECT email FROM users WHERE email = :email");
+    $check_email->bindParam(":email", $_REQUEST['email']);
+    $check_email->execute();
 
 
     // Select Teacher data in Database For Check
@@ -134,7 +134,7 @@ if (!isset($_SESSION['admin_login'])) {
         if (empty($_REQUEST['email'])) {
             $email_err = 'E-mail is required!';
             $email_red_border = 'red_border';
-        } elseif ($check_u_email->rowCount() > 0) {
+        } elseif ($check_email->rowCount() > 0) {
             $email_err = 'This E-mail is already exist!';
             $email_red_border = 'red_border';
             $email = $_REQUEST['email'];
@@ -262,10 +262,10 @@ if (!isset($_SESSION['admin_login'])) {
                     $passwordHash = password_hash($t_id, PASSWORD_DEFAULT);
 
                     // Add User
-                    $stmt1 = $conn->prepare('INSERT INTO users(u_id, u_email, u_pass, status) 
-                                                                VALUES (:u_id, :u_email, :u_pass, :status)');
+                    $stmt1 = $conn->prepare('INSERT INTO users(u_id, email, u_pass, status) 
+                                                                VALUES (:u_id, :email, :u_pass, :status)');
                     $stmt1->bindParam(':u_id', $t_id);
-                    $stmt1->bindParam(':u_email', $email);
+                    $stmt1->bindParam(':email', $email);
                     $stmt1->bindParam(':u_pass', $passwordHash);
                     $stmt1->bindParam(':status', $status);
 
@@ -292,8 +292,8 @@ if (!isset($_SESSION['admin_login'])) {
                     $stmt2->bindParam(':university', $university);
                     $stmt2->bindParam(':image', $image_file);
 
-                    // $stmt1->execute();
-                    // $stmt2->execute();
+                    $stmt1->execute();
+                    $stmt2->execute();
 
                     $path = "upload/teacher_profile/" . $image_file; // set upload folder path
                     move_uploaded_file($temp, 'upload/teacher_profile/' . $image_file); // move upload file temperory directory to your upload folder

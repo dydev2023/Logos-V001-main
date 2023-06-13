@@ -1,65 +1,62 @@
 <?php
+
+
+
 if (isset($_SESSION['admin_login'])) {
     $id = $_SESSION['admin_login'];
     // User
-    $stmt1 = $conn->query("SELECT * FROM users WHERE id = $id ");
+    $stmt1 = $conn->query("SELECT * FROM users WHERE u_id = '$id' ");
     $stmt1->execute();
     $user = $stmt1->fetch(PDO::FETCH_DEFAULT);
     // Teacher
-    $stmt2 = $conn->query("SELECT * FROM teachers WHERE id = $id ");
+    $stmt2 = $conn->query("SELECT * FROM teachers WHERE t_id = '$id' ");
     $stmt2->execute();
     $teacher = $stmt2->fetch(PDO::FETCH_DEFAULT);
     // Student
-    $stmt3 = $conn->query("SELECT * FROM students WHERE id = $id ");
+    $stmt3 = $conn->query("SELECT * FROM students WHERE std_id = '$id' ");
     $stmt3->execute();
     $student = $stmt3->fetch(PDO::FETCH_DEFAULT);
-    // Admin
-    $stmt4 = $conn->query("SELECT * FROM admins WHERE id = $id ");
+    // Student
+    $stmt4 = $conn->query("SELECT * FROM admins WHERE am_id = '$id' ");
     $stmt4->execute();
     $admin = $stmt4->fetch(PDO::FETCH_DEFAULT);
 }
 if (isset($_SESSION['teacher_login'])) {
     $id = $_SESSION['teacher_login'];
+    // include "../admin/data/subject-db.php";
     // User
-    $stmt1 = $conn->query("SELECT * FROM users WHERE id = $id ");
+    $stmt1 = $conn->query("SELECT * FROM users WHERE u_id = '$id' ");
     $stmt1->execute();
     $user = $stmt1->fetch(PDO::FETCH_DEFAULT);
     // Teacher
-    $stmt2 = $conn->query("SELECT * FROM teachers WHERE id = $id ");
+    $stmt2 = $conn->query("SELECT * FROM teachers WHERE t_id = '$id' ");
     $stmt2->execute();
     $teacher = $stmt2->fetch(PDO::FETCH_DEFAULT);
-    // $allSubjects = getAllSubjects($conn);
-    // $i = 0;
-    // foreach ($allSubjects as $subject) {
-    //     if ($subject['teacher_id'] == $teacher['fname_en']) {
-    //         $i+=1;
-    //     }
-    // }
     // Student
-    $stmt3 = $conn->query("SELECT * FROM students WHERE id = $id ");
+    $stmt3 = $conn->query("SELECT * FROM students WHERE std_id = '$id' ");
     $stmt3->execute();
     $student = $stmt3->fetch(PDO::FETCH_DEFAULT);
-    // Admin
-    $stmt4 = $conn->query("SELECT * FROM admins WHERE id = $id ");
+    // Student
+    $stmt4 = $conn->query("SELECT * FROM admins WHERE am_id = '$id' ");
     $stmt4->execute();
     $admin = $stmt4->fetch(PDO::FETCH_DEFAULT);
 }
 if (isset($_SESSION['student_login'])) {
     $id = $_SESSION['student_login'];
     // User
-    $stmt1 = $conn->query("SELECT * FROM users WHERE id = $id ");
+    $stmt1 = $conn->query("SELECT * FROM users WHERE u_id = '$id' ");
     $stmt1->execute();
     $user = $stmt1->fetch(PDO::FETCH_DEFAULT);
     // Teacher
-    $stmt2 = $conn->query("SELECT * FROM teachers WHERE id = $id ");
+    $stmt2 = $conn->query("SELECT * FROM teachers WHERE t_id = '$id' ");
     $stmt2->execute();
     $teacher = $stmt2->fetch(PDO::FETCH_DEFAULT);
     // Student
-    $stmt3 = $conn->query("SELECT * FROM students WHERE id = $id ");
+    $stmt3 = $conn->query("SELECT * FROM students WHERE std_id = '$id' ");
     $stmt3->execute();
     $student = $stmt3->fetch(PDO::FETCH_DEFAULT);
     // Student
-    $stmt4 = $conn->query("SELECT * FROM admins WHERE id = $id ");
+    $stmt4 = $conn->query("SELECT * FROM admins WHERE am_id = '$id' ");
     $stmt4->execute();
     $admin = $stmt4->fetch(PDO::FETCH_DEFAULT);
 }
@@ -70,7 +67,7 @@ if (isset($_SESSION['student_login'])) {
 
         <div class="header-left">
             <a href="admin-home.php" class="logo">
-                <img src="../assets/img/logos_logo_slogram.jpeg" alt="Logo">
+                <img src="../assets/img/logo_logos.png" alt="Logo">
             </a>
             <a href="admin-home.php" class="logo logo-small">
                 <img src="../assets/img/logo_logos.png" alt="Logo" width="30" height="30">
@@ -145,7 +142,7 @@ if (isset($_SESSION['student_login'])) {
 
         <div class="header-left">
             <a href="teacher-home.php" class="logo">
-                <img src="../assets/img/logos_logo_slogram.jpeg" alt="Logo">
+                <img src="../assets/img/logo_logos.png" alt="Logo">
             </a>
             <a href="teacher-home.php" class="logo logo-small">
                 <img src="../assets/img/logo_logos.png" alt="Logo" width="30" height="30">
@@ -219,7 +216,7 @@ if (isset($_SESSION['student_login'])) {
 
         <div class="header-left">
             <a href="student-home.php" class="logo">
-                <img src="../assets/img/logos_logo_slogram.jpeg" alt="Logo">
+                <img src="../assets/img/logo_logos.png" alt="Logo">
             </a>
             <a href="student-home.php" class="logo logo-small">
                 <img src="../assets/img/logo_logos.png" alt="Logo" width="30" height="30">

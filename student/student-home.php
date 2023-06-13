@@ -2,7 +2,7 @@
 session_start();
 require_once '../config/dbcon.php';
 include "student-datas/season-db.php";
-include "student-datas/room-db.php";
+include "student-datas/classroom-db.php";
 include "student-datas/subject-db.php";
 include "student-datas/timetable-db.php";
 include "student-datas/teacher-db.php";
@@ -10,7 +10,7 @@ include "student-datas/student-db.php";
 
 $seasons = getAllSeasons($conn);
 $subjects = getAllSubjects($conn);
-$classrooms = getAllRooms($conn);
+$classrooms = getAllclassrooms($conn);
 $timetables = getTimetables($conn);
 
 
@@ -19,11 +19,11 @@ if (!isset($_SESSION['student_login'])) {
 } else {
     $id = $_SESSION['student_login'];
     // For student
-    $stmt = $conn->query("SELECT * FROM students WHERE id = $id ");
+    $stmt = $conn->query("SELECT * FROM students WHERE std_id = $id ");
     $stmt->execute();
     $student = $stmt->fetch(PDO::FETCH_DEFAULT);
     // For Users
-    $stmt2 = $conn->query("SELECT * FROM users WHERE id = $id");
+    $stmt2 = $conn->query("SELECT * FROM users WHERE u_id = $id");
     $stmt2->execute();
     $user = $stmt2->fetch(PDO::FETCH_DEFAULT);
 }

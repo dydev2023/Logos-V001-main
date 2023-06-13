@@ -1,7 +1,7 @@
 <?php
 // All Subjects
 function getAllSubjects($conn) {
-    $sql = "SELECT * FROM subjects ORDER BY id DESC";
+    $sql = "SELECT * FROM subjects ORDER BY sub_id DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
@@ -15,10 +15,10 @@ function getAllSubjects($conn) {
 }
 
 // Get Subject By ID
-function getSubjectById($id, $conn) {
-    $sql = "SELECT * FROM subjects WHERE id=?";
+function getSubjectById($sub_id, $conn) {
+    $sql = "SELECT * FROM subjects WHERE sub_id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$id]);
+    $stmt->execute([$sub_id]);
 
     if ($stmt->rowCount() == 1) {
         $subject = $stmt->fetch();
@@ -30,10 +30,10 @@ function getSubjectById($id, $conn) {
 
 
 // Delete 
-function userRemoveSubjectById($id, $conn) {
-    $sql = "DELETE FROM subjects WHERE id=?";
+function userRemoveSubjectById($sub_id, $conn) {
+    $sql = "DELETE FROM subjects WHERE sub_id=?";
     $stmt = $conn->prepare($sql);
-    $re = $stmt->execute([$id]);
+    $re = $stmt->execute([$sub_id]);
     if ($re) {
         return 1;
     } else {

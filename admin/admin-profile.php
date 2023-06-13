@@ -7,12 +7,12 @@ if (!isset($_SESSION['admin_login'])) {
     if (isset($_SESSION['admin_login'])) {
         $id = $_SESSION['admin_login'];
         // User
-        $stmt1 = $conn->query("SELECT * FROM users WHERE id = $id ");
+        $stmt1 = $conn->query("SELECT * FROM users WHERE u_id = '$id' ");
         $stmt1->execute();
         $user = $stmt1->fetch(PDO::FETCH_DEFAULT);
 
         // Admin
-        $stmt2 = $conn->query("SELECT * FROM admins WHERE id = $id ");
+        $stmt2 = $conn->query("SELECT * FROM admins WHERE u_id = '$id' ");
         $stmt2->execute();
         $admin = $stmt2->fetch(PDO::FETCH_DEFAULT);
 
@@ -167,7 +167,7 @@ if (!isset($_SESSION['admin_login'])) {
                                 <div class="col ms-md-n2 profile-user-info">
                                     <h4 class="user-name mb-0"><?php echo $admin['fname_en'] . ' ' . $admin['lname_en'] ?></h4>
                                     <h6 class="text-muted"><?php echo $user['status'] ?></h6>
-                                    <div class="user-Location"><i class="fas fa-map-marker-alt"></i> <?php echo $admin['district'] ?></div>
+                                    <div class="user-Location"><i class="fas fa-map-marker-alt"></i> Logos</div>
 
                                 </div>
                             </div>
@@ -200,7 +200,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                 </div>
                                                 <div class="row">
                                                     <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Date of Birth</p>
-                                                    <p class="col-sm-9"><?php echo $admin['dob'] ?></p>
+                                                    <p class="col-sm-9"></p>
                                                 </div>
                                                 <div class="row">
                                                     <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Email ID</p>
@@ -212,10 +212,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                 </div>
                                                 <div class="row">
                                                     <p class="col-sm-3 text-muted text-sm-end mb-0">Address</p>
-                                                    <p class="col-sm-9 mb-0">
-                                                        <?php echo $admin['village'] ?>,<br>
-                                                        <?php echo $admin['district'] ?>,<br>
-                                                        <?php echo $admin['province'] ?>.</p>
+                                                    <p class="col-sm-9 mb-0"></p>
                                                 </div>
                                             </div>
                                         </div>
