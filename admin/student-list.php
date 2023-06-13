@@ -116,17 +116,12 @@ if (!isset($_SESSION['admin_login'])) {
                                 <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
                                     <thead class="student-thread">
                                         <tr>
-                                            <th>
-                                                <div class="form-check check-tables">
-                                                    <input class="form-check-input" type="checkbox" value="something">
-                                                </div>
-                                            </th>
                                             <th>No</th>
                                             <th>Student ID</th>
                                             <th>Full Name</th>
-                                            <th>Start Season</th>
+                                            <th>Study Program</th>
                                             <th>Part</th>
-                                            <th>Date Of Birth</th>
+                                            <th>Status</th>
                                             <th>Tel</th>
                                             <th>Email Address</th>
                                             <th>Created At</th>
@@ -145,11 +140,6 @@ if (!isset($_SESSION['admin_login'])) {
                                                 $i++; ?>
 
                                                 <tr>
-                                                    <td>
-                                                        <div class="form-check check-tables">
-                                                            <input class="form-check-input" type="checkbox" value="something">
-                                                        </div>
-                                                    </td>
                                                     <td><?php echo $i ?></td>
                                                     <td><?php echo $student['std_id'] ?></td>
                                                     <td>
@@ -166,9 +156,9 @@ if (!isset($_SESSION['admin_login'])) {
                                                             ?>
                                                         </h2>
                                                     </td>
-                                                    <td><?php echo $student['season_start'] ?></td>
+                                                    <td><?php echo $student['study_program'] ?></td>
                                                     <td><?php echo $student['part'] ?></td>
-                                                    <td><?php echo $student['dob'] ?></td>
+                                                    <td><?php echo $student['std_status'] ?></td>
                                                     <td><?php echo $student['tel'] ?></td>
                                                     <td><?php echo $student['email'] ?></td>
                                                     <td><?php echo $student['created_at'] ?></td>

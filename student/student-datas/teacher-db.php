@@ -2,7 +2,7 @@
 
 // All teachers
 function getAllTeachers($conn) {
-    $sql = "SELECT * FROM teachers ORDER BY id DESC";
+    $sql = "SELECT * FROM teachers ORDER BY t_id DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
@@ -17,7 +17,7 @@ function getAllTeachers($conn) {
 
 // Get teacher By ID
 function getTeacherById($id, $conn) {
-    $sql = "SELECT * FROM teachers WHERE id=?";
+    $sql = "SELECT * FROM teachers WHERE t_id=?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
 
@@ -30,7 +30,7 @@ function getTeacherById($id, $conn) {
 }
 // Get User By ID
 function getUserById($id, $conn) {
-    $sql = "SELECT * FROM users WHERE id=?";
+    $sql = "SELECT * FROM users WHERE u_id=?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
 
@@ -45,7 +45,7 @@ function getUserById($id, $conn) {
 
 // Delete 
 function removeTeacherById($id, $conn) {
-    $sql = "DELETE FROM users WHERE id=?";
+    $sql = "DELETE FROM users WHERE u_id=?";
     $stmt = $conn->prepare($sql);
     $re = $stmt->execute([$id]);
     if ($re) {

@@ -452,7 +452,7 @@ if (!isset($_SESSION['admin_login'])) {
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
                                                 <label>User ID <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $u_id_red_border ?>" type="text" name="u_id" value="<?php echo $std_row['u_id'] ?>">
+                                                <input class="form-control <?php echo $u_id_red_border ?>" type="text" name="u_id" value="<?php echo $std_row['u_id'] ?>" readonly>
                                                 <div class="error"><?php echo $u_id_err ?></div>
                                             </div>
                                         </div>
@@ -653,7 +653,7 @@ if (!isset($_SESSION['admin_login'])) {
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
                                                 <label>Season Start<span class="login-danger">*</span></label>
-                                                <input class="form-control <?php echo $season_start_red_border ?>" type="text" name="season_start" value="<?php echo $std_row['season_start'] ?>">
+                                                <input class="form-control <?php echo $season_start_red_border ?>" type="text" name="season_start" value="<?php echo $std_row['season_start'] ?>" readonly>
                                                 <div class="error"><?php echo $season_start_err ?></div>
                                             </div>
                                         </div>

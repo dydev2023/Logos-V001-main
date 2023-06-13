@@ -7,12 +7,12 @@ if (!isset($_SESSION['student_login'])) {
     if (isset($_SESSION['student_login'])) {
         $id = $_SESSION['student_login'];
         // User
-        $stmt1 = $conn->query("SELECT * FROM users WHERE id = $id ");
+        $stmt1 = $conn->query("SELECT * FROM users WHERE u_id = '$id' ");
         $stmt1->execute();
         $user = $stmt1->fetch(PDO::FETCH_DEFAULT);
 
         // Admin
-        $stmt2 = $conn->query("SELECT * FROM students WHERE id = $id ");
+        $stmt2 = $conn->query("SELECT * FROM students WHERE u_id = '$id' ");
         $stmt2->execute();
         $student = $stmt2->fetch(PDO::FETCH_DEFAULT);
 
@@ -165,7 +165,7 @@ if (!isset($_SESSION['student_login'])) {
                                 <div class="col ms-md-n2 profile-user-info">
                                     <h4 class="user-name mb-0"><?php echo $student['fname_en'] . ' ' . $student['lname_en'] ?></h4>
                                     <h6 class="text-muted"><?php echo $user['status'] ?></h6>
-                                    <div class="user-Location"><i class="fas fa-map-marker-alt"></i> <?php echo $student['village'] . ', ' . $student['district'] . ', ' . $student['province'] ?></div>
+                                    <div class="user-Location"><i class="fas fa-map-marker-alt"></i> <?php echo $student['village_birth'] . ', ' . $student['district_birth'] . ', ' . $student['province_birth'] ?></div>
 
                                 </div>
                             </div>
@@ -210,7 +210,7 @@ if (!isset($_SESSION['student_login'])) {
                                                 </div>
                                                 <div class="row">
                                                     <p class="col-sm-3 text-muted text-sm-end mb-0">Address</p>
-                                                    <p class="col-sm-9 mb-0"><?php echo $student['village'] . ', ' . $student['district'] . ', ' . $student['province'] ?></p>
+                                                    <p class="col-sm-9 mb-0"><?php echo $student['village_birth'] . ', ' . $student['district_birth'] . ', ' . $student['province_birth'] ?></p>
                                                 </div>
                                             </div>
                                         </div>
