@@ -8,6 +8,8 @@ if (!isset($_SESSION['admin_login'])) {
     $students = getAllStudents($conn);
 }
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +124,7 @@ if (!isset($_SESSION['admin_login'])) {
                                             <th>No</th>
                                             <th>Student ID</th>
                                             <th>Full Name</th>
-                                            <th>Season</th>
+                                            <th>Start Season</th>
                                             <th>Part</th>
                                             <th>Date Of Birth</th>
                                             <th>Tel</th>
@@ -164,7 +166,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                             ?>
                                                         </h2>
                                                     </td>
-                                                    <td><?php echo $student['season'] ?></td>
+                                                    <td><?php echo $student['season_start'] ?></td>
                                                     <td><?php echo $student['part'] ?></td>
                                                     <td><?php echo $student['dob'] ?></td>
                                                     <td><?php echo $student['tel'] ?></td>
@@ -173,13 +175,13 @@ if (!isset($_SESSION['admin_login'])) {
                                                     <td><?php echo $student['updated_at'] ?></td>
                                                     <td class="text-end">
                                                         <div class="actions ">
-                                                            <a href="student-detail.php?id=<?= $student['id'] ?>" class="btn btn-sm bg-success-light me-2 ">
+                                                            <a href="student-detail.php?id=<?= $student['std_id'] ?>" class="btn btn-sm bg-success-light me-2 ">
                                                                 <i class="feather-eye"></i>
                                                             </a>
-                                                            <a href="student-edit.php?id=<?= $student['id'] ?>" class="btn btn-sm bg-danger-light">
+                                                            <a href="student-edit.php?id=<?= $student['std_id'] ?>" class="btn btn-sm bg-danger-light">
                                                                 <i class="feather-edit"></i>
                                                             </a>
-                                                            <a href="student-delete.php?id=<?= $student['id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
+                                                            <a href="student-delete.php?id=<?= $student['std_id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
                                                                 <i class="feather-delete"></i>
                                                             </a>
                                                         </div>

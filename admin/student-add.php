@@ -9,21 +9,21 @@ $student = getAllStudents($conn);
 // For Student Details
 $u_id = $fname_en = $lname_en = $fname_la = $lname_la = $fname_ch = $lname_ch = $gender = $dob = $village_birth = $district_birth = $province_birth = $guardian_tel = $season_start = $status = '';
 $tel = $whatsapp = $email = $village_current = $district_current = $province_current = $study_program = $part = $ethnicity = $nation = $religion = $house_unit = $house_no = $image_file = '';
+$highschool = $season_hsc = $village_study = $district_study = $province_study = '';
+$employment_history = $talent = $language_proficiency = $familymatters = $plansforthefuture = '';
+
 
 $u_id_err = $fname_en_err = $lname_en_err = $fname_la_err = $lname_la_err = $fname_ch_err = $lname_ch_err = $gender_err = $dob_err = $village_birth_err = $district_birth_err = $province_birth_err = $guardian_tel_err = $season_start_err = $status_err = '';
 $tel_err = $whatsapp_err = $email_err = $village_current_err = $district_current_err = $province_current_err = $study_program_err = $part_err = $ethnicity_err = $nation_err = $religion_err = $house_unit_err = $house_no_err = $image_file_err = '';
+$highschool_err = $season_hsc_err = $village_study_err = $district_study_err = $province_study_err = '';
+
 
 $u_id_red_border = $fname_en_red_border = $lname_en_red_border = $fname_la_red_border = $lname_la_red_border = $fname_ch_red_border = $lname_ch_red_border = $gender_red_border = $dob_red_border = $village_birth_red_border = $district_birth_red_border = '';
 $province_birth_red_border = $guardian_tel_red_border = $season_start_red_border = $status_red_border = $tel_red_border = $whatsapp_red_border = $email_red_border = $village_current_red_border = $district_current_red_border = $province_current_red_border = '';
 $study_program_red_border = $part_red_border = $ethnicity_red_border = $nation_red_border = $religion_red_border = $house_unit_red_border = $house_no_red_border = $image_file_red_border = '';
-
-// For Study History Details
-$highschool = $season_hsc = $village_study = $district_study = $province_study = '';
-$highschool_err = $season_hsc_err = $village_study_err = $district_study_err = $province_study_err = '';
 $highschool_red_border = $season_hsc_red_border =  $village_study_red_border = $district_study_red_border = $province_study_red_border = '';
 
-// For Other Details
-$employment_history = $talent = $language_proficiency = $familymatters = $plansforthefuture = '';
+
 
 
 if (!isset($_SESSION['admin_login'])) {
@@ -298,8 +298,10 @@ if (!isset($_SESSION['admin_login'])) {
         }
 
         if (
-            !empty($u_id) and !empty($fname_en) and !empty($lname_en) and !empty($gender) and !empty($fname_la) and !empty($lname_la) and !empty($study_program) and !empty($fname_ch) and !empty($lname_ch) and !empty($dob) and !empty($part) and !empty($nation) and !empty($religion) and !empty($ethnicity) and !empty($tel) and !empty($whatsapp) and !empty($email)
-            and !empty($guardian_tel) and !empty($village_birth) and !empty($district_birth) and !empty($province_birth) and !empty($village_current) and !empty($district_current) and !empty($province_current) and !empty($highschool) and !empty($season_hsc) and !empty($village_study) and !empty($district_study) and !empty($province_study) and !empty($image_file)
+            !empty($u_id) and !empty($fname_en) and !empty($lname_en) and !empty($gender) and !empty($fname_la) and !empty($lname_la) and !empty($study_program) and !empty($fname_ch) and 
+            !empty($lname_ch) and !empty($dob) and !empty($part) and !empty($nation) and !empty($religion) and !empty($ethnicity) and !empty($tel) and !empty($whatsapp) and !empty($email) and 
+            !empty($guardian_tel) and !empty($village_birth) and !empty($district_birth) and !empty($province_birth) and !empty($village_current) and !empty($district_current) and 
+            !empty($province_current) and !empty($highschool) and !empty($season_hsc) and !empty($village_study) and !empty($district_study) and !empty($province_study) and !empty($image_file)
         ) {
             try {
                 $status = 'Student';
@@ -656,7 +658,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                 <div class="error"><?php echo $house_no_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">
+                                        <div class="col-12 col-sm-4" hidden>
                                             <div class="form-group local-forms">
                                                 <label>Season Start<span class="login-danger">*</span></label>
                                                 <select class="form-control select" name="season_start">
@@ -669,13 +671,6 @@ if (!isset($_SESSION['admin_login'])) {
                                                 </select>
                                             </div>
                                         </div>
-                                        <!-- <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Season Start<span class="login-danger">*</span></label>
-                                                <input class="form-control <?php echo $season_start_red_border ?>" type="text" name="season_start" value="<?php echo $season_start ?>">
-                                                <div class="error"><?php echo $season_start_err ?></div>
-                                            </div>
-                                        </div> -->
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
                                                 <label>Heigh School <span class="login-danger">*</span> </label>
