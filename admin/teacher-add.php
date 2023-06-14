@@ -7,19 +7,19 @@ $seasons = getLastSeason($conn);
 $student = getAllStudents($conn);
 
 // For Student Details
-$u_id = $fname_en = $lname_en = $fname_la = $lname_la = $fname_ch = $lname_ch = $gender = $dob = $village_birth = $district_birth = $province_birth = $emergency_tel = $emergency_name = $season_start = $status = '';
+$u_id = $fname_en = $lname_en = $fname_la = $lname_la = $fname_ch = $lname_ch = $gender = $dob = $village_birth = $district_birth = $province_birth = $emergency_tel = $emergency_name = $edu_level1 = $edu_branch1 = $univ_name1 = $edu_district1 = $edu_province1 = $edu_level2 = $edu_branch2 = $univ_name2 = $edu_district2 = $edu_province2 = $status = '';
 $tel = $whatsapp = $email = $village_current = $district_current = $province_current = $t_type = $ethnicity = $nation = $religion = $house_unit = $house_no = $image_file = '';
 $highschool = $season_hsc = $village_study = $district_study = $province_study = '';
 $employment_history = $talent = $language_proficiency = $familymatters = $plansforthefuture = '';
 
 
-$u_id_err = $fname_en_err = $lname_en_err = $fname_la_err = $lname_la_err = $fname_ch_err = $lname_ch_err = $gender_err = $dob_err = $village_birth_err = $district_birth_err = $province_birth_err = $emergency_tel_err = $emergency_name_err = $season_start_err = $status_err = '';
+$u_id_err = $fname_en_err = $lname_en_err = $fname_la_err = $lname_la_err = $fname_ch_err = $lname_ch_err = $gender_err = $dob_err = $village_birth_err = $district_birth_err = $province_birth_err = $emergency_tel_err = $emergency_name_err = $edu_level1_err = $edu_branch1_err = $univ_name1_err = $edu_district1_err = $edu_province1_err = $edu_level2_err = $edu_branch2_err = $univ_name2_err = $edu_district2_err = $edu_province2_err = $status_err = '';
 $tel_err = $whatsapp_err = $email_err = $village_current_err = $district_current_err = $province_current_err = $t_type_err = $ethnicity_err = $nation_err = $religion_err = $house_unit_err = $house_no_err = $image_file_err = '';
 $highschool_err = $season_hsc_err = $village_study_err = $district_study_err = $province_study_err = '';
 
 
 $u_id_red_border = $fname_en_red_border = $lname_en_red_border = $fname_la_red_border = $lname_la_red_border = $fname_ch_red_border = $lname_ch_red_border = $gender_red_border = $dob_red_border = $village_birth_red_border = $district_birth_red_border = '';
-$province_birth_red_border = $emergency_tel_red_border = $emergency_name_red_border = $season_start_red_border = $status_red_border = $tel_red_border = $whatsapp_red_border = $email_red_border = $village_current_red_border = $district_current_red_border = $province_current_red_border = '';
+$province_birth_red_border = $emergency_tel_red_border = $emergency_name_red_border = $edu_level1_red_border = $edu_branch1_red_border = $univ_name1_red_border = $edu_district1_red_border = $edu_province1_red_border = $edu_level2_red_border = $edu_branch2_red_border = $univ_name2_red_border = $edu_district2_red_border = $edu_province2_red_border = $status_red_border = $tel_red_border = $whatsapp_red_border = $email_red_border = $village_current_red_border = $district_current_red_border = $province_current_red_border = '';
 $t_type_red_border = $ethnicity_red_border = $nation_red_border = $religion_red_border = $house_unit_red_border = $house_no_red_border = $image_file_red_border = '';
 $highschool_red_border = $season_hsc_red_border =  $village_study_red_border = $district_study_red_border = $province_study_red_border = '';
 
@@ -273,12 +273,44 @@ if (!isset($_SESSION['admin_login'])) {
             $province_study = $_REQUEST['province_study'];
         }
 
-        if (empty($_REQUEST["season_start"])) {
-            $season_start_err = 'Season is required!';
-            $season_start_red_border = 'red_border';
+        // For Education 1
+        if (empty($_REQUEST["edu_level1"])) {
+            $edu_level1_err = 'Education level is required!';
+            $edu_level1_red_border = 'red_border';
         } else {
-            $season_start = $_REQUEST['season_start'];
+            $edu_level1 = $_REQUEST['edu_level1'];
         }
+        if (empty($_REQUEST["edu_branch1"])) {
+            $edu_branch1_err = 'Education branch is required!';
+            $edu_branch1_red_border = 'red_border';
+        } else {
+            $edu_branch1 = $_REQUEST['edu_branch1'];
+        }
+        if (empty($_REQUEST["univ_name1"])) {
+            $univ_name1_err = 'University is required!';
+            $univ_name1_red_border = 'red_border';
+        } else {
+            $univ_name1 = $_REQUEST['univ_name1'];
+        }
+        if (empty($_REQUEST["edu_district1"])) {
+            $edu_district1_err = 'University district is required!';
+            $edu_district1_red_border = 'red_border';
+        } else {
+            $edu_district1 = $_REQUEST['edu_district1'];
+        }
+        if (empty($_REQUEST["edu_province1"])) {
+            $edu_province1_err = 'University province is required!';
+            $edu_province1_red_border = 'red_border';
+        } else {
+            $edu_province1 = $_REQUEST['edu_province1'];
+        }
+
+        // For other Educations
+        $edu_level2 = $_REQUEST['edu_level2'];
+        $edu_branch2 = $_REQUEST['edu_branch2'];
+        $univ_name2 = $_REQUEST['univ_name2'];
+        $edu_district2 = $_REQUEST['edu_district2'];
+        $edu_province2 = $_REQUEST['edu_province2'];
 
         $house_no = $_REQUEST['house_no'];
         $house_unit = $_REQUEST['house_unit'];
@@ -294,14 +326,14 @@ if (!isset($_SESSION['admin_login'])) {
             $image_file = $_FILES['txt_file']['name'];
             $type = $_FILES['txt_file']['type'];
             $size = $_FILES['txt_file']['size'];
-            $temp = $_FILES['txt_file']['tmp_name']; 
+            $temp = $_FILES['txt_file']['tmp_name'];
         }
 
         if (
             !empty($u_id) and !empty($fname_en) and !empty($lname_en) and !empty($gender) and !empty($fname_la) and !empty($lname_la) and !empty($t_type) and !empty($fname_ch) and
             !empty($lname_ch) and !empty($dob) and !empty($part) and !empty($nation) and !empty($religion) and !empty($ethnicity) and !empty($tel) and !empty($whatsapp) and !empty($email) and
             !empty($emergency_tel) and !empty($emergency_name) and !empty($village_birth) and !empty($district_birth) and !empty($province_birth) and !empty($village_current) and !empty($district_current) and
-            !empty($province_current) and !empty($highschool) and !empty($season_hsc) and !empty($village_study) and !empty($district_study) and !empty($province_study) and !empty($image_file)
+            !empty($province_current) and !empty($edu_level1) and !empty($edu_branch1) and !empty($univ_name1) and !empty($edu_district1) and !empty($edu_province1) and !empty($highschool) and !empty($season_hsc) and !empty($village_study) and !empty($district_study) and !empty($province_study) and !empty($image_file)
         ) {
             try {
                 $status = 'Student';
@@ -317,10 +349,10 @@ if (!isset($_SESSION['admin_login'])) {
 
                 // Add Admin
                 $stmt2 = $conn->prepare('INSERT INTO students(std_id, u_id, fname_en, lname_en, gender, fname_la, lname_la, t_type, fname_ch, lname_ch, dob, part, nation, religion, ethnicity, tel, whatsapp, email, 
-                emergency_tel, emergency_name, village_birth, district_birth, province_birth, village_current, district_current, province_current, house_unit, house_no, season_start, highschool, season_hsc,
+                emergency_tel, emergency_name, village_birth, district_birth, province_birth, village_current, district_current, province_current, house_unit, house_no, edu_level1, edu_branch1, univ_name1, edu_district1, edu_province1, edu_level2, edu_branch2, univ_name2, edu_district2, edu_province2, highschool, season_hsc,
                 village_study, district_study, province_study, employment_history, language_proficiency, talent, familymatters, plansforthefuture, image) 
                                     VALUES(:std_id, :u_id, :fname_en, :lname_en, :gender, :fname_la, :lname_la, :t_type, :fname_ch, :lname_ch, :dob, :part, :nation, :religion, :ethnicity, :tel, :whatsapp, :email,
-                :emergency_tel, :emergency_name, :village_birth, :district_birth, :province_birth, :village_current, :district_current, :province_current, :house_unit, :house_no, :season_start, :highschool, :season_hsc,
+                :emergency_tel, :emergency_name, :village_birth, :district_birth, :province_birth, :village_current, :district_current, :province_current, :house_unit, :house_no, :edu_level1,: edu_branch1, :univ_name1, :edu_district1, :edu_province1, :edu_level2,: edu_branch2, :univ_name2, :edu_district2, :edu_province2, :highschool, :season_hsc,
                 :village_study, :district_study, :province_study, :employment_history, :language_proficiency, :talent, :familymatters, :plansforthefuture, :image)');
                 $stmt2->bindParam(':std_id', $u_id);
                 $stmt2->bindParam(':u_id', $u_id);
@@ -350,7 +382,16 @@ if (!isset($_SESSION['admin_login'])) {
                 $stmt2->bindParam(':province_current', $province_current);
                 $stmt2->bindParam(':house_unit', $house_unit);
                 $stmt2->bindParam(':house_no', $house_no);
-                $stmt2->bindParam(':season_start', $season_start);
+                $stmt2->bindParam(':edu_level1', $edu_level1);
+                $stmt2->bindParam(':edu_branch1', $edu_branch1);
+                $stmt2->bindParam(':univ_name1', $univ_name1);
+                $stmt2->bindParam(':edu_district1', $edu_district1);
+                $stmt2->bindParam(':edu_province1', $edu_province1);
+                $stmt2->bindParam(':edu_level2', $edu_level2);
+                $stmt2->bindParam(':edu_branch2', $edu_branch2);
+                $stmt2->bindParam(':univ_name2', $univ_name2);
+                $stmt2->bindParam(':edu_district2', $edu_district2);
+                $stmt2->bindParam(':edu_province2', $edu_province2);
                 $stmt2->bindParam(':highschool', $highschool);
                 $stmt2->bindParam(':season_hsc', $season_hsc);
                 $stmt2->bindParam(':village_study', $village_study);
@@ -654,24 +695,83 @@ if (!isset($_SESSION['admin_login'])) {
                                                 <div class="error"><?php echo $house_no_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4" hidden>
-                                            <div class="form-group local-forms">
-                                                <label>Season Start<span class="login-danger">*</span></label>
-                                                <select class="form-control select" name="season_start">
-                                                    <?php $i = 0;
-                                                    foreach ($seasons as $season) {
-                                                        $i++; ?>
-                                                        <option value="<?php echo $season['season'] ?>"> <?php echo $season['season'] ?> </option>
-                                                    <?php } ?>
 
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Other Education Level<span class="login-danger">*</span> </label>
+                                                <select class="form-control select <?php echo $edu_level2_red_border ?>" name="edu_level2">
+                                                    <option><?php echo $edu_level2 ?></option>
+                                                    <option>Deploma College</option>
+                                                    <option>Master Univercity</option>
                                                 </select>
+                                                <div class="error"><?php echo $edu_level2_err ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Heigh School <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $highschool_red_border ?>" type="text" name="highschool" value="<?php echo $highschool ?>">
-                                                <div class="error"><?php echo $highschool_err ?></div>
+                                                <label>Gratuation Branch<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $edu_branch2_red_border ?>" type="text" name="edu_branch2" value="<?php echo $edu_branch2 ?>">
+                                                <div class="error"><?php echo $edu_branch2_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University Name<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $univ_name2_red_border ?>" type="text" name="univ_name2" value="<?php echo $univ_name2 ?>">
+                                                <div class="error"><?php echo $univ_name2_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University District<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $edu_district2_red_border ?>" type="text" name="edu_district2" value="<?php echo $edu_district2 ?>">
+                                                <div class="error"><?php echo $edu_district2_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University Province<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $edu_province2_red_border ?>" type="text" name="edu_province2" value="<?php echo $edu_province2 ?>">
+                                                <div class="error"><?php echo $edu_province2_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Education Level<span class="login-danger">*</span> </label>
+                                                <select class="form-control select <?php echo $edu_level1_red_border ?>" name="edu_level1">
+                                                    <option><?php echo $edu_level1 ?></option>
+                                                    <option>Deploma College</option>
+                                                    <option>Master Univercity</option>
+                                                </select>
+                                                <div class="error"><?php echo $edu_level1_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Gratuation Branch<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $edu_branch1_red_border ?>" type="text" name="edu_branch1" value="<?php echo $edu_branch1 ?>">
+                                                <div class="error"><?php echo $edu_branch1_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University Name<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $univ_name1_red_border ?>" type="text" name="univ_name1" value="<?php echo $univ_name1 ?>">
+                                                <div class="error"><?php echo $univ_name1_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University District<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $edu_district1_red_border ?>" type="text" name="edu_district1" value="<?php echo $edu_district1 ?>">
+                                                <div class="error"><?php echo $edu_district1_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University Province<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $edu_province1_red_border ?>" type="text" name="edu_province1" value="<?php echo $edu_province1 ?>">
+                                                <div class="error"><?php echo $edu_province1_err ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
