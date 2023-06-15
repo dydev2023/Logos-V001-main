@@ -9,11 +9,18 @@
                     <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "admin-home.php.php"){echo "active";} ?>">
                         <li><a href="../admin/admin-home.php"> <i class="feather-grid <?php if(basename($_SERVER['PHP_SELF']) == "admin-home.php.php"){echo "active";} ?>"></i> <span>Dashboard</span></a></li>
                     </li>
-                    <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "student-list.php" || basename($_SERVER['PHP_SELF']) == "student-add.php"){echo "active";} ?>">
-                        <a href="#"><i class="fas fa-graduation-cap"></i> <span> Students</span> <span class="menu-arrow"></span></a>
+                    <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "director-list.php" || basename($_SERVER['PHP_SELF']) == "director-add.php"){echo "active";} ?>">
+                        <a href="#"><i class="fas fa-graduation-cap"></i> <span> Directors</span> <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="../admin/student-list.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "student-list.php"){echo "active";} ?>">Student List</a></li>
-                            <li><a href="../admin/student-add.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "student-add.php"){echo "active";} ?>">Student Add</a></li>
+                            <li><a href="../admin/director-list.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "director-list.php"){echo "active";} ?>">Director List</a></li>
+                            <li><a href="../admin/director-add.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "director-add.php"){echo "active";} ?>">Director Add</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "officer-list.php" || basename($_SERVER['PHP_SELF']) == "officer-add.php"){echo "active";} ?>">
+                        <a href="#"><i class="fas fa-graduation-cap"></i> <span> Officers</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="../admin/officer-list.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "officer-list.php"){echo "active";} ?>">Officer List</a></li>
+                            <li><a href="../admin/officer-add.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "officer-add.php"){echo "active";} ?>">Officer Add</a></li>
                         </ul>
                     </li>
                     <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "teacher-list.php" || basename($_SERVER['PHP_SELF']) == "teacher-add.php"){echo "active";} ?>">
@@ -21,6 +28,13 @@
                         <ul>
                             <li><a href="../admin/teacher-list.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "teacher-list.php"){echo "active";} ?>">Teacher List</a></li>
                             <li><a href="../admin/teacher-add.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "teacher-add.php"){echo "active";} ?>">Teacher Add</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "student-list.php" || basename($_SERVER['PHP_SELF']) == "student-add.php"){echo "active";} ?>">
+                        <a href="#"><i class="fas fa-graduation-cap"></i> <span> Students</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="../admin/student-list.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "student-list.php"){echo "active";} ?>">Student List</a></li>
+                            <li><a href="../admin/student-add.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "student-add.php"){echo "active";} ?>">Student Add</a></li>
                         </ul>
                     </li>
                     <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "season-list.php" || basename($_SERVER['PHP_SELF']) == "season-add.php"){echo "active";} ?>">

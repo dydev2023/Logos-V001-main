@@ -42,11 +42,11 @@ if (!isset($_SESSION['admin_login'])) {
         $check_email->execute();
 
         // Select Teacher data in Database For Check
-        $check_tel = $conn->prepare("SELECT tel FROM students WHERE tel = :tel");
+        $check_tel = $conn->prepare("SELECT tel FROM teachers WHERE tel = :tel");
         $check_tel->bindParam(":tel", $_REQUEST['tel']);
         $check_tel->execute();
 
-        $check_whatsapp = $conn->prepare("SELECT whatsapp FROM students WHERE whatsapp = :whatsapp");
+        $check_whatsapp = $conn->prepare("SELECT whatsapp FROM teachers WHERE whatsapp = :whatsapp");
         $check_whatsapp->bindParam(":whatsapp", $_REQUEST['whatsapp']);
         $check_whatsapp->execute();
 

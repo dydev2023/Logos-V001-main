@@ -3,8 +3,6 @@ session_start();
 require_once '../config/dbcon.php';
 include "admin-datas/season-db.php";
 include "admin-datas/student-db.php";
-$seasons = getLastSeason($conn);
-$student = getAllStudents($conn);
 
 // For Student Details
 $u_id = $fname_en = $lname_en = $fname_la = $lname_la = $fname_ch = $lname_ch = $gender = $dob = $village_birth = $district_birth = $province_birth = $guardian_tel = $season_start = $status = '';
@@ -22,8 +20,6 @@ $u_id_red_border = $fname_en_red_border = $lname_en_red_border = $fname_la_red_b
 $province_birth_red_border = $guardian_tel_red_border = $season_start_red_border = $status_red_border = $tel_red_border = $whatsapp_red_border = $email_red_border = $village_current_red_border = $district_current_red_border = $province_current_red_border = '';
 $study_program_red_border = $part_red_border = $ethnicity_red_border = $nation_red_border = $religion_red_border = $house_unit_red_border = $house_no_red_border = $image_file_red_border = '';
 $highschool_red_border = $season_hsc_red_border =  $village_study_red_border = $district_study_red_border = $province_study_red_border = '';
-
-
 
 
 if (!isset($_SESSION['admin_login'])) {
