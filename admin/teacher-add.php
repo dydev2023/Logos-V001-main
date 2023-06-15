@@ -378,7 +378,7 @@ if (!isset($_SESSION['admin_login'])) {
                 $stmt2->execute();
 
                 $path = "upload/teacher_profile/" . $image_file; // set upload folder path
-                    move_uploaded_file($temp, 'upload/teacher_profile/' . $image_file); // move upload file temperory directory to your upload folder
+                move_uploaded_file($temp, 'upload/teacher_profile/' . $image_file); // move upload file temperory directory to your upload folder
 
                 $_SESSION['success'] = "Add Teacher successfully. <a href='teacher-list.php'> Click here to details </a>";
                 header('location: teacher-add.php');
@@ -730,28 +730,28 @@ if (!isset($_SESSION['admin_login'])) {
                                             <div class="form-group local-forms">
                                                 <label>Gratuation Branch</label>
                                                 <input class="form-control" type="text" name="edu_branch2" value="<?php echo $edu_branch2 ?>">
-                                                
+
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
                                                 <label>University Name</label>
                                                 <input class="form-control" type="text" name="univ_name2" value="<?php echo $univ_name2 ?>">
-                                                
+
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
                                                 <label>University District</label>
                                                 <input class="form-control" type="text" name="edu_district2" value="<?php echo $edu_district2 ?>">
-                                                
+
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
                                                 <label>University Province</label>
                                                 <input class="form-control" type="text" name="edu_province2" value="<?php echo $edu_province2 ?>">
-                                                
+
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">

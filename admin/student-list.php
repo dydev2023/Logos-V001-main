@@ -124,8 +124,6 @@ if (!isset($_SESSION['admin_login'])) {
                                             <th>Status</th>
                                             <th>Tel</th>
                                             <th>Email Address</th>
-                                            <th>Created At</th>
-                                            <th>Updated At</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
@@ -161,8 +159,6 @@ if (!isset($_SESSION['admin_login'])) {
                                                     <td><?php echo $student['std_status'] ?></td>
                                                     <td><?php echo $student['tel'] ?></td>
                                                     <td><?php echo $student['email'] ?></td>
-                                                    <td><?php echo $student['created_at'] ?></td>
-                                                    <td><?php echo $student['updated_at'] ?></td>
                                                     <td class="text-end">
                                                         <div class="actions ">
                                                             <a href="student-detail.php?id=<?= $student['std_id'] ?>" class="btn btn-sm bg-success-light me-2 ">

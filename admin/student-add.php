@@ -4,6 +4,8 @@ require_once '../config/dbcon.php';
 include "admin-datas/season-db.php";
 include "admin-datas/student-db.php";
 
+$seasons = getAllSeasons($conn);
+
 // For Student Details
 $u_id = $fname_en = $lname_en = $fname_la = $lname_la = $fname_ch = $lname_ch = $gender = $dob = $village_birth = $district_birth = $province_birth = $guardian_tel = $season_start = $status = '';
 $tel = $whatsapp = $email = $village_current = $district_current = $province_current = $study_program = $part = $ethnicity = $nation = $religion = $house_unit = $house_no = $image_file = '';
@@ -362,7 +364,7 @@ if (!isset($_SESSION['admin_login'])) {
                 $stmt2->execute();
 
                 $path = "upload/student_profile/" . $image_file; // set upload folder path
-                    move_uploaded_file($temp, 'upload/student_profile/' . $image_file); // move upload file temperory directory to your upload folder
+                move_uploaded_file($temp, 'upload/student_profile/' . $image_file); // move upload file temperory directory to your upload folder
 
                 $_SESSION['success'] = "Add Student successfully. <a href='student-list.php'> Click here to details </a>";
                 header('location: student-add.php');
@@ -657,7 +659,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                 <div class="error"><?php echo $house_no_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4" hidden>
+                                        <div class="col-12 col-sm-4" >
                                             <div class="form-group local-forms">
                                                 <label>Season Start<span class="login-danger">*</span></label>
                                                 <select class="form-control select" name="season_start">
