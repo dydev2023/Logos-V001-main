@@ -365,6 +365,9 @@ if (!isset($_SESSION['admin_login'])) {
                 $stmt1->execute();
                 $stmt2->execute();
 
+                $path = "upload/student_profile/" . $image_file; // set upload folder path
+                    move_uploaded_file($temp, 'upload/student_profile/' . $image_file); // move upload file temperory directory to your upload folder
+
                 $_SESSION['success'] = "Add Student successfully. <a href='student-list.php'> Click here to details </a>";
                 header('location: student-add.php');
                 exit;

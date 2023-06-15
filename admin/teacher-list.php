@@ -8,6 +8,8 @@ if (!isset($_SESSION['admin_login'])) {
     $teachers = getAllTeachers($conn);
 }
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +53,7 @@ if (!isset($_SESSION['admin_login'])) {
                     <div class="col-sm-12">
                         <div class="page-sub-header">
                             <h3 class="page-title">Teachers</h3>
-                            
+
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="teacher-list.php">Teacher</a></li>
                                 <li class="breadcrumb-item active">All Teachers</li>
@@ -90,7 +92,7 @@ if (!isset($_SESSION['admin_login'])) {
                     <div class="card card-table comman-shadow">
                         <div class="card-body">
 
-                        <?php if (isset($_SESSION['success'])) { ?>
+                            <?php if (isset($_SESSION['success'])) { ?>
                                 <div class="alert alert-success" role="alert">
                                     <?php
                                     echo $_SESSION['success'];
@@ -114,18 +116,11 @@ if (!isset($_SESSION['admin_login'])) {
                                 <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
                                     <thead class="student-thread">
                                         <tr>
-                                            <th>
-                                                <div class="form-check check-tables">
-                                                    <input class="form-check-input" type="checkbox" value="something">
-                                                </div>
-                                            </th>
                                             <th>No</th>
                                             <th>Teacher ID</th>
                                             <th>Full Name</th>
-                                            <th>Gender</th>
-                                            <th>Date Of Birth</th>
-                                            <th>Phone Number</th>
-                                            <th>WhatsApp Number</th>
+                                            <th>Teacher Type</th>
+                                            <th>Tel</th>
                                             <th>Email Address</th>
                                             <th>Created At</th>
                                             <th>Updated At</th>
@@ -134,51 +129,51 @@ if (!isset($_SESSION['admin_login'])) {
                                     </thead>
                                     <tbody>
                                         <?php $i = 0;
-                                        if ($teachers == "No Teacher!") { ?>
+                                        if ($teachers == "No Teacher!") {  ?>
                                             <tr>
-                                                <td>No Teacher!</td>
+                                                <td>No Student!</td>
                                             </tr>
                                             <?php } else {
                                             foreach ($teachers as $teacher) {
                                                 $i++; ?>
 
                                                 <tr>
-                                                    <td>
-                                                        <div class="form-check check-tables">
-                                                            <input class="form-check-input" type="checkbox" value="something">
-                                                        </div>
-                                                    </td>
                                                     <td><?php echo $i ?></td>
                                                     <td><?php echo $teacher['t_id'] ?></td>
                                                     <td>
                                                         <h2 class="table-avatar">
                                                             <?php $teacher_image = $teacher['image'] ?>
-                                                            <a href="teacher-detail.php?$id=<? $teacher['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/teacher_profile/$teacher_image" ?>" alt="User Image"></a>
-                                                            <a href="teacher-detail.php?$id=<? $teacher['id'] ?>"><?php echo $teacher['fname_en'] . " " . $teacher['lname_en'] ?></a>
+                                                            <a href="teacher-detail.php?$id=<? $teacher['t_id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/teacher_profile/$teacher_image" ?>" alt="User Image"></a>
+
+                                                            <?php
+                                                            if ($teacher['gender'] == 'Male') { ?>
+                                                                <a>Mr <?php echo $teacher['fname_en'] . " " . $teacher['lname_en'] ?></a>
+                                                            <?php } else { ?>
+                                                                <a>Miss <?php echo $teacher['fname_en'] . " " . $teacher['lname_en'] ?></a>
+                                                            <?php }
+                                                            ?>
                                                         </h2>
                                                     </td>
-                                                    <td><?php echo $teacher['gender'] ?></td>
-                                                    <td><?php echo $teacher['dob'] ?></td>
+                                                    <td><?php echo $teacher['t_type'] ?></td>
                                                     <td><?php echo $teacher['tel'] ?></td>
-                                                    <td><?php echo $teacher['whatsapp'] ?></td>
                                                     <td><?php echo $teacher['email'] ?></td>
                                                     <td><?php echo $teacher['created_at'] ?></td>
                                                     <td><?php echo $teacher['updated_at'] ?></td>
                                                     <td class="text-end">
                                                         <div class="actions ">
-                                                            <a href="teacher-detail.php?id=<?= $teacher['id'] ?>" class="btn btn-sm bg-success-light me-2 ">
+                                                            <a href="teacher-detail.php?id=<?= $teacher['t_id'] ?>" class="btn btn-sm bg-success-light me-2 ">
                                                                 <i class="feather-eye"></i>
                                                             </a>
-                                                            <a href="teacher-edit.php?id=<?= $teacher['id'] ?>" class="btn btn-sm bg-danger-light">
+                                                            <a href="teacher-edit.php?id=<?= $teacher['t_id'] ?>" class="btn btn-sm bg-danger-light">
                                                                 <i class="feather-edit"></i>
                                                             </a>
-                                                            <a href="teacher-delete.php?id=<?= $teacher['id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
+                                                            <a href="teacher-delete.php?id=<?= $teacher['t_id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
                                                                 <i class="feather-delete"></i>
                                                             </a>
                                                         </div>
                                                     </td>
                                                 </tr>
-                                        <?php }
+                                        <?php  }
                                         } ?>
                                     </tbody>
                                 </table>
