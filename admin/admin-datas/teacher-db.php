@@ -29,7 +29,7 @@ function getTeacherById($id, $conn) {
     }
 }
 // Get User By ID
-function getUserById($id, $conn) {
+function teacherGetUserById($id, $conn) {
     $sql = "SELECT * FROM users WHERE u_id=?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);

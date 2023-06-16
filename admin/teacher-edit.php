@@ -22,7 +22,6 @@ $highschool_red_border = $edu_season1_red_border = '';
 
 
 
-
 if (!isset($_SESSION['admin_login'])) {
     header('location: ../index.php');
     exit;
@@ -31,34 +30,13 @@ if (!isset($_SESSION['admin_login'])) {
         $id = $_GET['id'];
         $teacher = getTeacherById($id, $conn);
         $t_row = getTeacherById($id, $conn);
+        $user = teacherGetUserById($id, $conn);
 
         if (isset($_REQUEST['submit'])) {
-
-            // Select The E-mail in Database For Check
-            $check_u_id = $conn->prepare("SELECT u_id FROM users WHERE u_id = :u_id");
-            $check_u_id->bindParam(":u_id", $_REQUEST['u_id']);
-            $check_u_id->execute();
-
-            $check_email = $conn->prepare("SELECT email FROM users WHERE email = :email");
-            $check_email->bindParam(":email", $_REQUEST['email']);
-            $check_email->execute();
-
-            // Select Teacher data in Database For Check
-            $check_tel = $conn->prepare("SELECT tel FROM students WHERE tel = :tel");
-            $check_tel->bindParam(":tel", $_REQUEST['tel']);
-            $check_tel->execute();
-
-            $check_whatsapp = $conn->prepare("SELECT whatsapp FROM students WHERE whatsapp = :whatsapp");
-            $check_whatsapp->bindParam(":whatsapp", $_REQUEST['whatsapp']);
-            $check_whatsapp->execute();
 
             if (empty($_REQUEST["u_id"])) {
                 $u_id_err = 'User ID is required!';
                 $u_id_red_border = 'red_border';
-            } elseif ($check_u_id->rowCount() > 0) {
-                $u_id_err = 'This User ID is already exsist!';
-                $u_id_red_border = 'red_border';
-                $u_id = $_REQUEST['u_id'];
             } else {
                 $u_id = $_REQUEST['u_id'];
             }
@@ -150,10 +128,6 @@ if (!isset($_SESSION['admin_login'])) {
             if (empty($_REQUEST["tel"])) {
                 $tel_err = 'Phone number is required!';
                 $tel_red_border = 'red_border';
-            } elseif ($check_tel->rowCount() > 0) {
-                $tel_err = 'This phone number is already exsist!';
-                $tel_red_border = 'red_border';
-                $tel = $_REQUEST['tel'];
             } else {
                 $tel = $_REQUEST['tel'];
             }
@@ -161,10 +135,6 @@ if (!isset($_SESSION['admin_login'])) {
             if (empty($_REQUEST["whatsapp"])) {
                 $whatsapp_err = 'Whatsapp namber is required!';
                 $whatsapp_red_border = 'red_border';
-            } elseif ($check_whatsapp->rowCount() > 0) {
-                $whatsapp_err = 'This whatsapp number is already exsist!';
-                $whatsapp_red_border = 'red_border';
-                $whatsapp = $_REQUEST['whatsapp'];
             } else {
                 $whatsapp = $_REQUEST['whatsapp'];
             }
@@ -172,10 +142,6 @@ if (!isset($_SESSION['admin_login'])) {
             if (empty($_REQUEST["email"])) {
                 $email_err = 'E-mail is required!';
                 $email_red_border = 'red_border';
-            } elseif ($check_email->rowCount() > 0) {
-                $email_err = 'This E-mail is already exsist!';
-                $email_red_border = 'red_border';
-                $email = $_REQUEST['email'];
             } elseif (!filter_var($_REQUEST['email'], FILTER_VALIDATE_EMAIL)) {
                 $email_err = "Invalid email format, please add @!";
                 $email_red_border = 'red_border';
@@ -294,44 +260,44 @@ if (!isset($_SESSION['admin_login'])) {
             $familymatters = $_REQUEST['familymatters'];
             $plansforthefuture = $_REQUEST['plansforthefuture'];
 
-            if (empty($_FILES["txt_file"]['name'])) {
-                $image_file_err = "Teacher image is required!";
-            } else {
-                $image_file = $_FILES['txt_file']['name'];
-                $type = $_FILES['txt_file']['type'];
-                $size = $_FILES['txt_file']['size'];
-                $temp = $_FILES['txt_file']['tmp_name'];
-            }
+            $image_file = $_FILES['txt_file']['name'];
+            $type = $_FILES['txt_file']['type'];
+            $size = $_FILES['txt_file']['size'];
+            $temp = $_FILES['txt_file']['tmp_name'];
 
             if (
                 !empty($u_id) and !empty($fname_en) and !empty($lname_en) and !empty($gender) and !empty($fname_la) and !empty($lname_la) and !empty($t_type) and !empty($fname_ch) and
                 !empty($lname_ch) and !empty($dob) and !empty($nation) and !empty($religion) and !empty($ethnicity) and !empty($tel) and !empty($whatsapp) and !empty($email) and
                 !empty($emergency_tel) and !empty($emergency_name) and !empty($village_birth) and !empty($district_birth) and !empty($province_birth) and !empty($village_current) and !empty($district_current) and
-                !empty($province_current) and !empty($edu_level1) and !empty($edu_branch1) and !empty($univ_name1) and !empty($edu_district1) and !empty($edu_province1) and !empty($edu_season1) and !empty($image_file)
+                !empty($province_current) and !empty($edu_level1) and !empty($edu_branch1) and !empty($univ_name1) and !empty($edu_district1) and !empty($edu_province1) and !empty($edu_season1)
             ) {
                 try {
-                    $status = 'Teacher';
-                    $passHash = password_hash($u_id, PASSWORD_DEFAULT);
+                    $path = "upload/teacher_profile/" . $image_file; // set upload folder path
+                    move_uploaded_file($temp, 'upload/teacher_profile/' . $image_file); // move upload file temperory directory to your upload folder
+
+                    $password = $_REQUEST['password'];
+                    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
                     // Add User
-                    $stmt1 = $conn->prepare('INSERT INTO users(u_id, email, u_pass, status) 
-                                                  VALUES (:u_id, :email, :u_pass, :status)');
+                    $sql1 = "UPDATE users SET email=:email, u_pass=:u_pass WHERE u_id=:u_id";
+                    $stmt1 = $conn->prepare($sql1);
                     $stmt1->bindParam(':u_id', $u_id);
                     $stmt1->bindParam(':email', $email);
-                    $stmt1->bindParam(':u_pass', $passHash);
-                    $stmt1->bindParam(':status', $status);
+                    if (empty($password)) {
+                        $stmt1->bindParam(':u_pass', $user['u_pass']);
+                    } else {
+                        $stmt1->bindParam(':u_pass', $passwordHash);
+                    }
 
-                    // Add Teacher
-                    $stmt2 = $conn->prepare('INSERT INTO teachers(t_id, u_id, fname_en, lname_en, gender, fname_la, lname_la, t_type, fname_ch, lname_ch, dob, nation, religion, ethnicity, tel, whatsapp, email, 
-                emergency_tel, emergency_name, village_birth, district_birth, province_birth, village_current, district_current, province_current, house_unit, house_no, 
-                edu_level1, edu_branch1, univ_name1, edu_district1, edu_province1, edu_season1, edu_level2, edu_branch2, univ_name2, edu_district2, edu_province2, edu_season2,
-                employment_history, language_proficiency, talent, familymatters, plansforthefuture, image) 
-                                    VALUES(:t_id, :u_id, :fname_en, :lname_en, :gender, :fname_la, :lname_la, :t_type, :fname_ch, :lname_ch, :dob, :nation, :religion, :ethnicity, :tel, :whatsapp, :email,
-                :emergency_tel, :emergency_name, :village_birth, :district_birth, :province_birth, :village_current, :district_current, :province_current, :house_unit, :house_no, 
-                :edu_level1, :edu_branch1, :univ_name1, :edu_district1, :edu_province1, :edu_season1, :edu_level2, :edu_branch2, :univ_name2, :edu_district2, :edu_province2, :edu_season2,
-                :employment_history, :language_proficiency, :talent, :familymatters, :plansforthefuture, :image)');
-                    $stmt2->bindParam(':t_id', $u_id);
-                    $stmt2->bindParam(':u_id', $u_id);
+                    // Update Teacher
+                    $sql2 = "UPDATE teachers SET fname_en=:fname_en, lname_en=:lname_en, gender=:gender, fname_la=:fname_la, lname_la=:lname_la, t_type=:t_type, fname_ch=:fname_ch, lname_ch=:lname_ch, 
+                    dob=:dob, nation=:nation, religion=:religion, ethnicity=:ethnicity, tel=:tel, whatsapp=:whatsapp, email=:email, emergency_tel=:emergency_tel, emergency_name=:emergency_name, village_birth=:village_birth, 
+                    district_birth=:district_birth, province_birth=:province_birth, village_current=:village_current, district_current=:district_current, province_current=:province_current, house_unit=:house_unit, 
+                    house_no=:house_no, edu_level1=:edu_level1, edu_branch1=:edu_branch1, univ_name1=:univ_name1, edu_district1=:edu_district1, edu_province1=:edu_province1, edu_season1=:edu_season1, edu_level2=:edu_level2, 
+                    edu_branch2=:edu_branch2, univ_name2=:univ_name2, edu_district2=:edu_district2, edu_province2=:edu_province2, edu_season2=:edu_season2, employment_history=:employment_history, 
+                    language_proficiency=:language_proficiency, talent=:talent, familymatters=:familymatters, plansforthefuture=:plansforthefuture, image=:image WHERE t_id=:t_id";
+                    $stmt2 = $conn->prepare($sql2);
+                    $stmt2->bindParam(':t_id', $id);
                     $stmt2->bindParam(':fname_en', $fname_en);
                     $stmt2->bindParam(':lname_en', $lname_en);
                     $stmt2->bindParam(':gender', $gender);
@@ -374,16 +340,17 @@ if (!isset($_SESSION['admin_login'])) {
                     $stmt2->bindParam(':talent', $talent);
                     $stmt2->bindParam(':familymatters', $familymatters);
                     $stmt2->bindParam(':plansforthefuture', $plansforthefuture);
-                    $stmt2->bindParam(':image', $image_file);
+                    if (empty($image_file)) {
+                        $stmt2->bindParam(':image', $teacher['image']);
+                    } else {
+                        $stmt2->bindParam(':image', $image_file);
+                    }
 
                     $stmt1->execute();
                     $stmt2->execute();
 
-                    $path = "upload/teacher_profile/" . $image_file; // set upload folder path
-                    move_uploaded_file($temp, 'upload/teacher_profile/' . $image_file); // move upload file temperory directory to your upload folder
-
-                    $_SESSION['success'] = "Add Teacher successfully. <a href='teacher-list.php'> Click here to details </a>";
-                    header('location: teacher-add.php');
+                    $_SESSION['success'] = "Update Teacher successfully.";
+                    header('location: teacher-list.php');
                     exit;
                 } catch (PDOException $e) {
                     $e->getMessage();

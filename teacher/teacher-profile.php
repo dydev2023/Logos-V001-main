@@ -7,12 +7,12 @@ if (!isset($_SESSION['teacher_login'])) {
     if (isset($_SESSION['teacher_login'])) {
         $id = $_SESSION['teacher_login'];
         // User
-        $stmt1 = $conn->query("SELECT * FROM users WHERE id = $id ");
+        $stmt1 = $conn->query("SELECT * FROM users WHERE u_id = '$id' ");
         $stmt1->execute();
         $user = $stmt1->fetch(PDO::FETCH_DEFAULT);
 
         // Admin
-        $stmt2 = $conn->query("SELECT * FROM teachers WHERE id = $id ");
+        $stmt2 = $conn->query("SELECT * FROM teachers WHERE t_id = '$id' ");
         $stmt2->execute();
         $teacher = $stmt2->fetch(PDO::FETCH_DEFAULT);
 
@@ -56,9 +56,9 @@ if (!isset($_SESSION['teacher_login'])) {
                         if ($new_pass == $re_new_pass) {
                             $passwordHash = password_hash($new_pass, PASSWORD_DEFAULT);
                             // Add User
-                            $sql1 = "UPDATE users SET u_pass=:u_pass WHERE id = :id";
+                            $sql1 = "UPDATE users SET u_pass=:u_pass WHERE u_id = :u_id";
                             $stmt1 = $conn->prepare($sql1);
-                            $stmt1->bindParam(':id', $id);
+                            $stmt1->bindParam(':u_id', $id);
                             $stmt1->bindParam(':u_pass', $passwordHash);
                             $stmt1->execute();
 
@@ -166,7 +166,7 @@ if (!isset($_SESSION['teacher_login'])) {
                                 <div class="col ms-md-n2 profile-user-info">
                                     <h4 class="user-name mb-0"><?php echo $teacher['fname_en'] . ' ' . $teacher['lname_en'] ?></h4>
                                     <h6 class="text-muted"><?php echo $user['status'] ?></h6>
-                                    <div class="user-Location"><i class="fas fa-map-marker-alt"></i> <?php echo $teacher['village'] . ', ' . $teacher['district'] . ', ' . $teacher['province'] ?></div>
+                                    <div class="user-Location"><i class="fas fa-map-marker-alt"></i> <?php echo $teacher['village_current'] . ', ' . $teacher['district_current'] . ', ' . $teacher['province_current'] ?></div>
 
                                 </div>
                             </div>
@@ -211,7 +211,7 @@ if (!isset($_SESSION['teacher_login'])) {
                                                 </div>
                                                 <div class="row">
                                                     <p class="col-sm-3 text-muted text-sm-end mb-0">Address</p>
-                                                    <p class="col-sm-9 mb-0"><?php echo $teacher['village'] . ', ' . $teacher['district'] . ', ' . $teacher['province'] ?></p>
+                                                    <p class="col-sm-9 mb-0"><?php echo $teacher['village_current'] . ', ' . $teacher['district_current'] . ', ' . $teacher['province_current'] ?></p>
                                                 </div>
                                             </div>
                                         </div>

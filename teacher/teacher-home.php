@@ -10,22 +10,22 @@ if (!isset($_SESSION['teacher_login'])) {
 
     $id = $_SESSION['teacher_login'];
     // For teacher
-    $stmt = $conn->query("SELECT * FROM teachers WHERE id = $id ");
+    $stmt = $conn->query("SELECT * FROM teachers WHERE t_id = '$id' ");
     $stmt->execute();
     $teacher = $stmt->fetch(PDO::FETCH_DEFAULT);
     // For Users
-    $stmt2 = $conn->query("SELECT * FROM users WHERE id = $id");
+    $stmt2 = $conn->query("SELECT * FROM users WHERE u_id = '$id'");
     $stmt2->execute();
     $user = $stmt2->fetch(PDO::FETCH_DEFAULT);
     // For get subject by teacher
     
-    $subjects = getAllSubjects($conn);
-    $i = 0;
-    foreach ($subjects as $subject) {
-        if($subject['teacher_id'] == $id) {
-            $i++;
-        }
-    }
+    // $subjects = getAllSubjects($conn);
+    // $i = 0;
+    // foreach ($subjects as $subject) {
+    //     if($subject['t_id'] == $id) {
+    //         $i++;
+    //     }
+    // }
 }
 
 ?>
@@ -86,7 +86,8 @@ if (!isset($_SESSION['teacher_login'])) {
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
                                     <div class="db-info">
                                         <h6>All Subjects</h6>
-                                        <h3><?php echo $i ?></h3>
+                                        <!-- <h3><?php echo $i ?></h3> -->
+                                        <h3>5</h3>
                                     </div>
                                     <div class="db-icon">
                                         <img src="../assets/img/icons/subject.png" alt="Dashboard Icon" width=50>

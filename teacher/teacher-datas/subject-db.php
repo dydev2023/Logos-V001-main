@@ -1,7 +1,7 @@
 <?php
 // All Subjects
 function getAllSubjects($conn) {
-    $sql = "SELECT * FROM subjects ORDER BY id DESC";
+    $sql = "SELECT * FROM subjects ORDER BY sub_id DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 

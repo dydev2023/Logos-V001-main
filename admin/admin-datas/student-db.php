@@ -28,6 +28,7 @@ function getStudentById($id, $conn) {
         return 0;
     }
 }
+
 // Get User By ID
 function studentGetUserById($id, $conn) {
     $sql = "SELECT * FROM users WHERE u_id=?";
