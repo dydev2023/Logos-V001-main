@@ -4,7 +4,11 @@ require_once '../config/dbcon.php';
 if (!isset($_SESSION['admin_login'])) {
     header('location: ../index.php');
 } else {
+    include "admin-datas/officer-db.php";
+    $officers = getAllOfficers($conn);
 }
+
+
 
 ?>
 
@@ -48,8 +52,8 @@ if (!isset($_SESSION['admin_login'])) {
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Officers</h3>
-                            
+                            <h3 class="page-title">Officer</h3>
+
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="officer-list.php">Officer</a></li>
                                 <li class="breadcrumb-item active">All Officers</li>
@@ -88,7 +92,7 @@ if (!isset($_SESSION['admin_login'])) {
                     <div class="card card-table comman-shadow">
                         <div class="card-body">
 
-                        <?php if (isset($_SESSION['success'])) { ?>
+                            <?php if (isset($_SESSION['success'])) { ?>
                                 <div class="alert alert-success" role="alert">
                                     <?php
                                     echo $_SESSION['success'];
@@ -100,7 +104,7 @@ if (!isset($_SESSION['admin_login'])) {
                             <div class="page-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h3 class="page-title">Officers</h3>
+                                        <h3 class="page-title">Officer</h3>
                                     </div>
                                     <div class="col-auto text-end float-end ms-auto download-grp">
                                         <a href="officer-add.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
@@ -112,62 +116,59 @@ if (!isset($_SESSION['admin_login'])) {
                                 <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
                                     <thead class="student-thread">
                                         <tr>
-                                            <th>
-                                                <div class="form-check check-tables">
-                                                    <input class="form-check-input" type="checkbox" value="something">
-                                                </div>
-                                            </th>
                                             <th>No</th>
                                             <th>Officer ID</th>
                                             <th>Full Name</th>
-                                            <th>Gender</th>
-                                            <th>Date Of Birth</th>
-                                            <th>Phone Number</th>
-                                            <th>WhatsApp Number</th>
+                                            <th>Tel</th>
                                             <th>Email Address</th>
-                                            <th>Position</th>
-                                            <th>Created At</th>
-                                            <th>Updated At</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check check-tables">
-                                                    <input class="form-check-input" type="checkbox" value="something">
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>officer001</td>
-                                            <td>
-                                                <h2 class="table-avatar">
-                                                    <a href="officer-detail.php" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="../assets/img/profile.png" alt="User Image"></a>
-                                                    <a href="officer-detail.php">Kim jongso</a>
-                                                </h2>
-                                            </td>
-                                            <td>male</td>
-                                            <td>18.2.1990</td>
-                                            <td>020 47483833</td>
-                                            <td>020 38483944</td>
-                                            <td>demo@gmail.com</td>
-                                            <td>Accounting</td>
-                                            <td>13.12.2023</td>
-                                            <td>13.12.2023</td>
-                                            <td class="text-end">
-                                                <div class="actions ">
-                                                    <a href="officer-detail.php" class="btn btn-sm bg-success-light me-2 ">
-                                                        <i class="feather-eye"></i>
-                                                    </a>
-                                                    <a href="officer-edit.php" class="btn btn-sm bg-danger-light">
-                                                        <i class="feather-edit"></i>
-                                                    </a>
-                                                    <a href="officer-delete.php" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
-                                                        <i class="feather-delete"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <?php $i = 0;
+                                        if ($officers == "No Officer!") {  ?>
+                                            <tr>
+                                                <td>No Officer!</td>
+                                            </tr>
+                                            <?php } else {
+                                            foreach ($officers as $officer) {
+                                                $i++; ?>
+
+                                                <tr>
+                                                    <td><?php echo $i ?></td>
+                                                    <td><?php echo $officer['off_id'] ?></td>
+                                                    <td>
+                                                        <h2 class="table-avatar">
+                                                            <?php $officer_image = $officer['image'] ?>
+                                                            <a href="teacher-detail.php?$id=<? $officer['off_id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/teacher_profile/$officer_image" ?>" alt="User Image"></a>
+
+                                                            <?php
+                                                            if ($officer['gender'] == 'Male') { ?>
+                                                                <a>Mr <?php echo $officer['fname_en'] . " " . $officer['lname_en'] ?></a>
+                                                            <?php } else { ?>
+                                                                <a>Miss <?php echo $officer['fname_en'] . " " . $officer['lname_en'] ?></a>
+                                                            <?php }
+                                                            ?>
+                                                        </h2>
+                                                    </td>
+                                                    <td><?php echo $officer['tel'] ?></td>
+                                                    <td><?php echo $officer['email'] ?></td>
+                                                    <td class="text-end">
+                                                        <div class="actions ">
+                                                            <a href="officer-detail.php?id=<?= $officer['off_id'] ?>" class="btn btn-sm bg-success-light me-2 ">
+                                                                <i class="feather-eye"></i>
+                                                            </a>
+                                                            <a href="officer-edit.php?id=<?= $officer['off_id'] ?>" class="btn btn-sm bg-danger-light">
+                                                                <i class="feather-edit"></i>
+                                                            </a>
+                                                            <a href="officer-delete.php?id=<?= $officer['off_id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
+                                                                <i class="feather-delete"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                        <?php  }
+                                        } ?>
                                     </tbody>
                                 </table>
                             </div>

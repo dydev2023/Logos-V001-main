@@ -122,8 +122,6 @@ if (!isset($_SESSION['admin_login'])) {
                                             <th>Teacher Type</th>
                                             <th>Tel</th>
                                             <th>Email Address</th>
-                                            <th>Created At</th>
-                                            <th>Updated At</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
@@ -157,8 +155,6 @@ if (!isset($_SESSION['admin_login'])) {
                                                     <td><?php echo $teacher['t_type'] ?></td>
                                                     <td><?php echo $teacher['tel'] ?></td>
                                                     <td><?php echo $teacher['email'] ?></td>
-                                                    <td><?php echo $teacher['created_at'] ?></td>
-                                                    <td><?php echo $teacher['updated_at'] ?></td>
                                                     <td class="text-end">
                                                         <div class="actions ">
                                                             <a href="teacher-detail.php?id=<?= $teacher['t_id'] ?>" class="btn btn-sm bg-success-light me-2 ">

@@ -4,7 +4,6 @@ require_once '../config/dbcon.php';
 include "admin-datas/season-db.php";
 include "admin-datas/student-db.php";
 
-// For Student Details
 $u_id = $fname_en = $lname_en = $fname_la = $lname_la = $fname_ch = $lname_ch = $gender = $dob = $village_birth = $district_birth = $province_birth = $emergency_tel = $emergency_name = $edu_level1 = $edu_branch1 = $univ_name1 = $edu_district1 = $edu_province1 = $edu_level2 = $edu_branch2 = $univ_name2 = $edu_district2 = $edu_province2 = $status = '';
 $tel = $whatsapp = $email = $village_current = $district_current = $province_current = $ethnicity = $nation = $religion = $house_unit = $house_no = $image_file = '';
 $highschool = $edu_season1 = $edu_season2 = '';
@@ -40,11 +39,11 @@ if (!isset($_SESSION['admin_login'])) {
         $check_email->execute();
 
         // Select Teacher data in Database For Check
-        $check_tel = $conn->prepare("SELECT tel FROM teachers WHERE tel = :tel");
+        $check_tel = $conn->prepare("SELECT tel FROM officers WHERE tel = :tel");
         $check_tel->bindParam(":tel", $_REQUEST['tel']);
         $check_tel->execute();
 
-        $check_whatsapp = $conn->prepare("SELECT whatsapp FROM teachers WHERE whatsapp = :whatsapp");
+        $check_whatsapp = $conn->prepare("SELECT whatsapp FROM officers WHERE whatsapp = :whatsapp");
         $check_whatsapp->bindParam(":whatsapp", $_REQUEST['whatsapp']);
         $check_whatsapp->execute();
 
@@ -299,7 +298,7 @@ if (!isset($_SESSION['admin_login'])) {
             !empty($province_current) and !empty($edu_level1) and !empty($edu_branch1) and !empty($univ_name1) and !empty($edu_district1) and !empty($edu_province1) and !empty($edu_season1) and !empty($image_file)
         ) {
             try {
-                $status = 'Teacher';
+                $status = 'Officer';
                 $passHash = password_hash($u_id, PASSWORD_DEFAULT);
 
                 // Add User
@@ -311,7 +310,7 @@ if (!isset($_SESSION['admin_login'])) {
                 $stmt1->bindParam(':status', $status);
 
                 // Add Teacher
-                $stmt2 = $conn->prepare('INSERT INTO teachers(off_id, u_id, fname_en, lname_en, gender, fname_la, lname_la, fname_ch, lname_ch, dob, nation, religion, ethnicity, tel, whatsapp, email, 
+                $stmt2 = $conn->prepare('INSERT INTO officers(off_id, u_id, fname_en, lname_en, gender, fname_la, lname_la, fname_ch, lname_ch, dob, nation, religion, ethnicity, tel, whatsapp, email, 
                 emergency_tel, emergency_name, village_birth, district_birth, province_birth, village_current, district_current, province_current, house_unit, house_no, 
                 edu_level1, edu_branch1, univ_name1, edu_district1, edu_province1, edu_season1, edu_level2, edu_branch2, univ_name2, edu_district2, edu_province2, edu_season2,
                 employment_history, language_proficiency, talent, familymatters, plansforthefuture, image) 
@@ -367,11 +366,11 @@ if (!isset($_SESSION['admin_login'])) {
                 $stmt1->execute();
                 $stmt2->execute();
 
-                $path = "upload/teacher_profile/" . $image_file; // set upload folder path
-                    move_uploaded_file($temp, 'upload/teacher_profile/' . $image_file); // move upload file temperory directory to your upload folder
+                $path = "upload/officer_profile/" . $image_file; // set upload folder path
+                move_uploaded_file($temp, 'upload/officer_profile/' . $image_file); // move upload file temperory directory to your upload folder
 
-                $_SESSION['success'] = "Add Teacher successfully. <a href='teacher-list.php'> Click here to details </a>";
-                header('location: teacher-add.php');
+                $_SESSION['success'] = "Add Officer successfully. <a href='officer-list.php'> Click here to details </a>";
+                header('location: officer-add.php');
                 exit;
             } catch (PDOException $e) {
                 $e->getMessage();

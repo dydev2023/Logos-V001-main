@@ -33,245 +33,245 @@ if (!isset($_SESSION['admin_login'])) {
         $user = teacherGetUserById($id, $conn);
 
         if (isset($_REQUEST['submit'])) {
+            try {
+                if (empty($_REQUEST["u_id"])) {
+                    $u_id_err = 'User ID is required!';
+                    $u_id_red_border = 'red_border';
+                } else {
+                    $u_id = $_REQUEST['u_id'];
+                }
 
-            if (empty($_REQUEST["u_id"])) {
-                $u_id_err = 'User ID is required!';
-                $u_id_red_border = 'red_border';
-            } else {
-                $u_id = $_REQUEST['u_id'];
-            }
+                if (empty($_REQUEST["fname_en"])) {
+                    $fname_en_err = 'First name in English is required!';
+                    $fname_en_red_border = 'red_border';
+                } else {
+                    $fname_en = $_REQUEST['fname_en'];
+                }
 
-            if (empty($_REQUEST["fname_en"])) {
-                $fname_en_err = 'First name in English is required!';
-                $fname_en_red_border = 'red_border';
-            } else {
-                $fname_en = $_REQUEST['fname_en'];
-            }
+                if (empty($_REQUEST["lname_en"])) {
+                    $lname_en_err = 'Last name in English is required!';
+                    $lname_en_red_border = 'red_border';
+                } else {
+                    $lname_en = $_REQUEST['lname_en'];
+                }
 
-            if (empty($_REQUEST["lname_en"])) {
-                $lname_en_err = 'Last name in English is required!';
-                $lname_en_red_border = 'red_border';
-            } else {
-                $lname_en = $_REQUEST['lname_en'];
-            }
+                if (empty($_REQUEST["gender"])) {
+                    $gender_err = 'Gender is required!';
+                    $gender_red_border = 'red_border';
+                } else {
+                    $gender = $_REQUEST['gender'];
+                }
 
-            if (empty($_REQUEST["gender"])) {
-                $gender_err = 'Gender is required!';
-                $gender_red_border = 'red_border';
-            } else {
-                $gender = $_REQUEST['gender'];
-            }
+                if (empty($_REQUEST["fname_la"])) {
+                    $fname_la_err = 'First name in Laos is required!';
+                    $fname_la_red_border = 'red_border';
+                } else {
+                    $fname_la = $_REQUEST['fname_la'];
+                }
 
-            if (empty($_REQUEST["fname_la"])) {
-                $fname_la_err = 'First name in Laos is required!';
-                $fname_la_red_border = 'red_border';
-            } else {
-                $fname_la = $_REQUEST['fname_la'];
-            }
+                if (empty($_REQUEST["lname_la"])) {
+                    $lname_la_err = 'Last name in Laos is required!';
+                    $lname_la_red_border = 'red_border';
+                } else {
+                    $lname_la = $_REQUEST['lname_la'];
+                }
 
-            if (empty($_REQUEST["lname_la"])) {
-                $lname_la_err = 'Last name in Laos is required!';
-                $lname_la_red_border = 'red_border';
-            } else {
-                $lname_la = $_REQUEST['lname_la'];
-            }
+                if (empty($_REQUEST["t_type"])) {
+                    $t_type_err = 'Program of studying is required!';
+                    $t_type_red_border = 't_type';
+                } else {
+                    $t_type = $_REQUEST['t_type'];
+                }
 
-            if (empty($_REQUEST["t_type"])) {
-                $t_type_err = 'Program of studying is required!';
-                $t_type_red_border = 't_type';
-            } else {
-                $t_type = $_REQUEST['t_type'];
-            }
+                if (empty($_REQUEST["fname_ch"])) {
+                    $fname_ch_err = 'First name in Chiness is required!';
+                    $fname_ch_red_border = 'red_border';
+                } else {
+                    $fname_ch = $_REQUEST['fname_ch'];
+                }
 
-            if (empty($_REQUEST["fname_ch"])) {
-                $fname_ch_err = 'First name in Chiness is required!';
-                $fname_ch_red_border = 'red_border';
-            } else {
-                $fname_ch = $_REQUEST['fname_ch'];
-            }
+                if (empty($_REQUEST["lname_ch"])) {
+                    $lname_ch_err = 'Last asrname in Chiness is required!';
+                    $lname_ch_red_border = 'red_border';
+                } else {
+                    $lname_ch = $_REQUEST['lname_ch'];
+                }
 
-            if (empty($_REQUEST["lname_ch"])) {
-                $lname_ch_err = 'Last asrname in Chiness is required!';
-                $lname_ch_red_border = 'red_border';
-            } else {
-                $lname_ch = $_REQUEST['lname_ch'];
-            }
+                if (empty($_REQUEST["dob"])) {
+                    $dob_err = 'Date of birth is required!';
+                    $dob_red_border = 'red_border';
+                } else {
+                    $dob = $_REQUEST['dob'];
+                }
 
-            if (empty($_REQUEST["dob"])) {
-                $dob_err = 'Date of birth is required!';
-                $dob_red_border = 'red_border';
-            } else {
-                $dob = $_REQUEST['dob'];
-            }
+                if (empty($_REQUEST["nation"])) {
+                    $nation_err = 'Nation is required!';
+                    $nation_red_border = 'red_border';
+                } else {
+                    $nation = $_REQUEST['nation'];
+                }
 
-            if (empty($_REQUEST["nation"])) {
-                $nation_err = 'Nation is required!';
-                $nation_red_border = 'red_border';
-            } else {
-                $nation = $_REQUEST['nation'];
-            }
+                if (empty($_REQUEST["religion"])) {
+                    $religion_err = 'Religion is required!';
+                    $religion_red_border = 'red_border';
+                } else {
+                    $religion = $_REQUEST['religion'];
+                }
 
-            if (empty($_REQUEST["religion"])) {
-                $religion_err = 'Religion is required!';
-                $religion_red_border = 'red_border';
-            } else {
-                $religion = $_REQUEST['religion'];
-            }
+                if (empty($_REQUEST["ethnicity"])) {
+                    $ethnicity_err = 'Ethnicity is required!';
+                    $ethnicity_red_border = 'red_border';
+                } else {
+                    $ethnicity = $_REQUEST['ethnicity'];
+                }
 
-            if (empty($_REQUEST["ethnicity"])) {
-                $ethnicity_err = 'Ethnicity is required!';
-                $ethnicity_red_border = 'red_border';
-            } else {
-                $ethnicity = $_REQUEST['ethnicity'];
-            }
+                if (empty($_REQUEST["tel"])) {
+                    $tel_err = 'Phone number is required!';
+                    $tel_red_border = 'red_border';
+                } else {
+                    $tel = $_REQUEST['tel'];
+                }
 
-            if (empty($_REQUEST["tel"])) {
-                $tel_err = 'Phone number is required!';
-                $tel_red_border = 'red_border';
-            } else {
-                $tel = $_REQUEST['tel'];
-            }
+                if (empty($_REQUEST["whatsapp"])) {
+                    $whatsapp_err = 'Whatsapp namber is required!';
+                    $whatsapp_red_border = 'red_border';
+                } else {
+                    $whatsapp = $_REQUEST['whatsapp'];
+                }
 
-            if (empty($_REQUEST["whatsapp"])) {
-                $whatsapp_err = 'Whatsapp namber is required!';
-                $whatsapp_red_border = 'red_border';
-            } else {
-                $whatsapp = $_REQUEST['whatsapp'];
-            }
+                if (empty($_REQUEST["email"])) {
+                    $email_err = 'E-mail is required!';
+                    $email_red_border = 'red_border';
+                } elseif (!filter_var($_REQUEST['email'], FILTER_VALIDATE_EMAIL)) {
+                    $email_err = "Invalid email format, please add @!";
+                    $email_red_border = 'red_border';
+                    $email = $_REQUEST['email'];
+                } else {
+                    $email = $_REQUEST['email'];
+                }
 
-            if (empty($_REQUEST["email"])) {
-                $email_err = 'E-mail is required!';
-                $email_red_border = 'red_border';
-            } elseif (!filter_var($_REQUEST['email'], FILTER_VALIDATE_EMAIL)) {
-                $email_err = "Invalid email format, please add @!";
-                $email_red_border = 'red_border';
-                $email = $_REQUEST['email'];
-            } else {
-                $email = $_REQUEST['email'];
-            }
+                if (empty($_REQUEST["emergency_tel"])) {
+                    $emergency_tel_err = "Emergency contact number is required!";
+                    $emergency_tel_red_border = 'red_border';
+                } else {
+                    $emergency_tel = $_REQUEST['emergency_tel'];
+                }
 
-            if (empty($_REQUEST["emergency_tel"])) {
-                $emergency_tel_err = "Emergency contact number is required!";
-                $emergency_tel_red_border = 'red_border';
-            } else {
-                $emergency_tel = $_REQUEST['emergency_tel'];
-            }
+                if (empty($_REQUEST["emergency_name"])) {
+                    $emergency_name_err = "Emergency contact name is required!";
+                    $emergency_name_red_border = 'red_border';
+                } else {
+                    $emergency_name = $_REQUEST['emergency_name'];
+                }
 
-            if (empty($_REQUEST["emergency_name"])) {
-                $emergency_name_err = "Emergency contact name is required!";
-                $emergency_name_red_border = 'red_border';
-            } else {
-                $emergency_name = $_REQUEST['emergency_name'];
-            }
+                if (empty($_REQUEST["village_birth"])) {
+                    $village_birth_err = 'Village of birth is required!';
+                    $village_birth_red_border = 'red_border';
+                } else {
+                    $village_birth = $_REQUEST['village_birth'];
+                }
 
-            if (empty($_REQUEST["village_birth"])) {
-                $village_birth_err = 'Village of birth is required!';
-                $village_birth_red_border = 'red_border';
-            } else {
-                $village_birth = $_REQUEST['village_birth'];
-            }
+                if (empty($_REQUEST["district_birth"])) {
+                    $district_birth_err = 'District of birth is required!';
+                    $district_birth_red_border = 'red_border';
+                } else {
+                    $district_birth = $_REQUEST['district_birth'];
+                }
 
-            if (empty($_REQUEST["district_birth"])) {
-                $district_birth_err = 'District of birth is required!';
-                $district_birth_red_border = 'red_border';
-            } else {
-                $district_birth = $_REQUEST['district_birth'];
-            }
+                if (empty($_REQUEST["province_birth"])) {
+                    $province_birth_err = 'Province of birth is required!';
+                    $province_birth_red_border = 'red_border';
+                } else {
+                    $province_birth = $_REQUEST['province_birth'];
+                }
 
-            if (empty($_REQUEST["province_birth"])) {
-                $province_birth_err = 'Province of birth is required!';
-                $province_birth_red_border = 'red_border';
-            } else {
-                $province_birth = $_REQUEST['province_birth'];
-            }
+                if (empty($_REQUEST["village_current"])) {
+                    $village_current_err = 'Current village is required!';
+                    $village_current_red_border = 'red_border';
+                } else {
+                    $village_current = $_REQUEST['village_current'];
+                }
 
-            if (empty($_REQUEST["village_current"])) {
-                $village_current_err = 'Current village is required!';
-                $village_current_red_border = 'red_border';
-            } else {
-                $village_current = $_REQUEST['village_current'];
-            }
+                if (empty($_REQUEST["district_current"])) {
+                    $district_current_err = 'Current district is required!';
+                    $district_current_red_border = 'red_border';
+                } else {
+                    $district_current = $_REQUEST['district_current'];
+                }
 
-            if (empty($_REQUEST["district_current"])) {
-                $district_current_err = 'Current district is required!';
-                $district_current_red_border = 'red_border';
-            } else {
-                $district_current = $_REQUEST['district_current'];
-            }
+                if (empty($_REQUEST["province_current"])) {
+                    $province_current_err = 'Current province is required!';
+                    $province_current_red_border = 'red_border';
+                } else {
+                    $province_current = $_REQUEST['province_current'];
+                }
 
-            if (empty($_REQUEST["province_current"])) {
-                $province_current_err = 'Current province is required!';
-                $province_current_red_border = 'red_border';
-            } else {
-                $province_current = $_REQUEST['province_current'];
-            }
+                // For Education 1
+                if (empty($_REQUEST["edu_level1"])) {
+                    $edu_level1_err = 'Education level is required!';
+                    $edu_level1_red_border = 'red_border';
+                } else {
+                    $edu_level1 = $_REQUEST['edu_level1'];
+                }
+                if (empty($_REQUEST["edu_branch1"])) {
+                    $edu_branch1_err = 'Education branch is required!';
+                    $edu_branch1_red_border = 'red_border';
+                } else {
+                    $edu_branch1 = $_REQUEST['edu_branch1'];
+                }
+                if (empty($_REQUEST["univ_name1"])) {
+                    $univ_name1_err = 'University is required!';
+                    $univ_name1_red_border = 'red_border';
+                } else {
+                    $univ_name1 = $_REQUEST['univ_name1'];
+                }
+                if (empty($_REQUEST["edu_district1"])) {
+                    $edu_district1_err = 'University district is required!';
+                    $edu_district1_red_border = 'red_border';
+                } else {
+                    $edu_district1 = $_REQUEST['edu_district1'];
+                }
+                if (empty($_REQUEST["edu_province1"])) {
+                    $edu_province1_err = 'University province is required!';
+                    $edu_province1_red_border = 'red_border';
+                } else {
+                    $edu_province1 = $_REQUEST['edu_province1'];
+                }
+                if (empty($_REQUEST["edu_season1"])) {
+                    $edu_season1_err = 'High school season is required!';
+                    $edu_season1_red_border = 'red_border';
+                } else {
+                    $edu_season1 = $_REQUEST['edu_season1'];
+                }
 
-            // For Education 1
-            if (empty($_REQUEST["edu_level1"])) {
-                $edu_level1_err = 'Education level is required!';
-                $edu_level1_red_border = 'red_border';
-            } else {
-                $edu_level1 = $_REQUEST['edu_level1'];
-            }
-            if (empty($_REQUEST["edu_branch1"])) {
-                $edu_branch1_err = 'Education branch is required!';
-                $edu_branch1_red_border = 'red_border';
-            } else {
-                $edu_branch1 = $_REQUEST['edu_branch1'];
-            }
-            if (empty($_REQUEST["univ_name1"])) {
-                $univ_name1_err = 'University is required!';
-                $univ_name1_red_border = 'red_border';
-            } else {
-                $univ_name1 = $_REQUEST['univ_name1'];
-            }
-            if (empty($_REQUEST["edu_district1"])) {
-                $edu_district1_err = 'University district is required!';
-                $edu_district1_red_border = 'red_border';
-            } else {
-                $edu_district1 = $_REQUEST['edu_district1'];
-            }
-            if (empty($_REQUEST["edu_province1"])) {
-                $edu_province1_err = 'University province is required!';
-                $edu_province1_red_border = 'red_border';
-            } else {
-                $edu_province1 = $_REQUEST['edu_province1'];
-            }
-            if (empty($_REQUEST["edu_season1"])) {
-                $edu_season1_err = 'High school season is required!';
-                $edu_season1_red_border = 'red_border';
-            } else {
-                $edu_season1 = $_REQUEST['edu_season1'];
-            }
+                // For other Educations
+                $edu_level2 = $_REQUEST['edu_level2'];
+                $edu_branch2 = $_REQUEST['edu_branch2'];
+                $univ_name2 = $_REQUEST['univ_name2'];
+                $edu_district2 = $_REQUEST['edu_district2'];
+                $edu_province2 = $_REQUEST['edu_province2'];
+                $edu_season2 = $_REQUEST['edu_season2'];
 
-            // For other Educations
-            $edu_level2 = $_REQUEST['edu_level2'];
-            $edu_branch2 = $_REQUEST['edu_branch2'];
-            $univ_name2 = $_REQUEST['univ_name2'];
-            $edu_district2 = $_REQUEST['edu_district2'];
-            $edu_province2 = $_REQUEST['edu_province2'];
-            $edu_season2 = $_REQUEST['edu_season2'];
+                $house_no = $_REQUEST['house_no'];
+                $house_unit = $_REQUEST['house_unit'];
+                $employment_history = $_REQUEST['employment_history'];
+                $language_proficiency = $_REQUEST['language_proficiency'];
+                $talent = $_REQUEST['talent'];
+                $familymatters = $_REQUEST['familymatters'];
+                $plansforthefuture = $_REQUEST['plansforthefuture'];
 
-            $house_no = $_REQUEST['house_no'];
-            $house_unit = $_REQUEST['house_unit'];
-            $employment_history = $_REQUEST['employment_history'];
-            $language_proficiency = $_REQUEST['language_proficiency'];
-            $talent = $_REQUEST['talent'];
-            $familymatters = $_REQUEST['familymatters'];
-            $plansforthefuture = $_REQUEST['plansforthefuture'];
+                $image_file = $_FILES['txt_file']['name'];
+                $type = $_FILES['txt_file']['type'];
+                $size = $_FILES['txt_file']['size'];
+                $temp = $_FILES['txt_file']['tmp_name'];
 
-            $image_file = $_FILES['txt_file']['name'];
-            $type = $_FILES['txt_file']['type'];
-            $size = $_FILES['txt_file']['size'];
-            $temp = $_FILES['txt_file']['tmp_name'];
+                if (
+                    !empty($u_id) and !empty($fname_en) and !empty($lname_en) and !empty($gender) and !empty($fname_la) and !empty($lname_la) and !empty($t_type) and !empty($fname_ch) and
+                    !empty($lname_ch) and !empty($dob) and !empty($nation) and !empty($religion) and !empty($ethnicity) and !empty($tel) and !empty($whatsapp) and !empty($email) and
+                    !empty($emergency_tel) and !empty($emergency_name) and !empty($village_birth) and !empty($district_birth) and !empty($province_birth) and !empty($village_current) and !empty($district_current) and
+                    !empty($province_current) and !empty($edu_level1) and !empty($edu_branch1) and !empty($univ_name1) and !empty($edu_district1) and !empty($edu_province1) and !empty($edu_season1)
+                ) {
 
-            if (
-                !empty($u_id) and !empty($fname_en) and !empty($lname_en) and !empty($gender) and !empty($fname_la) and !empty($lname_la) and !empty($t_type) and !empty($fname_ch) and
-                !empty($lname_ch) and !empty($dob) and !empty($nation) and !empty($religion) and !empty($ethnicity) and !empty($tel) and !empty($whatsapp) and !empty($email) and
-                !empty($emergency_tel) and !empty($emergency_name) and !empty($village_birth) and !empty($district_birth) and !empty($province_birth) and !empty($village_current) and !empty($district_current) and
-                !empty($province_current) and !empty($edu_level1) and !empty($edu_branch1) and !empty($univ_name1) and !empty($edu_district1) and !empty($edu_province1) and !empty($edu_season1)
-            ) {
-                try {
                     $path = "upload/teacher_profile/" . $image_file; // set upload folder path
                     move_uploaded_file($temp, 'upload/teacher_profile/' . $image_file); // move upload file temperory directory to your upload folder
 
@@ -352,9 +352,9 @@ if (!isset($_SESSION['admin_login'])) {
                     $_SESSION['success'] = "Update Teacher successfully.";
                     header('location: teacher-list.php');
                     exit;
-                } catch (PDOException $e) {
-                    $e->getMessage();
                 }
+            } catch (PDOException $e) {
+                $e->getMessage();
             }
         }
     }

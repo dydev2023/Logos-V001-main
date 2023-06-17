@@ -1,32 +1,23 @@
 <?php
-// session_start();
-// require_once '../config/dbcon.php';
+session_start();
+require_once '../config/dbcon.php';
 
 
-// if (!isset($_SESSION['teacher_login'])) {
-//     header('location: ../index.php');
-// } else {
-    // include "teacher-datas/subject-db.php";
+if (!isset($_SESSION['officer_login'])) {
+    header('location: ../index.php');
+} else {
+    include "officer-datas/subject-db.php";
 
-    // $id = $_SESSION['teacher_login'];
-    // // For teacher
-    // $stmt = $conn->query("SELECT * FROM teachers WHERE id = $id ");
-    // $stmt->execute();
-    // $teacher = $stmt->fetch(PDO::FETCH_DEFAULT);
-    // // For Users
-    // $stmt2 = $conn->query("SELECT * FROM users WHERE id = $id");
-    // $stmt2->execute();
-    // $user = $stmt2->fetch(PDO::FETCH_DEFAULT);
-    // // For get subject by teacher
-    
-    // $subjects = getAllSubjects($conn);
-    // $i = 0;
-    // foreach ($subjects as $subject) {
-    //     if($subject['teacher_id'] == $id) {
-    //         $i++;
-    //     }
-    // }
-// }
+    $id = $_SESSION['officer_login'];
+    // For teacher
+    $stmt = $conn->query("SELECT * FROM officers WHERE off_id = '$id' ");
+    $stmt->execute();
+    $teacher = $stmt->fetch(PDO::FETCH_DEFAULT);
+    // For Users
+    $stmt2 = $conn->query("SELECT * FROM users WHERE u_id = '$id'");
+    $stmt2->execute();
+    $user = $stmt2->fetch(PDO::FETCH_DEFAULT);
+}
 
 ?>
 

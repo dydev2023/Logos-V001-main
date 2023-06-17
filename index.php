@@ -37,7 +37,15 @@ if(isset($_REQUEST['submit'])){
                             $_SESSION['admin_login'] = $row['u_id'];
                             header("location: admin/admin-home.php");
                             exit;
-                        } else if ($row['status'] == 'Teacher') {
+                        } else if ($row['status'] == 'Director') {
+                            $_SESSION['director_login'] = $row['u_id'];
+                            header("location: director/director-home.php");
+                            exit;
+                        }else if ($row['status'] == 'Officer') {
+                            $_SESSION['officer_login'] = $row['u_id'];
+                            header("location: officer/officer-home.php");
+                            exit;
+                        }else if ($row['status'] == 'Teacher') {
                             $_SESSION['teacher_login'] = $row['u_id'];
                             header("location: teacher/teacher-home.php");
                             exit;

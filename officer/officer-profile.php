@@ -1,20 +1,20 @@
 <?php
-// session_start();
-// require_once '../config/dbcon.php';
-// if (!isset($_SESSION['teacher_login'])) {
-//     header('location: ../index.php');
-// } else {
-//     if (isset($_SESSION['teacher_login'])) {
-//         $id = $_SESSION['teacher_login'];
-        ///// User /////
-        // $stmt1 = $conn->query("SELECT * FROM users WHERE id = $id ");
-        // $stmt1->execute();
-        // $user = $stmt1->fetch(PDO::FETCH_DEFAULT);
+session_start();
+require_once '../config/dbcon.php';
+if (!isset($_SESSION['officer_login'])) {
+    header('location: ../index.php');
+} else {
+    if (isset($_SESSION['officer_login'])) {
+        $id = $_SESSION['officer_login'];
+        // User
+        $stmt1 = $conn->query("SELECT * FROM users WHERE u_id = '$id' ");
+        $stmt1->execute();
+        $user = $stmt1->fetch(PDO::FETCH_DEFAULT);
 
-        //// Admin////
-        // $stmt2 = $conn->query("SELECT * FROM teachers WHERE id = $id ");
-        // $stmt2->execute();
-        // $teacher = $stmt2->fetch(PDO::FETCH_DEFAULT);
+        // Admin
+        $stmt2 = $conn->query("SELECT * FROM officers WHERE off_id = '$id' ");
+        $stmt2->execute();
+        $officer = $stmt2->fetch(PDO::FETCH_DEFAULT);
 
         $old_pass = $new_pass = $re_new_pass = '';
         $old_pass_err = $new_pass_err = $re_new_pass_err = '';
@@ -54,17 +54,17 @@
                 try {
                     if (password_verify($old_pass, $user['u_pass'])) {
                         if ($new_pass == $re_new_pass) {
-                            // $passwordHash = password_hash($new_pass, PASSWORD_DEFAULT);
-                            // // Add User
-                            // $sql1 = "UPDATE users SET u_pass=:u_pass WHERE id = :id";
-                            // $stmt1 = $conn->prepare($sql1);
-                            // $stmt1->bindParam(':id', $id);
-                            // $stmt1->bindParam(':u_pass', $passwordHash);
-                            // $stmt1->execute();
+                            $passwordHash = password_hash($new_pass, PASSWORD_DEFAULT);
+                            // Add User
+                            $sql1 = "UPDATE users SET u_pass=:u_pass WHERE u_id = :u_id";
+                            $stmt1 = $conn->prepare($sql1);
+                            $stmt1->bindParam(':u_id', $id);
+                            $stmt1->bindParam(':u_pass', $passwordHash);
+                            $stmt1->execute();
 
-                            // $_SESSION['success'] = "Change password successfully!";
-                            // header('location: teacher-profile.php');
-                            // exit;
+                            $_SESSION['success'] = "Change password successfully!";
+                            header('location: officer-profile.php');
+                            exit;
                         } else {
                             $new_pass_red_border = 'red_border';
                             $re_new_pass_err = 'Passwords are not match!';
@@ -79,8 +79,8 @@
                 }
             }
         }
-//     }
-// }
+    }
+}
 
 ?>
 
@@ -159,13 +159,14 @@
                             <div class="row align-items-center">
                                 <div class="col-auto profile-image">
                                     <a href="#">
-                                        <img class="rounded-circle" alt="User Image" src="../assets/img/profile.png">
+                                        <?php $officer_image = $officer['image'] ?>
+                                        <img class="rounded-circle" alt="User Image" src="<?php echo "../admin/upload/officer_profile/$officer_image" ?>">
                                     </a>
                                 </div>
                                 <div class="col ms-md-n2 profile-user-info">
-                                    <h4 class="user-name mb-0">Firstname Lastname</h4>
-                                    <h6 class="text-muted">status(officer)</h6>
-                                    <div class="user-Location">Villege, Distric, Province</div>
+                                    <h4 class="user-name mb-0"><?php echo $officer['fname_en'] . ' ' . $officer['lname_en'] ?></h4>
+                                    <h6 class="text-muted"><?php echo $user['status'] ?></h6>
+                                    <div class="user-Location"><i class="fas fa-map-marker-alt"></i> <?php echo $officer['village_current'] . ', ' . $officer['district_current'] . ', ' . $officer['province_current'] ?></div>
 
                                 </div>
                             </div>
@@ -190,30 +191,27 @@
                                             <div class="card-body">
                                                 <h5 class="card-title d-flex justify-content-between">
                                                     <span>Personal Details</span>
+                                                    <a class="edit-link" data-bs-toggle="modal" href="#edit_personal_details"><i class="far fa-edit me-1"></i>Edit</a>
                                                 </h5>
                                                 <div class="row">
-                                                    <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Name:</p>
-                                                    <p class="col-sm-9">Firstname Lastname</p>
+                                                    <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Name</p>
+                                                    <p class="col-sm-9"><?php echo $officer['fname_en'] . ' ' . $officer['lname_en'] ?></p>
                                                 </div>
                                                 <div class="row">
-                                                    <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Date of Birth:</p>
-                                                    <p class="col-sm-9">22.4.2000</p>
+                                                    <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Date of Birth</p>
+                                                    <p class="col-sm-9"><?php echo $officer['dob'] ?></p>
                                                 </div>
                                                 <div class="row">
-                                                    <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Email:</p>
-                                                    <p class="col-sm-9">demo@gmail.com</a></p>
-                                                </div>
-                                                <div class="row">
-                                                    <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Position:</p>
-                                                    <p class="col-sm-9">Accounting</a></p>
+                                                    <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Email ID</p>
+                                                    <p class="col-sm-9"><?php echo $officer['email'] ?></a></p>
                                                 </div>
                                                 <div class="row">
                                                     <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Tel</p>
-                                                    <p class="col-sm-9">020 3094343433</p>
+                                                    <p class="col-sm-9"><?php echo $officer['tel'] ?></p>
                                                 </div>
                                                 <div class="row">
                                                     <p class="col-sm-3 text-muted text-sm-end mb-0">Address</p>
-                                                    <p class="col-sm-9 mb-0">Villeg, Distric, Province</p>
+                                                    <p class="col-sm-9 mb-0"><?php echo $officer['village_current'] . ', ' . $officer['district_current'] . ', ' . $officer['province_current'] ?></p>
                                                 </div>
                                             </div>
                                         </div>
