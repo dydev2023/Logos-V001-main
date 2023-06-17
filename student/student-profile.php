@@ -11,8 +11,8 @@ if (!isset($_SESSION['student_login'])) {
         $stmt1->execute();
         $user = $stmt1->fetch(PDO::FETCH_DEFAULT);
 
-        // Admin
-        $stmt2 = $conn->query("SELECT * FROM students WHERE u_id = '$id' ");
+        // Teacher
+        $stmt2 = $conn->query("SELECT * FROM students WHERE std_id = '$id' ");
         $stmt2->execute();
         $student = $stmt2->fetch(PDO::FETCH_DEFAULT);
 
@@ -30,23 +30,23 @@ if (!isset($_SESSION['student_login'])) {
             $password_page = 'show active';
 
             $active_about = $about_page = '';
-            if(empty($_REQUEST['old_pass'])){
+
+            if (empty($_REQUEST['old_pass'])) {
                 $old_pass_err = 'Old Password is required!';
                 $old_pass_red_border = 'red_border';
-                
-            }else{
+            } else {
                 $old_pass = $_REQUEST['old_pass'];
             }
-            if(empty($_REQUEST['new_pass'])){
+            if (empty($_REQUEST['new_pass'])) {
                 $new_pass_err = 'New Password is required!';
                 $new_pass_red_border = 'red_border';
-            }else{
+            } else {
                 $new_pass = $_REQUEST['new_pass'];
             }
-            if(empty($_REQUEST['re_new_pass'])){
+            if (empty($_REQUEST['re_new_pass'])) {
                 $re_new_pass_err = 'Old Password is required!';
                 $re_new_pass_red_border = 'red_border';
-            }else{
+            } else {
                 $re_new_pass = $_REQUEST['re_new_pass'];
             }
 
@@ -56,9 +56,9 @@ if (!isset($_SESSION['student_login'])) {
                         if ($new_pass == $re_new_pass) {
                             $passwordHash = password_hash($new_pass, PASSWORD_DEFAULT);
                             // Add User
-                            $sql1 = "UPDATE users SET u_pass=:u_pass WHERE id = :id";
+                            $sql1 = "UPDATE users SET u_pass=:u_pass WHERE u_id = :u_id";
                             $stmt1 = $conn->prepare($sql1);
-                            $stmt1->bindParam(':id', $id);
+                            $stmt1->bindParam(':u_id', $id);
                             $stmt1->bindParam(':u_pass', $passwordHash);
                             $stmt1->execute();
 

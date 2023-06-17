@@ -33,17 +33,13 @@ if(isset($_REQUEST['submit'])){
             if($check_data->rowCount() > 0) {
                 if($u_id == $row['u_id']){
                     if (password_verify($password, $row['u_pass'])) {
-                        if ($row['status'] == 'Admin') {
+                        if ($row['status'] == 'Admin' or $row['status'] == 'Officer') {
                             $_SESSION['admin_login'] = $row['u_id'];
                             header("location: admin/admin-home.php");
                             exit;
                         } else if ($row['status'] == 'Director') {
                             $_SESSION['director_login'] = $row['u_id'];
                             header("location: director/director-home.php");
-                            exit;
-                        }else if ($row['status'] == 'Officer') {
-                            $_SESSION['officer_login'] = $row['u_id'];
-                            header("location: officer/officer-home.php");
                             exit;
                         }else if ($row['status'] == 'Teacher') {
                             $_SESSION['teacher_login'] = $row['u_id'];

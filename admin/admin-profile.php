@@ -11,8 +11,8 @@ if (!isset($_SESSION['admin_login'])) {
         $stmt1->execute();
         $user = $stmt1->fetch(PDO::FETCH_DEFAULT);
 
-        // Admin
-        $stmt2 = $conn->query("SELECT * FROM admins WHERE u_id = '$id' ");
+        // Teacher
+        $stmt2 = $conn->query("SELECT * FROM admins WHERE am_id = '$id' ");
         $stmt2->execute();
         $admin = $stmt2->fetch(PDO::FETCH_DEFAULT);
 
@@ -31,25 +31,24 @@ if (!isset($_SESSION['admin_login'])) {
 
             $active_about = $about_page = '';
 
-            if(empty($_REQUEST['old_pass'])){
+            if (empty($_REQUEST['old_pass'])) {
                 $old_pass_err = 'Old Password is required!';
                 $old_pass_red_border = 'red_border';
-            }else{
+            } else {
                 $old_pass = $_REQUEST['old_pass'];
             }
-            if(empty($_REQUEST['new_pass'])){
+            if (empty($_REQUEST['new_pass'])) {
                 $new_pass_err = 'New Password is required!';
                 $new_pass_red_border = 'red_border';
-            }else{
+            } else {
                 $new_pass = $_REQUEST['new_pass'];
             }
-            if(empty($_REQUEST['re_new_pass'])){
+            if (empty($_REQUEST['re_new_pass'])) {
                 $re_new_pass_err = 'Old Password is required!';
                 $re_new_pass_red_border = 'red_border';
-            }else{
+            } else {
                 $re_new_pass = $_REQUEST['re_new_pass'];
             }
-            
 
             if (!empty($old_pass) && !empty($new_pass) && !empty($re_new_pass)) {
                 try {
@@ -57,9 +56,9 @@ if (!isset($_SESSION['admin_login'])) {
                         if ($new_pass == $re_new_pass) {
                             $passwordHash = password_hash($new_pass, PASSWORD_DEFAULT);
                             // Add User
-                            $sql1 = "UPDATE users SET u_pass=:u_pass WHERE id = :id";
+                            $sql1 = "UPDATE users SET u_pass=:u_pass WHERE u_id = :u_id";
                             $stmt1 = $conn->prepare($sql1);
-                            $stmt1->bindParam(':id', $id);
+                            $stmt1->bindParam(':u_id', $id);
                             $stmt1->bindParam(':u_pass', $passwordHash);
                             $stmt1->execute();
 
@@ -160,7 +159,7 @@ if (!isset($_SESSION['admin_login'])) {
                             <div class="row align-items-center">
                                 <div class="col-auto profile-image">
                                     <a href="#">
-                                    <?php $admin_image = $admin['image'] ?>
+                                        <?php $admin_image = $admin['image'] ?>
                                         <img class="rounded-circle" alt="User Image" src="<?php echo "../admin/upload/admin_profile/$admin_image" ?>">
                                     </a>
                                 </div>

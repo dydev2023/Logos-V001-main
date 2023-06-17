@@ -1,4 +1,4 @@
-<?php if ($user['status'] == 'Admin') { ?>
+<?php if ($user['status'] == 'Admin' or $user['status'] == 'Officer') { ?>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-inner slimscroll">
             <div id="sidebar-menu" class="sidebar-menu">
@@ -105,34 +105,6 @@
                         <ul>
                             <li><a href="../director/score-list.php">Score List</a></li>
                             <li><a href="../director/score-add.php">Score Add</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-<?php } else if ($user['status'] == 'Officer') { ?>
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-inner slimscroll">
-            <div id="sidebar-menu" class="sidebar-menu">
-                <ul>
-                    <li class="menu-title">
-                        <span>Main Menu</span>
-                    </li>
-                    <li class="submenu active">
-                    <li><a href="../officer/officer-home.php"> <i class="feather-grid"></i> <span>Dashboard</span></a></li>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fas fa-table"></i> <span>Time Table</span></a>
-                    </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-graduation-cap"></i> <span> Score</span> <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="../officer/score-list.php">Score List</a></li>
-                            <li><a href="../officer/score-add.php">Score Add</a></li>
                         </ul>
                     </li>
                     <li>

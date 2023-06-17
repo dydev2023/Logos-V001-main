@@ -11,7 +11,7 @@ if (!isset($_SESSION['teacher_login'])) {
         $stmt1->execute();
         $user = $stmt1->fetch(PDO::FETCH_DEFAULT);
 
-        // Admin
+        // Teacher
         $stmt2 = $conn->query("SELECT * FROM teachers WHERE t_id = '$id' ");
         $stmt2->execute();
         $teacher = $stmt2->fetch(PDO::FETCH_DEFAULT);

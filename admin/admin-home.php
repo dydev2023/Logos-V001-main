@@ -70,7 +70,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">Welcome Admin! <?php echo $id ?></h3>
+                                <h3 class="page-title">Welcome Admin!</h3>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="admin-home.php">Home</a></li>
                                     <li class="breadcrumb-item active">Admin</li>
