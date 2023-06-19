@@ -320,10 +320,10 @@ if (!isset($_SESSION['admin_login'])) {
                 $stmt1->bindParam(':status', $status);
 
                 // Add Admin
-                $stmt2 = $conn->prepare('INSERT INTO students(std_id, u_id, fname_en, lname_en, gender, fname_la, lname_la, prog_id, fname_ch, lname_ch, dob, part, nation, religion, ethnicity, tel, whatsapp, email, 
+                $stmt2 = $conn->prepare('INSERT INTO students(std_id, u_id, fname_en, lname_en, gender, fname_la, lname_la, program, fname_ch, lname_ch, dob, part, nation, religion, ethnicity, tel, whatsapp, email, 
                 guardian_tel, village_birth, district_birth, province_birth, village_current, district_current, province_current, house_unit, house_no, season_start, highschool, season_hsc,
                 village_study, district_study, province_study, employment_history, language_proficiency, talent, familymatters, plansforthefuture, image) 
-                                    VALUES(:std_id, :u_id, :fname_en, :lname_en, :gender, :fname_la, :lname_la, :prog_id, :fname_ch, :lname_ch, :dob, :part, :nation, :religion, :ethnicity, :tel, :whatsapp, :email,
+                                    VALUES(:std_id, :u_id, :fname_en, :lname_en, :gender, :fname_la, :lname_la, :program, :fname_ch, :lname_ch, :dob, :part, :nation, :religion, :ethnicity, :tel, :whatsapp, :email,
                 :guardian_tel, :village_birth, :district_birth, :province_birth, :village_current, :district_current, :province_current, :house_unit, :house_no, :season_start, :highschool, :season_hsc,
                 :village_study, :district_study, :province_study, :employment_history, :language_proficiency, :talent, :familymatters, :plansforthefuture, :image)');
                 $stmt2->bindParam(':std_id', $u_id);
@@ -333,7 +333,7 @@ if (!isset($_SESSION['admin_login'])) {
                 $stmt2->bindParam(':gender', $gender);
                 $stmt2->bindParam(':fname_la', $fname_la);
                 $stmt2->bindParam(':lname_la', $lname_la);
-                $stmt2->bindParam(':prog_id', $study_program);
+                $stmt2->bindParam(':program', $study_program);
                 $stmt2->bindParam(':fname_ch', $fname_ch);
                 $stmt2->bindParam(':lname_ch', $lname_ch);
                 $stmt2->bindParam(':dob', $dob);
@@ -515,7 +515,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                     <?php $i = 0;
                                                     foreach ($programs as $program) {
                                                         $i++; ?>
-                                                        <option value="<?php echo $program['prog_id'] ?>"> <?php echo $program['program'] ?> </option>
+                                                        <option value="<?php echo $program['program'] ?>"> <?php echo $program['program'] ?> </option>
                                                     <?php } ?>
                                                 </select>
                                                 <div class="error"><?php echo $study_program_err ?></div>

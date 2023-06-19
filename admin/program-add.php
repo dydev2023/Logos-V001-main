@@ -2,7 +2,6 @@
 session_start();
 require_once '../config/dbcon.php';
 
-$prog_id = $prog_id_err = $prog_id_red_border = '';
 $program = $program_err = $program_red_border = '';
 $total_year = $total_year_err = $total_year_red_border = '';
 
@@ -12,25 +11,9 @@ if (!isset($_SESSION['admin_login'])) {
     if (isset($_REQUEST['submit'])) {
 
         // Select The Subject ID in Database For Check
-        $check_prog_id = $conn->prepare("SELECT prog_id FROM programs WHERE prog_id = :prog_id");
-        $check_prog_id->bindParam(":prog_id", $_REQUEST['prog_id']);
-        $check_prog_id->execute();
-
-        // Select The Subject ID in Database For Check
         $check_program = $conn->prepare("SELECT program FROM programs WHERE program = :program");
         $check_program->bindParam(":program", $_REQUEST['program']);
         $check_program->execute();
-
-        if (empty($_REQUEST['prog_id'])) {
-            $prog_id_err = 'Program ID is required!';
-            $prog_id_red_border = 'red_border';
-        } elseif ($check_prog_id->rowCount() > 0) {
-            $prog_id_err = 'This program ID is already exsist!';
-            $prog_id_red_border = 'red_border';
-            $prog_id = $_REQUEST['prog_id'];
-        } else {
-            $prog_id = $_REQUEST['prog_id'];
-        }
 
         if (empty($_REQUEST['program'])) {
             $program_err = 'Program is required!';
@@ -50,11 +33,10 @@ if (!isset($_SESSION['admin_login'])) {
             $total_year = $_REQUEST['total_year'];
         }
 
-        if (!empty($prog_id) and !empty($program) and !empty($total_year)) {
+        if (!empty($program) and !empty($total_year)) {
             try {
-                $stmt1 = $conn->prepare('INSERT INTO programs(prog_id, program, total_year) 
-                                                        VALUES (:prog_id, :program, :total_year)');
-                $stmt1->bindParam(':prog_id', $prog_id);
+                $stmt1 = $conn->prepare('INSERT INTO programs(program, total_year) 
+                                                        VALUES (:program, :total_year)');
                 $stmt1->bindParam(':program', $program);
                 $stmt1->bindParam(':total_year', $total_year);
                 $stmt1->execute();
@@ -169,13 +151,6 @@ if (!isset($_SESSION['admin_login'])) {
                                     <div class="row">
                                         <div class="col-12">
                                             <h5 class="form-title student-info">Program Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Program ID<span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $prog_id_red_border ?>" type="text" name="prog_id" value="<?php echo $prog_id ?>">
-                                                <div class="error"><?php echo $prog_id_err ?></div>
-                                            </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">

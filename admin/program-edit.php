@@ -16,48 +16,6 @@ if (!isset($_SESSION['admin_login'])) {
         $program = getProgramByID($id, $conn);
         if (isset($_REQUEST['submit'])) {
 
-            // $check_season = $conn->prepare("SELECT season FROM seasons WHERE season = :season AND season != :seasonID_season");
-            // $check_season->bindParam(":seasonID_season", $seasonID['season']);
-            // $check_season->bindParam(":season", $_REQUEST['season']);
-            // $check_season->execute();
-
-            // if(empty($_REQUEST['season'])){
-            //     $season_err = 'Season is required!';
-            //     $season_red_border = 'red_border';
-            // }elseif($check_season->rowCount() > 0){
-            //     $season_err = 'This season is already exsist!';
-            //     $season_red_border = 'red_border';
-            //     $season = $_REQUEST['season'];
-            // }else{
-            //     $season = $_REQUEST['season'];
-            // }
-
-            // try {
-            //     if (!empty($season)){
-            //         try {
-            //             $sql = "UPDATE seasons SET season=:season  WHERE id=:id";
-            //             $stmt = $conn->prepare($sql);
-            //             $stmt->bindParam(':season', $season);
-            //             $stmt->bindParam(':id', $id);
-            //             $stmt->execute();
-            //             $_SESSION['success'] = "Successfully Updated Season year!";
-            //             header("location: season-list.php");
-            //         } catch (PDOException $e) {
-            //             echo $e->getMessage();
-            //         }
-            //     }
-            // } catch (PDOException $e) {
-            //     $e->getMessage();
-            // }
-
-
-            if (empty($_REQUEST['prog_id'])) {
-                $prog_id_err = 'Program ID is required!';
-                $prog_id_red_border = 'red_border';
-            } else {
-                $prog_id = $_REQUEST['prog_id'];
-            }
-
             if (empty($_REQUEST['program'])) {
                 $program_err = 'Program is required!';
                 $program_red_border = 'red_border';
@@ -72,12 +30,12 @@ if (!isset($_SESSION['admin_login'])) {
                 $total_year = $_REQUEST['total_year'];
             }
 
-            if (!empty($prog_id) and !empty($program) and !empty($total_year)) {
+            if (!empty($program) and !empty($total_year)) {
                 try {
 
-                    $sql = "UPDATE programs SET program=:program, total_year=:total_year  WHERE prog_id=:prog_id";
+                    $sql = "UPDATE programs SET program=:program, total_year=:total_year  WHERE id=:id";
                     $stmt = $conn->prepare($sql);
-                    $stmt->bindParam(':prog_id', $id);
+                    $stmt->bindParam(':id', $id);
                     $stmt->bindParam(':program', $program);
                     $stmt->bindParam(':total_year', $total_year);
                     $stmt->execute();
@@ -178,13 +136,6 @@ if (!isset($_SESSION['admin_login'])) {
                                     <div class="row">
                                         <div class="col-12">
                                             <h5 class="form-title student-info">Program Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Program ID<span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $prog_id_red_border ?>" type="text" name="prog_id" value="<?php echo $program['prog_id'] ?>" readonly>
-                                                <div class="error"><?php echo $prog_id_err ?></div>
-                                            </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">

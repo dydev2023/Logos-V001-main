@@ -486,11 +486,11 @@ if (!isset($_SESSION['admin_login'])) {
                                             <div class="form-group local-forms">
                                                 <label>Program Of Studying <span class="login-danger">*</span></label>
                                                 <select class="form-control select <?php echo $study_program_red_border ?>" name="study_program">
-                                                    <option><?php echo $std_row['prog_id'] ?></option>
+                                                    <option><?php echo $std_row['program'] ?></option>
                                                     <?php $i = 0;
                                                     foreach ($programs as $program) {
                                                         $i++; ?>
-                                                        <option value="<?php echo $program['prog_id'] ?>"> <?php echo $program['program'] ?> </option>
+                                                        <option value="<?php echo $program['program'] ?>"> <?php echo $program['program'] ?> </option>
                                                     <?php } ?>
                                                 </select>
                                                 <div class="error"><?php echo $study_program_err ?></div>

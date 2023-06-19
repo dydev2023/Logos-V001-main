@@ -17,7 +17,7 @@ function getAllPrograms($conn) {
 }
 
 function getProgramByID($id, $conn) {
-    $sql = "SELECT * FROM programs WHERE prog_id=?";
+    $sql = "SELECT * FROM programs WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
 
@@ -31,7 +31,7 @@ function getProgramByID($id, $conn) {
 
 // Delete
 function removeProgramByID($id, $conn) {
-    $sql = "DELETE FROM programs WHERE prog_id=?";
+    $sql = "DELETE FROM programs WHERE id=?";
     $stmt = $conn->prepare($sql);
     $re = $stmt->execute([$id]);
     if ($re) {

@@ -135,7 +135,6 @@ if (!isset($_SESSION['admin_login'])) {
                                                 </div>
                                             </th>
                                             <th>No</th>
-                                            <th>Program ID</th>
                                             <th>Program</th>
                                             <th class="text-end">Action</th>
                                         </tr>
@@ -158,14 +157,13 @@ if (!isset($_SESSION['admin_login'])) {
                                                         </div>
                                                     </td>
                                                     <td><?php echo $i ?></td>
-                                                    <td><?php echo $program['prog_id'] ?></td>
                                                     <td><?php echo $program['program'] ?></td>
                                                     <td class="text-end">
                                                         <div class="actions ">
-                                                            <a href="program-edit.php?id=<?= $program['prog_id'] ?>" class="btn btn-sm bg-danger-light">
+                                                            <a href="program-edit.php?id=<?= $program['id'] ?>" class="btn btn-sm bg-danger-light">
                                                                 <i class="feather-edit"></i>
                                                             </a>
-                                                            <a href="program-delete.php?id=<?= $program['prog_id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
+                                                            <a href="program-delete.php?id=<?= $program['id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
                                                                 <i class="feather-delete"></i>
                                                             </a>
                                                         </div>

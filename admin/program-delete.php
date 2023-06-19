@@ -12,11 +12,11 @@
             $id = $_GET['id'];
             if (removeProgramByID($id, $conn)) {
                 $_SESSION['success'] = "Successfully deleted!";
-                header('location: season-list.php');
+                header('location: program-list.php');
                 exit;
             } else {
                 $_SESSION['error'] = "Delete Fail, Please try again!";
-                header('location: season-list.php');
+                header('location: program-list.php');
                 exit;
             }
         }
