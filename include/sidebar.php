@@ -12,8 +12,8 @@
                     <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "director-list.php" || basename($_SERVER['PHP_SELF']) == "director-add.php"){echo "active";} ?>">
                         <a href="#"><i class="fas fa-graduation-cap"></i> <span> Directors</span> <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="../admin/director-list.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "director-list.php"){echo "active";} ?>">Director List</a></li>
-                            <li><a href="../admin/director-add.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "director-add.php"){echo "active";} ?>">Director Add</a></li>
+                            <li><a href="#" class="<?php if(basename($_SERVER['PHP_SELF']) == "director-list.php"){echo "active";} ?>">Director List</a></li>
+                            <li><a href="#" class="<?php if(basename($_SERVER['PHP_SELF']) == "director-add.php"){echo "active";} ?>">Director Add</a></li>
                         </ul>
                     </li>
                     <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "officer-list.php" || basename($_SERVER['PHP_SELF']) == "officer-add.php"){echo "active";} ?>">
@@ -37,6 +37,13 @@
                             <li><a href="../admin/student-add.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "student-add.php"){echo "active";} ?>">Student Add</a></li>
                         </ul>
                     </li>
+                    <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "program-list.php" || basename($_SERVER['PHP_SELF']) == "program-add.php"){echo "active";} ?>">
+                        <a href="#"><i class="fas fa-building"></i> <span> Programs</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="../admin/program-list.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "program-list.php"){echo "active";} ?>">Programs List</a></li>
+                            <li><a href="../admin/program-add.php"  class="<?php if(basename($_SERVER['PHP_SELF']) == "program-add.php"){echo "active";} ?>">Programs Add</a></li>
+                        </ul>
+                    </li>
                     <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "season-list.php" || basename($_SERVER['PHP_SELF']) == "season-add.php"){echo "active";} ?>">
                         <a href="#"><i class="fas fa-building"></i> <span> Seasons</span> <span class="menu-arrow"></span></a>
                         <ul>
@@ -51,11 +58,11 @@
                             <li><a href="../admin/subject-add.php"  class="<?php if(basename($_SERVER['PHP_SELF']) == "subject-add.php"){echo "active";} ?> ">Subject Add</a></li>
                         </ul>
                     </li>
-                    <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "room-list.php" || basename($_SERVER['PHP_SELF']) == "room-add.php"){echo "active";} ?>">
+                    <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "classroom-list.php" || basename($_SERVER['PHP_SELF']) == "classroom-add.php"){echo "active";} ?>">
                         <a href="#"><i class="fas fa-book-reader"></i> <span>Class Rooms</span> <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="../admin/room-list.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "room-list.php"){echo "active";} ?>">Room List</a></li>
-                            <li><a href="../admin/room-add.php"  class="<?php if(basename($_SERVER['PHP_SELF']) == "room-add.php"){echo "active";} ?> ">Room Add</a></li>
+                            <li><a href="../admin/classroom-list.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "classroom-list.php"){echo "active";} ?>">Class Room List</a></li>
+                            <li><a href="../admin/classroom-add.php"  class="<?php if(basename($_SERVER['PHP_SELF']) == "classroom-add.php"){echo "active";} ?> ">Class Room Add</a></li>
                         </ul>
                     </li>
                     <li class="menu-title">

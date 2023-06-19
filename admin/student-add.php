@@ -2,10 +2,12 @@
 session_start();
 require_once '../config/dbcon.php';
 include "admin-datas/season-db.php";
+include "admin-datas/program-db.php";
 include "admin-datas/student-db.php";
 
 
-$seasons = getAllSeasons($conn);
+$seasons = getLastSeason($conn);
+$programs = getAllPrograms($conn);
 
 // For Student Details
 $u_id = $fname_en = $lname_en = $fname_la = $lname_la = $fname_ch = $lname_ch = $gender = $dob = $village_birth = $district_birth = $province_birth = $guardian_tel = $season_start = $status = '';
@@ -318,10 +320,10 @@ if (!isset($_SESSION['admin_login'])) {
                 $stmt1->bindParam(':status', $status);
 
                 // Add Admin
-                $stmt2 = $conn->prepare('INSERT INTO students(std_id, u_id, fname_en, lname_en, gender, fname_la, lname_la, study_program, fname_ch, lname_ch, dob, part, nation, religion, ethnicity, tel, whatsapp, email, 
+                $stmt2 = $conn->prepare('INSERT INTO students(std_id, u_id, fname_en, lname_en, gender, fname_la, lname_la, prog_id, fname_ch, lname_ch, dob, part, nation, religion, ethnicity, tel, whatsapp, email, 
                 guardian_tel, village_birth, district_birth, province_birth, village_current, district_current, province_current, house_unit, house_no, season_start, highschool, season_hsc,
                 village_study, district_study, province_study, employment_history, language_proficiency, talent, familymatters, plansforthefuture, image) 
-                                    VALUES(:std_id, :u_id, :fname_en, :lname_en, :gender, :fname_la, :lname_la, :study_program, :fname_ch, :lname_ch, :dob, :part, :nation, :religion, :ethnicity, :tel, :whatsapp, :email,
+                                    VALUES(:std_id, :u_id, :fname_en, :lname_en, :gender, :fname_la, :lname_la, :prog_id, :fname_ch, :lname_ch, :dob, :part, :nation, :religion, :ethnicity, :tel, :whatsapp, :email,
                 :guardian_tel, :village_birth, :district_birth, :province_birth, :village_current, :district_current, :province_current, :house_unit, :house_no, :season_start, :highschool, :season_hsc,
                 :village_study, :district_study, :province_study, :employment_history, :language_proficiency, :talent, :familymatters, :plansforthefuture, :image)');
                 $stmt2->bindParam(':std_id', $u_id);
@@ -331,7 +333,7 @@ if (!isset($_SESSION['admin_login'])) {
                 $stmt2->bindParam(':gender', $gender);
                 $stmt2->bindParam(':fname_la', $fname_la);
                 $stmt2->bindParam(':lname_la', $lname_la);
-                $stmt2->bindParam(':study_program', $study_program);
+                $stmt2->bindParam(':prog_id', $study_program);
                 $stmt2->bindParam(':fname_ch', $fname_ch);
                 $stmt2->bindParam(':lname_ch', $lname_ch);
                 $stmt2->bindParam(':dob', $dob);
@@ -510,8 +512,11 @@ if (!isset($_SESSION['admin_login'])) {
                                                 <label>Program Of Studying <span class="login-danger">*</span></label>
                                                 <select class="form-control select <?php echo $study_program_red_border ?>" name="study_program">
                                                     <option><?php echo $study_program ?></option>
-                                                    <option>Bachelor Program</option>
-                                                    <option>Diploma in TVET</option>
+                                                    <?php $i = 0;
+                                                    foreach ($programs as $program) {
+                                                        $i++; ?>
+                                                        <option value="<?php echo $program['prog_id'] ?>"> <?php echo $program['program'] ?> </option>
+                                                    <?php } ?>
                                                 </select>
                                                 <div class="error"><?php echo $study_program_err ?></div>
                                             </div>

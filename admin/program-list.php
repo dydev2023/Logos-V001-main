@@ -4,8 +4,8 @@ require_once '../config/dbcon.php';
 if (!isset($_SESSION['admin_login'])) {
     header('location: ../index.php');
 } else {
-    include "admin-datas/room-db.php";
-    $rooms = getAllRooms($conn);
+    include "admin-datas/program-db.php";
+    $programs = getAllPrograms($conn);
 }
 
 ?>
@@ -19,6 +19,7 @@ if (!isset($_SESSION['admin_login'])) {
     <title>Logos Institute of Foreign Language</title>
 
     <link rel="shortcut icon" href="../assets/img/logo_logos.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
@@ -49,10 +50,11 @@ if (!isset($_SESSION['admin_login'])) {
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Class Room</h3>
-
+                            <h3 class="page-title">Program</h3>
+                            
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="room-list.php">All Class Rooms</a></li>
+                                <li class="breadcrumb-item"><a href="program-list.php">Program</a></li>
+                                <li class="breadcrumb-item active">All Programs</li>
                             </ul>
                         </div>
                     </div>
@@ -88,7 +90,7 @@ if (!isset($_SESSION['admin_login'])) {
                     <div class="card card-table comman-shadow">
                         <div class="card-body">
 
-                            <?php if (isset($_SESSION['success'])) { ?>
+                        <?php if (isset($_SESSION['success'])) { ?>
                                 <div class="alert alert-success" role="alert">
                                     <?php
                                     echo $_SESSION['success'];
@@ -100,10 +102,10 @@ if (!isset($_SESSION['admin_login'])) {
                             <div class="page-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h3 class="page-title">Class Room</h3>
+                                        <h3 class="page-title">program</h3>
                                     </div>
                                     <div class="col-auto text-end float-end ms-auto download-grp">
-                                        <a href="room-add.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                                        <a href="program-add.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -133,21 +135,20 @@ if (!isset($_SESSION['admin_login'])) {
                                                 </div>
                                             </th>
                                             <th>No</th>
-                                            <th>Room</th>
-                                            <th>Created at</th>
-                                            <th>Updated at</th>
+                                            <th>Program ID</th>
+                                            <th>Program</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
                                         <?php $i = 0;
-                                        if ($rooms == "No Room!") { ?>
+                                        if ($programs == "No Program!") { ?>
                                             <tr>
-                                                <td>No room!</td>
+                                                <td>No program!</td>
                                             </tr>
                                             <?php } else {
-                                            foreach ($rooms as $room) {
+                                            foreach ($programs as $program) {
                                                 $i++; ?>
 
                                                 <tr>
@@ -157,15 +158,14 @@ if (!isset($_SESSION['admin_login'])) {
                                                         </div>
                                                     </td>
                                                     <td><?php echo $i ?></td>
-                                                    <td><?php echo $room['room'] ?></td>
-                                                    <td><?php echo $room['created_at'] ?></td>
-                                                    <td><?php echo $room['updated_at'] ?></td>
+                                                    <td><?php echo $program['prog_id'] ?></td>
+                                                    <td><?php echo $program['program'] ?></td>
                                                     <td class="text-end">
                                                         <div class="actions ">
-                                                            <a href="room-edit.php?id=<?= $room['id'] ?>" class="btn btn-sm bg-danger-light">
+                                                            <a href="program-edit.php?id=<?= $program['prog_id'] ?>" class="btn btn-sm bg-danger-light">
                                                                 <i class="feather-edit"></i>
                                                             </a>
-                                                            <a href="room-delete.php?id=<?= $room['id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
+                                                            <a href="program-delete.php?id=<?= $program['prog_id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
                                                                 <i class="feather-delete"></i>
                                                             </a>
                                                         </div>

@@ -4,6 +4,7 @@ session_start();
 require_once '../config/dbcon.php';
 include "admin-datas/student-db.php";
 include "admin-datas/season-db.php";
+include "admin-datas/program-db.php";
 
 $u_id = $fname_en = $lname_en = $fname_la = $lname_la = $fname_ch = $lname_ch = $gender = $dob = $village_birth = $district_birth = $province_birth = $guardian_tel = $season_start = $status = '';
 $tel = $whatsapp = $email = $village_current = $district_current = $province_current = $study_program = $part = $ethnicity = $nation = $religion = $house_unit = $house_no = $image_file = '';
@@ -31,6 +32,7 @@ if (!isset($_SESSION['admin_login'])) {
         $std_row = getStudentById($id, $conn);
         $user = studentGetUserById($id, $conn);
         $seasons = getAllSeasons($conn);
+        $programs = getAllPrograms($conn);
 
         if (isset($_REQUEST['submit'])) {
             try {
@@ -286,7 +288,7 @@ if (!isset($_SESSION['admin_login'])) {
                     }
 
                     // Add Student
-                    $sql2 = "UPDATE students SET fname_en=:fname_en, lname_en=:lname_en, gender=:gender, fname_la=:fname_la, lname_la=:lname_la, study_program=:study_program, fname_ch=:fname_ch, lname_ch=:lname_ch, 
+                    $sql2 = "UPDATE students SET fname_en=:fname_en, lname_en=:lname_en, gender=:gender, fname_la=:fname_la, lname_la=:lname_la, prog_id=:prog_id, fname_ch=:fname_ch, lname_ch=:lname_ch, 
                     dob=:dob, part=:part, nation=:nation, religion=:religion, ethnicity=:ethnicity, tel=:tel, whatsapp=:whatsapp, email=:email, guardian_tel=:guardian_tel, village_birth=:village_birth, district_birth=:district_birth, province_birth=:province_birth, 
                     village_current=:village_current, district_current=:district_current, province_current=:province_current, house_unit=:house_unit, house_no=:house_no, season_start=:season_start, highschool=:highschool, season_hsc=:season_hsc,
                     village_study=:village_study, district_study=:district_study, province_study=:province_study, employment_history=:employment_history, language_proficiency=:language_proficiency, 
@@ -298,7 +300,7 @@ if (!isset($_SESSION['admin_login'])) {
                     $stmt2->bindParam(':gender', $gender);
                     $stmt2->bindParam(':fname_la', $fname_la);
                     $stmt2->bindParam(':lname_la', $lname_la);
-                    $stmt2->bindParam(':study_program', $study_program);
+                    $stmt2->bindParam(':prog_id', $study_program);
                     $stmt2->bindParam(':fname_ch', $fname_ch);
                     $stmt2->bindParam(':lname_ch', $lname_ch);
                     $stmt2->bindParam(':dob', $dob);
@@ -484,9 +486,12 @@ if (!isset($_SESSION['admin_login'])) {
                                             <div class="form-group local-forms">
                                                 <label>Program Of Studying <span class="login-danger">*</span></label>
                                                 <select class="form-control select <?php echo $study_program_red_border ?>" name="study_program">
-                                                    <option><?php echo $std_row['study_program'] ?></option>
-                                                    <option>Bachelor Program</option>
-                                                    <option>Diploma in TVET</option>
+                                                    <option><?php echo $std_row['prog_id'] ?></option>
+                                                    <?php $i = 0;
+                                                    foreach ($programs as $program) {
+                                                        $i++; ?>
+                                                        <option value="<?php echo $program['prog_id'] ?>"> <?php echo $program['program'] ?> </option>
+                                                    <?php } ?>
                                                 </select>
                                                 <div class="error"><?php echo $study_program_err ?></div>
                                             </div>

@@ -11,7 +11,7 @@ if (!isset($_SESSION['admin_login'])) {
 } else {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $seasonID = getseaSonByID($id, $conn);
+        $seasonID = getSeasonByID($id, $conn);
         if (isset($_REQUEST['submit'])) {
 
             $check_season = $conn->prepare("SELECT season FROM seasons WHERE season = :season AND season != :seasonID_season");

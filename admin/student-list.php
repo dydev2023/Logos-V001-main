@@ -154,7 +154,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                             ?>
                                                         </h2>
                                                     </td>
-                                                    <td><?php echo $student['study_program'] ?></td>
+                                                    <td><?php echo $student['prog_id'] ?></td>
                                                     <td><?php echo $student['part'] ?></td>
                                                     <td><?php echo $student['std_status'] ?></td>
                                                     <td><?php echo $student['tel'] ?></td>
