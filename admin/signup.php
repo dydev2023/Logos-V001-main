@@ -25,10 +25,11 @@ if (isset($_REQUEST['submit'])) {
             $passHash = password_hash($u_id, PASSWORD_DEFAULT);
 
             // Add User
-            $stmt1 = $conn->prepare('INSERT INTO users(u_id, email, u_pass, status) 
-                                                  VALUES (:u_id, :email, :u_pass, :status)');
+            $stmt1 = $conn->prepare('INSERT INTO users(u_id, email, tel, u_pass, status) 
+                                                  VALUES (:u_id, :email, :tel, :u_pass, :status)');
             $stmt1->bindParam(':u_id', $u_id);
             $stmt1->bindParam(':email', $email);
+            $stmt1->bindParam(':tel', $tel);
             $stmt1->bindParam(':u_pass', $passHash);
             $stmt1->bindParam(':status', $status);
 

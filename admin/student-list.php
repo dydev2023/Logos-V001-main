@@ -142,8 +142,17 @@ if (!isset($_SESSION['admin_login'])) {
                                                     <td><?php echo $student['std_id'] ?></td>
                                                     <td>
                                                         <h2 class="table-avatar">
-                                                            <?php $student_image = $student['image'] ?>
-                                                            <a href="student-detail.php?$id=<? $student['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/student_profile/$student_image" ?>" alt="User Image"></a>
+                                                            <?php 
+                                                            $student_image = $student['image'];
+
+                                                            if ($student_image == '') { ?>
+                                                                <!-- <img src="<?php echo "upload/profile.png" ?>" alt="Logo" width="150px"> -->
+                                                                <a href="student-detail.php?$id=<? $student['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/profile.png" ?>" alt="User Image"></a>
+                                                            <?php } else { ?>
+                                                                <a href="student-detail.php?$id=<? $student['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/student_profile/$student_image" ?>" alt="User Image"></a>
+                                                            <?php } ?>
+                                                            
+                                                            
 
                                                             <?php
                                                             if ($student['gender'] == 'Male') { ?>
