@@ -139,7 +139,7 @@ if(isset($_REQUEST['submit'])){
                                         <span class="profile-views feather-eye toggle-password"></span>
                                         <div class="error position-absolute"><?php echo $password_Err ?></div>
                                     </div>
-                                    <p>Don't have an account <a href="admin/signup.php">Click here</a></p>
+                                    <!-- <p>Don't have an account <a href="admin/signup.php">Click here</a></p> -->
                                     <div class="form-group">
                                         <button class="btn btn-primary btn-block" type="submit" name="submit">Login</button>
                                     </div>

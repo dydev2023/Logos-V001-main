@@ -1,141 +1,167 @@
 <?php
 session_start();
 require_once '../config/dbcon.php';
+include "admin-datas/season-db.php";
+include "admin-datas/student-db.php";
 
-$officer = $fname_en = $lname_en = $gender = $fname_la = $lname_la = $dob = $fname_ch = '';
-$lname_ch = $tel = $whatsapp = $email = $village = $district = $province = $emp_history = '';
-$nation = $religion = $university = $image_file = $ethnicity = $position = $lg_proficiency = '';
-$th_type = $deploma = $deploma_amount = $undergraduate = $undergraduate_amount = $master = $doctorate = $graduation = '';
+$u_id = $fname_en = $lname_en = $fname_la = $lname_la = $fname_ch = $lname_ch = $gender = $dob = $village_birth = $district_birth = $province_birth = $emergency_tel = $emergency_name = $edu_level1 = $edu_branch1 = $univ_name1 = $edu_district1 = $edu_province1 = $edu_level2 = $edu_branch2 = $univ_name2 = $edu_district2 = $edu_province2 = $status = '';
+$tel = $whatsapp = $email = $village_current = $district_current = $province_current = $ethnicity = $nation = $religion = $house_unit = $house_no = $image_file = '';
+$highschool = $edu_season1 = $edu_season2 = '';
+$employment_history = $talent = $language_proficiency = $familymatters = $plansforthefuture = '';
 
-$officer_err = $fname_en_err = $lname_en_err = $gender_err = $fname_la_err = $lname_la_err = $dob_err = $fname_ch_err = '';
-$lname_ch_err = $tel_err = $whatsapp_err = $email_err = $village_err = $district_err = $province_err = '';
-$nation_err = $religion_err  = $university_err = $image_file_err = $ethnicity_err = $position_err =  '';
-$th_type_err = $deploma_err = $deploma_amount_err = $undergraduate_err = $undergraduate_amount_err = $master_err = $doctorate_err = $graduation_err = '';
 
-$officer_red_border = $fname_en_red_border = $lname_en_red_border = $gender_red_border = $fname_la_red_border = $lname_la_red_border = $dob_red_border = $fname_ch_red_border = '';
-$lname_ch_red_border = $tel_red_border = $whatsapp_red_border = $email_red_border = $village_red_border = $district_red_border = $province_red_border = '';
-$nation_red_border = $religion_red_border = $university_red_border = $ethnicity_red_border = $position_red_border = '';
-$th_type_red_border = $deploma_red_border = $deploma_amount_red_border = $undergraduate_red_border = $undergraduate_amount_red_border = $master_red_border = $doctorate_red_border = $graduation_red_border = '';
+$u_id_err = $fname_en_err = $lname_en_err = $fname_la_err = $lname_la_err = $fname_ch_err = $lname_ch_err = $gender_err = $dob_err = $village_birth_err = $district_birth_err = $province_birth_err = $emergency_tel_err = $emergency_name_err = $edu_level1_err = $edu_branch1_err = $univ_name1_err = $edu_district1_err = $edu_province1_err = $status_err = '';
+$tel_err = $whatsapp_err = $email_err = $village_current_err = $district_current_err = $province_current_err = $ethnicity_err = $nation_err = $religion_err = $house_unit_err = $house_no_err = $image_file_err = '';
+$highschool_err = $edu_season1_err = '';
+
+
+$u_id_red_border = $fname_en_red_border = $lname_en_red_border = $fname_la_red_border = $lname_la_red_border = $fname_ch_red_border = $lname_ch_red_border = $gender_red_border = $dob_red_border = $village_birth_red_border = $district_birth_red_border = '';
+$province_birth_red_border = $emergency_tel_red_border = $emergency_name_red_border = $edu_level1_red_border = $edu_branch1_red_border = $univ_name1_red_border = $edu_district1_red_border = $edu_province1_red_border = $status_red_border = $tel_red_border = $whatsapp_red_border = $email_red_border = $village_current_red_border = $district_current_red_border = $province_current_red_border = '';
+$ethnicity_red_border = $nation_red_border = $religion_red_border = $house_unit_red_border = $house_no_red_border = $image_file_red_border = '';
+$highschool_red_border = $edu_season1_red_border = '';
+
+
+
 
 if (!isset($_SESSION['admin_login'])) {
     header('location: ../index.php');
     exit;
 } else {
-    // Select The E-mail in Database For Check
-    $check_u_id = $conn->prepare("SELECT u_id FROM users WHERE u_id = :u_id");
-    $check_u_id->bindParam(":u_id", $_REQUEST['officer_id']);
-    $check_u_id->execute();
-
-    $check_email = $conn->prepare("SELECT email FROM users WHERE email = :email");
-    $check_email->bindParam(":email", $_REQUEST['email']);
-    $check_email->execute();
-
-
-    // Select officer data in Database For Check
-    $check_tel = $conn->prepare("SELECT tel FROM teachers WHERE tel = :tel");
-    $check_tel->bindParam(":tel", $_REQUEST['tel']);
-    $check_tel->execute();
-
-    $check_whatsapp = $conn->prepare("SELECT whatsapp FROM teachers WHERE whatsapp = :whatsapp");
-    $check_whatsapp->bindParam(":whatsapp", $_REQUEST['whatsapp']);
-    $check_whatsapp->execute();
-
     if (isset($_REQUEST['submit'])) {
 
-        if (empty($_REQUEST['officer'])) {
-            $officer_err = 'Officer ID is required!';
-            $officer_red_border = 'red_border';
+        // Select The E-mail in Database For Check
+        $check_u_id = $conn->prepare("SELECT u_id FROM users WHERE u_id = :u_id");
+        $check_u_id->bindParam(":u_id", $_REQUEST['u_id']);
+        $check_u_id->execute();
+
+        $check_email = $conn->prepare("SELECT email FROM users WHERE email = :email");
+        $check_email->bindParam(":email", $_REQUEST['email']);
+        $check_email->execute();
+
+        // Select Teacher data in Database For Check
+        $check_tel = $conn->prepare("SELECT tel FROM officers WHERE tel = :tel");
+        $check_tel->bindParam(":tel", $_REQUEST['tel']);
+        $check_tel->execute();
+
+        $check_whatsapp = $conn->prepare("SELECT whatsapp FROM officers WHERE whatsapp = :whatsapp");
+        $check_whatsapp->bindParam(":whatsapp", $_REQUEST['whatsapp']);
+        $check_whatsapp->execute();
+
+        if (empty($_REQUEST["u_id"])) {
+            $u_id_err = 'User ID is required!';
+            $u_id_red_border = 'red_border';
         } elseif ($check_u_id->rowCount() > 0) {
-            $officer_err = 'This Officer ID is already exsist!';
-            $officer_red_border = 'red_border';
-            $officer = $_REQUEST['officer'];
+            $u_id_err = 'This User ID is already exsist!';
+            $u_id_red_border = 'red_border';
+            $u_id = $_REQUEST['u_id'];
         } else {
-            $officer = $_REQUEST['officer'];
+            $u_id = $_REQUEST['u_id'];
         }
 
-        if (empty($_REQUEST['fname_en'])) {
+        if (empty($_REQUEST["fname_en"])) {
             $fname_en_err = 'First name in English is required!';
             $fname_en_red_border = 'red_border';
         } else {
             $fname_en = $_REQUEST['fname_en'];
         }
 
-        if (empty($_REQUEST['lname_en'])) {
+        if (empty($_REQUEST["lname_en"])) {
             $lname_en_err = 'Last name in English is required!';
             $lname_en_red_border = 'red_border';
         } else {
             $lname_en = $_REQUEST['lname_en'];
         }
 
-        if (empty($_REQUEST['gender'])) {
+        if (empty($_REQUEST["gender"])) {
             $gender_err = 'Gender is required!';
             $gender_red_border = 'red_border';
         } else {
             $gender = $_REQUEST['gender'];
         }
 
-        if (empty($_REQUEST['fname_la'])) {
+        if (empty($_REQUEST["fname_la"])) {
             $fname_la_err = 'First name in Laos is required!';
             $fname_la_red_border = 'red_border';
         } else {
             $fname_la = $_REQUEST['fname_la'];
         }
 
-        if (empty($_REQUEST['lname_la'])) {
+        if (empty($_REQUEST["lname_la"])) {
             $lname_la_err = 'Last name in Laos is required!';
             $lname_la_red_border = 'red_border';
         } else {
             $lname_la = $_REQUEST['lname_la'];
         }
 
-        if (empty($_REQUEST['dob'])) {
+        if (empty($_REQUEST["fname_ch"])) {
+            $fname_ch_err = 'First name in Chiness is required!';
+            $fname_ch_red_border = 'red_border';
+        } else {
+            $fname_ch = $_REQUEST['fname_ch'];
+        }
+
+        if (empty($_REQUEST["lname_ch"])) {
+            $lname_ch_err = 'Last asrname in Chiness is required!';
+            $lname_ch_red_border = 'red_border';
+        } else {
+            $lname_ch = $_REQUEST['lname_ch'];
+        }
+
+        if (empty($_REQUEST["dob"])) {
             $dob_err = 'Date of birth is required!';
             $dob_red_border = 'red_border';
         } else {
             $dob = $_REQUEST['dob'];
         }
 
-        if (empty($_REQUEST['fname_ch'])) {
-            $fname_ch_err = 'First name in Chinese is required!';
-            $fname_ch_red_border = 'red_border';
+        if (empty($_REQUEST["nation"])) {
+            $nation_err = 'Nation is required!';
+            $nation_red_border = 'red_border';
         } else {
-            $fname_ch = $_REQUEST['fname_ch'];
+            $nation = $_REQUEST['nation'];
         }
 
-        if (empty($_REQUEST['lname_ch'])) {
-            $lname_ch_err = 'Last name in Chinese is required!';
-            $lname_ch_red_border = 'red_border';
+        if (empty($_REQUEST["religion"])) {
+            $religion_err = 'Religion is required!';
+            $religion_red_border = 'red_border';
         } else {
-            $lname_ch = $_REQUEST['lname_ch'];
+            $religion = $_REQUEST['religion'];
         }
 
-        if (empty($_REQUEST['tel'])) {
-            $tel_err = 'Tel is required!';
+        if (empty($_REQUEST["ethnicity"])) {
+            $ethnicity_err = 'Ethnicity is required!';
+            $ethnicity_red_border = 'red_border';
+        } else {
+            $ethnicity = $_REQUEST['ethnicity'];
+        }
+
+        if (empty($_REQUEST["tel"])) {
+            $tel_err = 'Phone number is required!';
             $tel_red_border = 'red_border';
         } elseif ($check_tel->rowCount() > 0) {
-            $tel_err = 'This Tel is already exsist!';
+            $tel_err = 'This phone number is already exsist!';
             $tel_red_border = 'red_border';
             $tel = $_REQUEST['tel'];
         } else {
             $tel = $_REQUEST['tel'];
         }
 
-        if (empty($_REQUEST['whatsapp'])) {
-            $whatsapp_err = 'Whatsapp is required!';
+        if (empty($_REQUEST["whatsapp"])) {
+            $whatsapp_err = 'Whatsapp namber is required!';
             $whatsapp_red_border = 'red_border';
         } elseif ($check_whatsapp->rowCount() > 0) {
-            $whatsapp_err = 'This whatsapp is already exsist!';
+            $whatsapp_err = 'This whatsapp number is already exsist!';
             $whatsapp_red_border = 'red_border';
             $whatsapp = $_REQUEST['whatsapp'];
         } else {
             $whatsapp = $_REQUEST['whatsapp'];
         }
 
-        if (empty($_REQUEST['email'])) {
+        if (empty($_REQUEST["email"])) {
             $email_err = 'E-mail is required!';
             $email_red_border = 'red_border';
         } elseif ($check_email->rowCount() > 0) {
-            $email_err = 'This E-mail is already exist!';
+            $email_err = 'This E-mail is already exsist!';
             $email_red_border = 'red_border';
             $email = $_REQUEST['email'];
         } elseif (!filter_var($_REQUEST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -146,94 +172,118 @@ if (!isset($_SESSION['admin_login'])) {
             $email = $_REQUEST['email'];
         }
 
-        if (empty($_REQUEST['village'])) {
-            $village_err = 'Village is required!';
-            $village_red_border = 'red_border';
+        if (empty($_REQUEST["emergency_tel"])) {
+            $emergency_tel_err = "Emergency contact number is required!";
+            $emergency_tel_red_border = 'red_border';
         } else {
-            $village = $_REQUEST['village'];
+            $emergency_tel = $_REQUEST['emergency_tel'];
         }
 
-        if (empty($_REQUEST['district'])) {
-            $district_err = 'District is required!';
-            $district_red_border = 'red_border';
+        if (empty($_REQUEST["emergency_name"])) {
+            $emergency_name_err = "Emergency contact name is required!";
+            $emergency_name_red_border = 'red_border';
         } else {
-            $district = $_REQUEST['district'];
+            $emergency_name = $_REQUEST['emergency_name'];
         }
 
-        if (empty($_REQUEST['province'])) {
-            $province_err = 'Province is required!';
-            $province_red_border = 'red_border';
+        if (empty($_REQUEST["village_birth"])) {
+            $village_birth_err = 'Village of birth is required!';
+            $village_birth_red_border = 'red_border';
         } else {
-            $province = $_REQUEST['province'];
+            $village_birth = $_REQUEST['village_birth'];
         }
 
-        if (empty($_REQUEST['nation'])) {
-            $nation_err = 'Nation is required!';
-            $nation_red_border = 'red_border';
+        if (empty($_REQUEST["district_birth"])) {
+            $district_birth_err = 'District of birth is required!';
+            $district_birth_red_border = 'red_border';
         } else {
-            $nation = $_REQUEST['nation'];
+            $district_birth = $_REQUEST['district_birth'];
         }
 
-        if (empty($_REQUEST['religion'])) {
-            $religion_err = 'Religion is required!';
-            $religion_red_border = 'red_border';
+        if (empty($_REQUEST["province_birth"])) {
+            $province_birth_err = 'Province of birth is required!';
+            $province_birth_red_border = 'red_border';
         } else {
-            $religion = $_REQUEST['religion'];
-        }
-        
-        if (empty($_REQUEST['ethnicity'])) {
-            $ethnicity_err = 'Ethnicity is required!';
-            $ethnicity_red_border = 'red_border';
-        } else {
-            $ethnicity = $_REQUEST['ethnicity'];
-        }
-        if (!empty($_REQUEST['deploma_amount'])){
-            $deploma_amount = $_REQUEST['deploma_amount'];
-        }
-        if (!empty($_REQUEST['deploma'])){
-            $deploma = $_REQUEST['deploma'];
+            $province_birth = $_REQUEST['province_birth'];
         }
 
-        if (empty($_REQUEST['undergraduate_amount'])) {
-            $undergraduate_amount_err = 'Undergraduate certificate amount is required!';
-            $undergraduate_amount_red_border = 'red_border';
-        }elseif ($_REQUEST['undergraduate_amount'] < 1) {
-            $undergraduate_amount_err = 'Invlid amount!';
-            $undergraduate_amount_red_border = 'red_border';
-            $undergraduate_amount = $_REQUEST['undergraduate_amount'];
+        if (empty($_REQUEST["village_current"])) {
+            $village_current_err = 'Current village is required!';
+            $village_current_red_border = 'red_border';
         } else {
-            $undergraduate_amount = $_REQUEST['undergraduate_amount'];
-        }
-        if (empty($_REQUEST['undergraduate'])) {
-            $undergraduate_err = 'Undergraduate certificate amount is required!';
-            $undergraduate_red_border = 'red_border';
-        } else {
-            $undergraduate = $_REQUEST['undergraduate'];
-        }
-        if (empty($_REQUEST['graduation'])) {
-            $graduation_err = 'Graduation year is required!';
-            $graduation_red_border = 'red_border';
-        } else {
-            $graduation = $_REQUEST['graduation'];
-        }
-        if (!empty($_REQUEST['emp_history'])){
-            $emp_history = $_REQUEST['emp_history'];
-        }
-        if (!empty($_REQUEST['lg_proficiency'])){
-            $lg_proficiency = $_REQUEST['lg_proficiency'];
-        }
-        if (empty($_REQUEST['position'])) {
-            $position_err = 'Position is required!';
-            $position_red_border = 'red_border';
-        } else {
-            $position = $_REQUEST['position'];
-        }
-        if (!empty($_REQUEST['master'])){
-            $master = $_REQUEST['master'];
+            $village_current = $_REQUEST['village_current'];
         }
 
-        if (empty($_FILES['txt_file']['name'])) {
-            $image_file_err = "Officer image is required!";
+        if (empty($_REQUEST["district_current"])) {
+            $district_current_err = 'Current district is required!';
+            $district_current_red_border = 'red_border';
+        } else {
+            $district_current = $_REQUEST['district_current'];
+        }
+
+        if (empty($_REQUEST["province_current"])) {
+            $province_current_err = 'Current province is required!';
+            $province_current_red_border = 'red_border';
+        } else {
+            $province_current = $_REQUEST['province_current'];
+        }
+
+        // For Education 1
+        if (empty($_REQUEST["edu_level1"])) {
+            $edu_level1_err = 'Education level is required!';
+            $edu_level1_red_border = 'red_border';
+        } else {
+            $edu_level1 = $_REQUEST['edu_level1'];
+        }
+        if (empty($_REQUEST["edu_branch1"])) {
+            $edu_branch1_err = 'Education branch is required!';
+            $edu_branch1_red_border = 'red_border';
+        } else {
+            $edu_branch1 = $_REQUEST['edu_branch1'];
+        }
+        if (empty($_REQUEST["univ_name1"])) {
+            $univ_name1_err = 'University is required!';
+            $univ_name1_red_border = 'red_border';
+        } else {
+            $univ_name1 = $_REQUEST['univ_name1'];
+        }
+        if (empty($_REQUEST["edu_district1"])) {
+            $edu_district1_err = 'University district is required!';
+            $edu_district1_red_border = 'red_border';
+        } else {
+            $edu_district1 = $_REQUEST['edu_district1'];
+        }
+        if (empty($_REQUEST["edu_province1"])) {
+            $edu_province1_err = 'University province is required!';
+            $edu_province1_red_border = 'red_border';
+        } else {
+            $edu_province1 = $_REQUEST['edu_province1'];
+        }
+        if (empty($_REQUEST["edu_season1"])) {
+            $edu_season1_err = 'High school season is required!';
+            $edu_season1_red_border = 'red_border';
+        } else {
+            $edu_season1 = $_REQUEST['edu_season1'];
+        }
+
+        // For other Educations
+        $edu_level2 = $_REQUEST['edu_level2'];
+        $edu_branch2 = $_REQUEST['edu_branch2'];
+        $univ_name2 = $_REQUEST['univ_name2'];
+        $edu_district2 = $_REQUEST['edu_district2'];
+        $edu_province2 = $_REQUEST['edu_province2'];
+        $edu_season2 = $_REQUEST['edu_season2'];
+
+        $house_no = $_REQUEST['house_no'];
+        $house_unit = $_REQUEST['house_unit'];
+        $employment_history = $_REQUEST['employment_history'];
+        $language_proficiency = $_REQUEST['language_proficiency'];
+        $talent = $_REQUEST['talent'];
+        $familymatters = $_REQUEST['familymatters'];
+        $plansforthefuture = $_REQUEST['plansforthefuture'];
+
+        if (empty($_FILES["txt_file"]['name'])) {
+            $image_file_err = "Teacher image is required!";
         } else {
             $image_file = $_FILES['txt_file']['name'];
             $type = $_FILES['txt_file']['type'];
@@ -242,62 +292,86 @@ if (!isset($_SESSION['admin_login'])) {
         }
 
         if (
-            !empty($officer) && !empty($fname_en) && !empty($lname_en) && !empty($gender) && !empty($fname_la) && !empty($th_type) && !empty($deploma) && !empty($doctorate) &&
-            !empty($lname_la) && !empty($dob) && !empty($fname_ch) && !empty($lname_ch) && !empty($tel) && !empty($deploma_amount) && !empty($undergraduate) && !empty($graduation) &&
-            !empty($whatsapp) && !empty($email) && !empty($village) && !empty($district) && !empty($province) && !empty($undergraduate_amount) && !empty($master) && !empty($ethnicity) &&
-            !empty($nation) && !empty($religion) && !empty($university) && !empty($image_file) && filter_var($_REQUEST['email'], FILTER_VALIDATE_EMAIL) && !empty($position)
+            !empty($u_id) and !empty($fname_en) and !empty($lname_en) and !empty($gender) and !empty($fname_la) and !empty($lname_la) and !empty($fname_ch) and
+            !empty($lname_ch) and !empty($dob) and !empty($nation) and !empty($religion) and !empty($ethnicity) and !empty($tel) and !empty($whatsapp) and !empty($email) and
+            !empty($emergency_tel) and !empty($emergency_name) and !empty($village_birth) and !empty($district_birth) and !empty($province_birth) and !empty($village_current) and !empty($district_current) and
+            !empty($province_current) and !empty($edu_level1) and !empty($edu_branch1) and !empty($univ_name1) and !empty($edu_district1) and !empty($edu_province1) and !empty($edu_season1) and !empty($image_file)
         ) {
             try {
                 $status = 'Officer';
+                $passHash = password_hash($u_id, PASSWORD_DEFAULT);
 
-                if ($type == "image/jpg" || $type == 'image/jpeg' || $type == "image/png" || $type == "image/gif") {
-                    $passwordHash = password_hash($officer, PASSWORD_DEFAULT);
+                // Add User
+                $stmt1 = $conn->prepare('INSERT INTO users(u_id, email, u_pass, status) 
+                                                  VALUES (:u_id, :email, :u_pass, :status)');
+                $stmt1->bindParam(':u_id', $u_id);
+                $stmt1->bindParam(':email', $email);
+                $stmt1->bindParam(':u_pass', $passHash);
+                $stmt1->bindParam(':status', $status);
 
-                    // Add User
-                    $stmt1 = $conn->prepare('INSERT INTO users(u_id, email, u_pass, status) 
-                                                                VALUES (:u_id, :email, :u_pass, :status)');
-                    $stmt1->bindParam(':u_id', $officer);
-                    $stmt1->bindParam(':email', $email);
-                    $stmt1->bindParam(':u_pass', $passwordHash);
-                    $stmt1->bindParam(':status', $status);
+                // Add Teacher
+                $stmt2 = $conn->prepare('INSERT INTO officers(off_id, u_id, fname_en, lname_en, gender, fname_la, lname_la, fname_ch, lname_ch, dob, nation, religion, ethnicity, tel, whatsapp, email, 
+                emergency_tel, emergency_name, village_birth, district_birth, province_birth, village_current, district_current, province_current, house_unit, house_no, 
+                edu_level1, edu_branch1, univ_name1, edu_district1, edu_province1, edu_season1, edu_level2, edu_branch2, univ_name2, edu_district2, edu_province2, edu_season2,
+                employment_history, language_proficiency, talent, familymatters, plansforthefuture, image) 
+                                    VALUES(:off_id, :u_id, :fname_en, :lname_en, :gender, :fname_la, :lname_la, :fname_ch, :lname_ch, :dob, :nation, :religion, :ethnicity, :tel, :whatsapp, :email,
+                :emergency_tel, :emergency_name, :village_birth, :district_birth, :province_birth, :village_current, :district_current, :province_current, :house_unit, :house_no, 
+                :edu_level1, :edu_branch1, :univ_name1, :edu_district1, :edu_province1, :edu_season1, :edu_level2, :edu_branch2, :univ_name2, :edu_district2, :edu_province2, :edu_season2,
+                :employment_history, :language_proficiency, :talent, :familymatters, :plansforthefuture, :image)');
+                $stmt2->bindParam(':off_id', $u_id);
+                $stmt2->bindParam(':u_id', $u_id);
+                $stmt2->bindParam(':fname_en', $fname_en);
+                $stmt2->bindParam(':lname_en', $lname_en);
+                $stmt2->bindParam(':gender', $gender);
+                $stmt2->bindParam(':fname_la', $fname_la);
+                $stmt2->bindParam(':lname_la', $lname_la);
+                $stmt2->bindParam(':fname_ch', $fname_ch);
+                $stmt2->bindParam(':lname_ch', $lname_ch);
+                $stmt2->bindParam(':dob', $dob);
+                $stmt2->bindParam(':nation', $nation);
+                $stmt2->bindParam(':religion', $religion);
+                $stmt2->bindParam(':ethnicity', $ethnicity);
+                $stmt2->bindParam(':tel', $tel);
+                $stmt2->bindParam(':whatsapp', $whatsapp);
+                $stmt2->bindParam(':email', $email);
+                $stmt2->bindParam(':emergency_tel', $emergency_tel);
+                $stmt2->bindParam(':emergency_name', $emergency_name);
+                $stmt2->bindParam(':village_birth', $village_birth);
+                $stmt2->bindParam(':district_birth', $district_birth);
+                $stmt2->bindParam(':province_birth', $province_birth);
+                $stmt2->bindParam(':village_current', $village_current);
+                $stmt2->bindParam(':district_current', $district_current);
+                $stmt2->bindParam(':province_current', $province_current);
+                $stmt2->bindParam(':house_unit', $house_unit);
+                $stmt2->bindParam(':house_no', $house_no);
+                $stmt2->bindParam(':edu_level1', $edu_level1);
+                $stmt2->bindParam(':edu_branch1', $edu_branch1);
+                $stmt2->bindParam(':univ_name1', $univ_name1);
+                $stmt2->bindParam(':edu_district1', $edu_district1);
+                $stmt2->bindParam(':edu_province1', $edu_province1);
+                $stmt2->bindParam(':edu_season1', $edu_season1);
+                $stmt2->bindParam(':edu_level2', $edu_level2);
+                $stmt2->bindParam(':edu_branch2', $edu_branch2);
+                $stmt2->bindParam(':univ_name2', $univ_name2);
+                $stmt2->bindParam(':edu_district2', $edu_district2);
+                $stmt2->bindParam(':edu_province2', $edu_province2);
+                $stmt2->bindParam(':edu_season2', $edu_season2);
+                $stmt2->bindParam(':employment_history', $employment_history);
+                $stmt2->bindParam(':language_proficiency', $language_proficiency);
+                $stmt2->bindParam(':talent', $talent);
+                $stmt2->bindParam(':familymatters', $familymatters);
+                $stmt2->bindParam(':plansforthefuture', $plansforthefuture);
+                $stmt2->bindParam(':image', $image_file);
 
-                    // Add Admin
-                    $stmt2 = $conn->prepare('INSERT INTO teachers(id,officer, fname_en, lname_en, fname_la, lname_la, fname_ch, lname_ch, gender, dob, tel, whatsapp, email, village, district, province, nation, religion, university, image) 
-                                        VALUES(LAST_INSERT_ID(), :officer, :fname_en, :lname_en, :fname_la, :lname_la, :fname_ch, :lname_ch, :gender, :dob, :tel, :whatsapp, :email, :village, :district, :province, :nation, :religion, :university, :image)');
-                    $stmt2->bindParam(':officer', $officer);
-                    $stmt2->bindParam(':fname_en', $fname_en);
-                    $stmt2->bindParam(':fname_la', $fname_la);
-                    $stmt2->bindParam(':fname_ch', $fname_ch);
-                    $stmt2->bindParam(':lname_en', $lname_en);
-                    $stmt2->bindParam(':lname_la', $lname_la);
-                    $stmt2->bindParam(':lname_ch', $lname_ch);
-                    $stmt2->bindParam(':gender', $gender);
-                    $stmt2->bindParam(':dob', $dob);
-                    $stmt2->bindParam(':tel', $tel);
-                    $stmt2->bindParam(':whatsapp', $whatsapp);
-                    $stmt2->bindParam(':email', $email);
-                    $stmt2->bindParam(':village', $village);
-                    $stmt2->bindParam(':district', $district);
-                    $stmt2->bindParam(':province', $province);
-                    $stmt2->bindParam(':nation', $nation);
-                    $stmt2->bindParam(':religion', $religion);
-                    $stmt2->bindParam(':university', $university);
-                    $stmt2->bindParam(':image', $image_file);
+                $stmt1->execute();
+                $stmt2->execute();
 
-                    // $stmt1->execute();
-                    // $stmt2->execute();
+                $path = "upload/officer_profile/" . $image_file; // set upload folder path
+                move_uploaded_file($temp, 'upload/officer_profile/' . $image_file); // move upload file temperory directory to your upload folder
 
-                    $path = "upload/officer_profile/" . $image_file; // set upload folder path
-                    move_uploaded_file($temp, 'upload/officer_profile/' . $image_file); // move upload file temperory directory to your upload folder
-
-                    $_SESSION['success'] = "Add officer successfully. <a href='officer-list.php'> Click here to see the detail. </a>";
-                    header('location: officer-add.php');
-                    exit;
-                } else {
-                    $_SESSION['error'] = "Upload JPG, JPEG & PNG file formate!";
-                    header('location: officer-add.php');
-                    exit;
-                }
+                $_SESSION['success'] = "Add Officer successfully. <a href='officer-list.php'> Click here to details </a>";
+                header('location: officer-add.php');
+                exit;
             } catch (PDOException $e) {
                 $e->getMessage();
             }
@@ -332,22 +406,21 @@ if (!isset($_SESSION['admin_login'])) {
 
     <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
 
+    <link rel="stylesheet" href="../assets/plugins/twitter-bootstrap-wizard/form-wizard.css">
+
     <link rel="stylesheet" href="../assets/css/style.css">
 
     <link rel="stylesheet" href="../assets/css/validate-form.css">
 </head>
 
 <body>
-
     <div class="main-wrapper">
-
         <?php
         include_once("../include/header.php");
         include_once("../include/sidebar.php");
         ?>
         <div class="page-wrapper">
             <div class="content container-fluid">
-
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col-sm-12">
@@ -361,7 +434,6 @@ if (!isset($_SESSION['admin_login'])) {
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card comman-shadow">
@@ -385,16 +457,15 @@ if (!isset($_SESSION['admin_login'])) {
                                         </div>
                                     <?php } ?>
 
-
                                     <div class="row">
                                         <div class="col-12">
                                             <h5 class="form-title student-info">Officer Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Officer ID <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $officer_red_border ?>" type="text" name="officer" value="<?php echo $officer ?>">
-                                                <div class="error"><?php echo $officer_err ?></div>
+                                                <label>User ID <span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $u_id_red_border ?>" type="text" name="u_id" value="<?php echo $u_id ?>">
+                                                <div class="error"><?php echo $u_id_err ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
@@ -437,13 +508,6 @@ if (!isset($_SESSION['admin_login'])) {
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms calendar-icon">
-                                                <label>Date Of Birth <span class="login-danger">*</span></label>
-                                                <input class="form-control datetimepicker <?php echo $dob_red_border ?>" type="text" name="dob" value="<?php echo $dob ?>">
-                                                <div class="error position-absolute"><?php echo $dob_err ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
                                                 <label>First Name(Chines) <span class="login-danger">*</span></label>
                                                 <input class="form-control <?php echo $fname_ch_red_border ?>" type="text" name="fname_ch" value="<?php echo $fname_ch ?>">
@@ -458,50 +522,15 @@ if (!isset($_SESSION['admin_login'])) {
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Phone Number <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $tel_red_border ?>" type="text" name="tel" value="<?php echo $tel ?>">
-                                                <div class="error"><?php echo $tel_err ?></div>
+                                            <div class="form-group local-forms calendar-icon">
+                                                <label>Date Of Birth <span class="login-danger">*</span></label>
+                                                <input class="form-control datetimepicker <?php echo $dob_red_border ?>" type="text" name="dob" value="<?php echo $dob ?>">
+                                                <div class="error position-absolute"><?php echo $dob_err ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>WhatsApp Number <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $whatsapp_red_border ?>" type="text" name="whatsapp" value="<?php echo $whatsapp ?>">
-                                                <div class="error"><?php echo $whatsapp_err ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>E-Mail <span class="login-danger">*</span></label>
-                                                <input class="form-control <?php echo $email_red_border ?>" type="text" name="email" value="<?php echo $email ?>">
-                                                <div class="error"><?php echo $email_err ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Village <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $village_red_border ?>" type="text" name="village" value="<?php echo $village ?>">
-                                                <div class="error"><?php echo $village_err ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>District <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $district_red_border ?>" type="text" name="district" value="<?php echo $district ?>">
-                                                <div class="error"><?php echo $district_err ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Province <span class="login-danger">*</span></label>
-                                                <input class="form-control <?php echo $province_red_border ?>" type="text" name="province" value="<?php echo $province ?>">
-                                                <div class="error"><?php echo $province_err ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>National <span class="login-danger">*</span> </label>
+                                                <label>Nation <span class="login-danger">*</span> </label>
                                                 <input class="form-control <?php echo $nation_red_border ?>" type="text" name="nation" value="<?php echo $nation ?>">
                                                 <div class="error"><?php echo $nation_err ?></div>
                                             </div>
@@ -519,85 +548,230 @@ if (!isset($_SESSION['admin_login'])) {
                                                 <div class="error"><?php echo $religion_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">
+                                        <div class="col-12 col-sm-4"> <!--New element -->
                                             <div class="form-group local-forms">
                                                 <label>Ethnicity <span class="login-danger">*</span> </label>
                                                 <input class="form-control <?php echo $ethnicity_red_border ?>" type="text" name="ethnicity" value="<?php echo $ethnicity ?>">
                                                 <div class="error"><?php echo $ethnicity_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                        <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Deploma amount </label>
-                                                <input class="form-control <?php echo $deploma_amount_red_border ?>" type="number" name="deploma_amount" value="<?php echo $deploma_amount ?>">
-                                                <div class="error"><?php echo $deploma_amount_err ?></div>
+                                                <label>Tel<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $tel_red_border ?>" type="text" name="tel" value="<?php echo $tel ?>">
+                                                <div class="error"><?php echo $tel_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                        <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Deploma College</label>
-                                                <input class="form-control <?php echo $deploma_red_border ?>" type="text" name="deploma" value="<?php echo $deploma ?>">
-                                                <div class="error"><?php echo $deploma_err ?></div>
+                                                <label>WhatsApp <span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $whatsapp_red_border ?>" type="text" name="whatsapp" value="<?php echo $whatsapp ?>">
+                                                <div class="error"><?php echo $whatsapp_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                        <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Undergraduate amount <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $undergraduate_amount_red_border ?>" type="number" name="undergraduate_amount" value="<?php echo $undergraduate_amount ?>">
-                                                <div class="error"><?php echo $undergraduate_amount_err ?></div>
+                                                <label>E-Mail <span class="login-danger">*</span></label>
+                                                <input class="form-control <?php echo $email_red_border ?>" type="text" name="email" value="<?php echo $email ?>">
+                                                <div class="error"><?php echo $email_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                        <div class="col-12 col-sm-4"> <!--New element -->
                                             <div class="form-group local-forms">
-                                                <label>Undergraduate Univercity<span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $undergraduate_red_border ?>" type="text" name="undergraduate" value="<?php echo $undergraduate ?>">
-                                                <div class="error"><?php echo $undergraduate_err ?></div>
+                                                <label>Emergency contact Number </label>
+                                                <input class="form-control <?php echo $emergency_tel_red_border ?>" type="text" name="emergency_tel" value="<?php echo $emergency_tel ?>">
+                                                <div class="error"><?php echo $emergency_tel_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                        <div class="col-12 col-sm-4"> <!--New element -->
                                             <div class="form-group local-forms">
-                                                <label>Master Univercity </label>
-                                                <input class="form-control <?php echo $master_red_border ?>" type="text" name="master" value="<?php echo $master ?>">
-                                                <div class="error"><?php echo $master_err ?></div>
+                                                <label>Emergency contact Name </label>
+                                                <input class="form-control <?php echo $emergency_name_red_border ?>" type="text" name="emergency_name" value="<?php echo $emergency_name ?>">
+                                                <div class="error"><?php echo $emergency_name_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                        <div class="col-12 col-sm-4"> <!--New element -->
                                             <div class="form-group local-forms">
-                                                <label>Doctorate Univercity </label>
-                                                <input class="form-control <?php echo $doctorate_red_border ?>" type="text" name="doctorate" value="<?php echo $doctorate ?>">
-                                                <div class="error"><?php echo $doctorate_err ?></div>
+                                                <label>Village Of Birth <span class="login-danger">*</span></label>
+                                                <input class="form-control <?php echo $village_birth_red_border ?>" type="text" name="village_birth" value="<?php echo $village_birth ?>">
+                                                <div class="error"><?php echo $village_birth_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                        <div class="col-12 col-sm-4"> <!--New element -->
                                             <div class="form-group local-forms">
-                                                <label>Graduation Year<span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $graduation_red_border ?>" type="number" name="graduation" value="<?php echo $graduation ?>">
-                                                <div class="error"><?php echo $graduation_err ?></div>
+                                                <label>District Of Birth <span class="login-danger">*</span></label>
+                                                <input class="form-control <?php echo $district_birth_red_border ?>" type="text" name="district_birth" value="<?php echo $district_birth ?>">
+                                                <div class="error"><?php echo $district_birth_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                        <div class="col-12 col-sm-4"> <!--New element -->
                                             <div class="form-group local-forms">
-                                                <label>Employment History </label>
-                                                <input class="form-control" type="text" name="emp_history" value="<?php echo $emp_history ?>">
+                                                <label>Province Of Birth <span class="login-danger">*</span></label>
+                                                <input class="form-control <?php echo $province_birth_red_border ?>" type="text" name="province_birth" value="<?php echo $province_birth ?>">
+                                                <div class="error"><?php echo $province_birth_err ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Current Village <span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $village_current_red_border ?>" type="text" name="village_current" value="<?php echo $village_current ?>">
+                                                <div class="error"><?php echo $village_current_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Current District <span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $district_current_red_border ?>" type="text" name="district_current" value="<?php echo $district_current ?>">
+                                                <div class="error"><?php echo $district_current_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Current Province <span class="login-danger">*</span></label>
+                                                <input class="form-control <?php echo $province_current_red_border ?>" type="text" name="province_current" value="<?php echo $province_current ?>">
+                                                <div class="error"><?php echo $province_current_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4"> <!--New element -->
+                                            <div class="form-group local-forms">
+                                                <label>House Unit </label>
+                                                <input class="form-control <?php echo $house_unit_red_border ?>" type="text" name="house_unit" value="<?php echo $house_unit ?>">
+                                                <div class="error"><?php echo $house_unit_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4"> <!--New element -->
+                                            <div class="form-group local-forms">
+                                                <label>House No </label>
+                                                <input class="form-control <?php echo $house_no_red_border ?>" type="text" name="house_no" value="<?php echo $house_no ?>">
+                                                <div class="error"><?php echo $house_no_err ?></div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Education Level<span class="login-danger">*</span> </label>
+                                                <select class="form-control select <?php echo $edu_level1_red_border ?>" name="edu_level1">
+                                                    <option><?php echo $edu_level1 ?></option>
+                                                    <option>Deploma College</option>
+                                                    <option>Master Univercity</option>
+                                                </select>
+                                                <div class="error"><?php echo $edu_level1_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Gratuation Branch<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $edu_branch1_red_border ?>" type="text" name="edu_branch1" value="<?php echo $edu_branch1 ?>">
+                                                <div class="error"><?php echo $edu_branch1_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University Name<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $univ_name1_red_border ?>" type="text" name="univ_name1" value="<?php echo $univ_name1 ?>">
+                                                <div class="error"><?php echo $univ_name1_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University District<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $edu_district1_red_border ?>" type="text" name="edu_district1" value="<?php echo $edu_district1 ?>">
+                                                <div class="error"><?php echo $edu_district1_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University Province<span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $edu_province1_red_border ?>" type="text" name="edu_province1" value="<?php echo $edu_province1 ?>">
+                                                <div class="error"><?php echo $edu_province1_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Graduation Season<span class="login-danger">*</span></label>
+                                                <input class="form-control <?php echo $edu_season1_red_border ?>" type="text" name="edu_season1" value="<?php echo $edu_season1 ?>">
+                                                <div class="error"><?php echo $edu_season1_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Other Education Level</label>
+                                                <select class="form-control select" name="edu_level2">
+                                                    <option><?php echo $edu_level2 ?></option>
+                                                    <option>Deploma College</option>
+                                                    <option>Master Univercity</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Gratuation Branch</label>
+                                                <input class="form-control" type="text" name="edu_branch2" value="<?php echo $edu_branch2 ?>">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University Name</label>
+                                                <input class="form-control" type="text" name="univ_name2" value="<?php echo $univ_name2 ?>">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University District</label>
+                                                <input class="form-control" type="text" name="edu_district2" value="<?php echo $edu_district2 ?>">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>University Province</label>
+                                                <input class="form-control" type="text" name="edu_province2" value="<?php echo $edu_province2 ?>">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Graduation Season</label>
+                                                <input class="form-control" type="text" name="edu_season2" value="<?php echo $edu_season2 ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4"> <!--New element -->
+                                            <div class="form-group local-forms">
+                                                <label>Employment History</label>
+                                                <input class="form-control" type="text" name="employment_history" value="<?php echo $employment_history ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4"> <!--New element -->
                                             <div class="form-group local-forms">
                                                 <label>Language Proficiency </label>
-                                                <input class="form-control" type="text" name="lg_proficiency" value="<?php echo $lg_proficiency ?>">
+                                                <input class="form-control" type="text" name="language_proficiency" value="<?php echo $language_proficiency ?>">
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">       <!-- New elemant -->
+                                        <div class="col-12 col-sm-4"> <!--New element -->
                                             <div class="form-group local-forms">
-                                                <label>Position <span class="login-danger">*</span> </label>
-                                                <input class="form-control <?php echo $position_red_border ?>" type="text" name="position" value="<?php echo $position ?>">
-                                                <div class="error"><?php echo $position_err ?></div>
+                                                <label>Talent </label>
+                                                <input class="form-control" type="text" name="talent" value="<?php echo $talent ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Family Matters </label>
+                                                <input class="form-control" type="text" name="familymatters" value="<?php echo $familymatters ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Plans For Future </label>
+                                                <input class="form-control" type="text" name="plansforthefuture" value="<?php echo $plansforthefuture ?>">
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group students-up-files">
-                                                <label>Upload Photo 3x4cm <span class="login-danger">*</span> </label>
-                                                <input type="file" name="txt_file">
+                                                <label>Profile Image 3x4cm<span class="login-danger">* </span></label>
+                                                <input type="file" name="txt_file" value="<?php echo $image_file ?>">
                                                 <div class="error"><?php echo $image_file_err ?></div>
                                             </div>
                                         </div>

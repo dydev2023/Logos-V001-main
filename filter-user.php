@@ -23,9 +23,22 @@ if (isset($_REQUEST['submit'])) {
             $row = $check_data->fetch(PDO::FETCH_ASSOC);
             if ($check_data->rowCount() > 0) {
                 if ($u_id == $row['u_id']) {
-                    $_SESSION['studentInfor'] = $row['u_id'];
-                    header("location: studentInfo-add.php");
-                    exit;
+                    if ($row['status'] == 'Officer') {
+                        $_SESSION['officerInfo'] = $row['u_id'];
+                        header("location: officerInfo-add.php");
+                        exit;
+                    } else if ($row['status'] == 'Teacher') {
+                        $_SESSION['teacherInfo'] = $row['u_id'];
+                        header("location: teacherInfo-add.php");
+                        exit;
+                    }else if ($row['status'] == 'Student') {
+                        $_SESSION['studentInfo'] = $row['u_id'];
+                        header("location: studentInfo-add.php");
+                        exit;
+                    } else {
+                        $u_id_Err = "Wrong User ID!";
+                        $u_id_redborder = "red_border";
+                    }
                 } else {
                     $u_id_Err = "Wrong User ID!";
                     $u_id_redborder = "red_border";

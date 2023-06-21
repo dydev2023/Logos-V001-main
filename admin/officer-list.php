@@ -139,8 +139,12 @@ if (!isset($_SESSION['admin_login'])) {
                                                     <td><?php echo $officer['off_id'] ?></td>
                                                     <td>
                                                         <h2 class="table-avatar">
-                                                            <?php $officer_image = $officer['image'] ?>
-                                                            <a href="teacher-detail.php?$id=<? $officer['off_id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/teacher_profile/$officer_image" ?>" alt="User Image"></a>
+                                                            <?php $officer_image = $officer['image'];
+                                                            if ($officer_image == '') { ?>
+                                                                <a href="officer-detail.php?$id=<? $officer['off_id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/profile.png" ?>" alt="User Image"></a>
+                                                            <?php } else { ?>
+                                                                <a href="teacher-detail.php?$id=<? $officer['off_id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/officer_profile/$officer_image" ?>" alt="User Image"></a>
+                                                            <?php } ?>
 
                                                             <?php
                                                             if ($officer['gender'] == 'Male') { ?>

@@ -146,7 +146,6 @@ if (!isset($_SESSION['admin_login'])) {
                                                             $student_image = $student['image'];
 
                                                             if ($student_image == '') { ?>
-                                                                <!-- <img src="<?php echo "upload/profile.png" ?>" alt="Logo" width="150px"> -->
                                                                 <a href="student-detail.php?$id=<? $student['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/profile.png" ?>" alt="User Image"></a>
                                                             <?php } else { ?>
                                                                 <a href="student-detail.php?$id=<? $student['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/student_profile/$student_image" ?>" alt="User Image"></a>

@@ -344,11 +344,7 @@ if (!isset($_SESSION['admin_login'])) {
                     $_SESSION['success'] = "Update officer successfully.";
                     header('location: officer-list.php');
                     exit;
-                } else {
-                    $_SESSION['error'] = "Upload JPG, JPEG & PNG file formate!";
-                    header('location: officer-add.php');
-                    exit;
-                }
+                } 
             } catch (PDOException $e) {
                 $e->getMessage();
             }
@@ -757,8 +753,13 @@ if (!isset($_SESSION['admin_login'])) {
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group students-up-files">
                                                 <label>Image Profile 3x4cm (<?php echo $off_row['image'] ?>) <span class="login-danger">*</span> </label>
-                                                <?php $officerImage_file = $off_row['image'] ?>
-                                                <img src="<?php echo "upload/officer_profile/$officerImage_file" ?>" alt="Logo" width="150px">
+
+                                                <?php $officerImage_file = $off_row['image']; 
+                                                if ($officerImage_file == '') { ?>
+                                                    <img src="<?php echo "upload/profile.png" ?>" alt="Logo" width="150px">
+                                                <?php } else { ?>
+                                                    <img src="<?php echo "upload/officer_profile/$officerImage_file" ?>" alt="Logo" width="150px">
+                                                <?php } ?>
 
                                                 <label class="file-upload image-upbtn mb-0 ml-2">
                                                     Choose File <input type="file" name="txt_file" value="<?php echo $off_row['image'] ?>">

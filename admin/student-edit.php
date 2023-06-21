@@ -691,8 +691,8 @@ if (!isset($_SESSION['admin_login'])) {
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group students-up-files">
                                                 <label>Image Profile 3x4cm (<?php echo $std_row['image'] ?>) <span class="login-danger">*</span> </label>
-                                                <?php
 
+                                                <?php
                                                 $studentImage_file = $std_row['image'];
 
                                                 if ($studentImage_file == '') { ?>

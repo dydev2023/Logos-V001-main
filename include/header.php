@@ -188,11 +188,14 @@ if (isset($_SESSION['student_login'])) {
             <li class="nav-item dropdown has-arrow new-user-menus">
                 <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                     <span class="user-img">
-                        <?php $admin_image = $admin['image'] ?>
-                        <img class="rounded-circle" src="<?php echo "../admin/upload/admin_profile/$admin_image" ?>" width="31" alt="Soeng Souy">
+                        <?php $admin_image = $admin['image'];
+                        if ($admin_image == '') { ?>
+                            <img class="avatar-img rounded-circle" src="<?php echo "../admin/upload/profile.png" ?>" alt="User Image">
+                        <?php } else { ?>
+                            <img class="rounded-circle" src="<?php echo "../admin/upload/admin_profile/$admin_image" ?>" width="31" alt="User Image">
+                        <?php } ?>
+
                         <div class="user-text">
-
-
                             <h6><?php echo $admin['fname_en'] . " " . $admin['lname_en'] ?></h6>
                             <p class="text-muted mb-0"><?php echo $user['status'] ?></p>
 
@@ -202,7 +205,12 @@ if (isset($_SESSION['student_login'])) {
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img src="<?php echo "../admin/upload/admin_profile/$admin_image" ?>" alt="User Image" class="avatar-img rounded-circle">
+                            <?php $admin_image = $admin['image'];
+                            if ($admin_image == '') { ?>
+                                <img class="avatar-img rounded-circle" src="<?php echo "../admin/upload/profile.png" ?>" alt="User Image">
+                            <?php } else { ?>
+                                <img class="rounded-circle" src="<?php echo "../admin/upload/admin_profile/$admin_image" ?>" width="31" alt="User Image">
+                            <?php } ?>
                         </div>
                         <div class="user-text">
                             <h6><?php echo $admin['fname_en'] . " " . $admin['lname_en'] ?></h6>
@@ -262,11 +270,15 @@ if (isset($_SESSION['student_login'])) {
             <li class="nav-item dropdown has-arrow new-user-menus">
                 <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                     <span class="user-img">
-                        <?php $officer_image = $officer['image'] ?>
-                        <img class="rounded-circle" src="<?php echo "../admin/upload/officer_profile/$officer_image" ?>" width="31" alt="Image">
+
+                        <?php $officer_image = $officer['image'];
+                        if ($officer_image == '') { ?>
+                            <img class="avatar-img rounded-circle" src="<?php echo "../admin/upload/profile.png" ?>" alt="User Image">
+                        <?php } else { ?>
+                            <img class="rounded-circle" src="<?php echo "../admin/upload/officer_profile/$officer_image" ?>" width="31" alt="User Image">
+                        <?php } ?>
+
                         <div class="user-text">
-
-
                             <h6><?php echo $officer['fname_en'] . " " . $officer['lname_en'] ?></h6>
                             <p class="text-muted mb-0"><?php echo $user['status'] ?></p>
 
@@ -276,7 +288,12 @@ if (isset($_SESSION['student_login'])) {
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img src="<?php echo "../admin/upload/officer_profile/$officer_image" ?>" alt="User Image" class="avatar-img rounded-circle">
+                            <?php $officer_image = $officer['image'];
+                            if ($officer_image == '') { ?>
+                                <img class="avatar-img rounded-circle" src="<?php echo "../admin/upload/profile.png" ?>" alt="User Image">
+                            <?php } else { ?>
+                                <img class="rounded-circle" src="<?php echo "../admin/upload/officer_profile/$officer_image" ?>" width="31" alt="User Image">
+                            <?php } ?>
                         </div>
                         <div class="user-text">
                             <h6><?php echo $officer['fname_en'] . " " . $officer['lname_en'] ?></h6>
@@ -336,8 +353,12 @@ if (isset($_SESSION['student_login'])) {
                 <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                     <span class="user-img">
 
-                        <?php $teacher_image = $teacher['image'] ?>
-                        <img class="rounded-circle" src="<?php echo "../admin/upload/teacher_profile/$teacher_image" ?>" width="31" alt="Soeng Souy">
+                        <?php $teacher_image = $teacher['image'];
+                        if ($teacher_image == '') { ?>
+                            <img class="avatar-img rounded-circle" src="<?php echo "../admin/upload/profile.png" ?>" alt="User Image">
+                        <?php } else { ?>
+                            <img class="rounded-circle" src="<?php echo "../admin/upload/teacher_profile/$teacher_image" ?>" width="31" alt="User Image">
+                        <?php } ?>
 
                         <div class="user-text">
                             <h6><?php echo $teacher['t_id'] ?></h6>
@@ -349,7 +370,12 @@ if (isset($_SESSION['student_login'])) {
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img src="<?php echo "../admin/upload/teacher_profile/$teacher_image" ?>" alt="User Image" class="avatar-img rounded-circle">
+                            <?php $teacher_image = $teacher['image'];
+                            if ($teacher_image == '') { ?>
+                                <img class="avatar-img rounded-circle" src="<?php echo "../admin/upload/profile.png" ?>" alt="User Image">
+                            <?php } else { ?>
+                                <img class="rounded-circle" src="<?php echo "../admin/upload/teacher_profile/$teacher_image" ?>" width="31" alt="User Image">
+                            <?php } ?>
                         </div>
                         <div class="user-text">
                             <h6><?php echo $teacher['t_id'] ?></h6>
@@ -409,8 +435,13 @@ if (isset($_SESSION['student_login'])) {
             <li class="nav-item dropdown has-arrow new-user-menus">
                 <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                     <span class="user-img">
-                        <?php $student_image = $student['image'] ?>
-                        <img class="rounded-circle" src="<?php echo "../admin/upload/student_profile/$student_image" ?>" width="31" alt="Soeng Souy">
+                        <?php $student_image = $student['image'];
+                        if ($student_image == '') { ?>
+                            <img class="avatar-img rounded-circle" src="<?php echo "../admin/upload/profile.png" ?>" alt="User Image">
+                        <?php } else { ?>
+                            <img class="rounded-circle" src="<?php echo "../admin/upload/student_profile/$student_image" ?>" width="31" alt="User Image">
+                        <?php } ?>
+
                         <div class="user-text">
                             <h6><?php echo $student['fname_en'] . $student['lname_en'] ?></h6>
                             <p class="text-muted mb-0"><?php echo $user['status'] ?></p>
@@ -420,8 +451,12 @@ if (isset($_SESSION['student_login'])) {
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <?php $student_image = $student['image'] ?>
-                            <img src="<?php echo "../admin/upload/student_profile/$student_image" ?>" alt="User Image" class="avatar-img rounded-circle">
+                            <?php $student_image = $student['image'];
+                            if ($student_image == '') { ?>
+                                <img class="avatar-img rounded-circle" src="<?php echo "../admin/upload/profile.png" ?>" alt="User Image">
+                            <?php } else { ?>
+                                <img class="rounded-circle" src="<?php echo "../admin/upload/student_profile/$student_image" ?>" width="31" alt="User Image">
+                            <?php } ?>
                         </div>
                         <div class="user-text">
                             <h6><?php echo $student['fname_en'] . $student['lname_en'] ?></h6>

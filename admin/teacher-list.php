@@ -140,8 +140,13 @@ if (!isset($_SESSION['admin_login'])) {
                                                     <td><?php echo $teacher['t_id'] ?></td>
                                                     <td>
                                                         <h2 class="table-avatar">
-                                                            <?php $teacher_image = $teacher['image'] ?>
-                                                            <a href="teacher-detail.php?$id=<? $teacher['t_id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/teacher_profile/$teacher_image" ?>" alt="User Image"></a>
+                                                            <?php $teacher_image = $teacher['image'];
+                                                            if ($teacher_image == '') { ?>
+                                                                <a href="teacher-detail.php?$id=<? $teacher['t_id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/profile.png" ?>" alt="User Image"></a>
+                                                            <?php } else { ?>
+                                                                <a href="teacher-detail.php?$id=<? $teacher['t_id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/teacher_profile/$teacher_image" ?>" alt="User Image"></a>
+                                                            <?php } ?>
+                                                            
 
                                                             <?php
                                                             if ($teacher['gender'] == 'Male') { ?>

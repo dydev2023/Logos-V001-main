@@ -769,8 +769,16 @@ if (!isset($_SESSION['admin_login'])) {
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group students-up-files">
                                                 <label>Image Profile 3x4cm (<?php echo $t_row['image'] ?>) <span class="login-danger">*</span> </label>
-                                                <?php $teacherImage_file = $t_row['image'] ?>
-                                                <img src="<?php echo "upload/teacher_profile/$teacherImage_file" ?>" alt="Logo" width="150px">
+                                                
+                                                <?php
+                                                $teacherImage_file = $t_row['image'];
+
+                                                if ($teacherImage_file == '') { ?>
+                                                    <img src="<?php echo "upload/profile.png" ?>" alt="Logo" width="150px">
+                                                <?php } else { ?>
+                                                    <img src="<?php echo "upload/teacher_profile/$teacherImage_file" ?>" alt="Logo" width="150px">
+                                                <?php } ?>
+                                                
 
                                                 <label class="file-upload image-upbtn mb-0 ml-2">
                                                     Choose File <input type="file" name="txt_file" value="<?php echo $t_row['image'] ?>">
