@@ -116,11 +116,10 @@ if (!isset($_SESSION['admin_login'])) {
                                             <th>No</th>
                                             <th>Subject Name</th>
                                             <th>Teacher Name</th>
+                                            <th>Program</th>
                                             <th>Season</th>
                                             <th>Semester</th>
                                             <th>Credit</th>
-                                            <th>Created At</th>
-                                            <th>Updated At</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
@@ -132,27 +131,26 @@ if (!isset($_SESSION['admin_login'])) {
                                             </tr>
                                         <?php } else
                                             foreach ($subjects as $subject) {
-                                                $teacher = getTeacherById($subject['teacher_id'], $conn);
+                                                $teacher = getTeacherById($subject['t_id'], $conn);
                                                 $i++; ?>
 
                                             <tr>
                                                 <td><?php echo $i ?></td>
                                                 <td><?php echo $subject['name'] ?></td>
                                                 <td><?php echo $teacher['fname_en'] . ' ' . $teacher['lname_en'] ?></td>
+                                                <td><?php echo $subject['program'] ?></td>
                                                 <td><?php echo $subject['season'] ?></td>
                                                 <td><?php echo $subject['semester'] ?></td>
                                                 <td><?php echo $subject['credit'] ?></td>
-                                                <td><?php echo $subject['created_at'] ?></td>
-                                                <td><?php echo $subject['updated_at'] ?></td>
                                                 <td class="text-end">
                                                     <div class="actions ">
                                                         <a href="javascript:;" class="btn btn-sm bg-success-light me-2 ">
                                                             <i class="feather-eye"></i>
                                                         </a>
-                                                        <a href="subject-edit.php?id=<?= $subject['id'] ?>" class="btn btn-sm bg-danger-light">
+                                                        <a href="subject-edit.php?id=<?= $subject['sub_id'] ?>" class="btn btn-sm bg-danger-light">
                                                             <i class="feather-edit"></i>
                                                         </a>
-                                                        <a href="subject-delete.php?id=<?= $subject['id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
+                                                        <a href="subject-delete.php?id=<?= $subject['sub_id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
                                                             <i class="feather-delete"></i>
                                                         </a>
                                                     </div>

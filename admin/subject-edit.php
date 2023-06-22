@@ -3,17 +3,17 @@ session_start();
 require_once '../config/dbcon.php';
 include "admin-datas/season-db.php";
 include "admin-datas/teacher-db.php";
-include "admin-datas/subject-db.php";
-include "admin-datas/admin-db.php";
-include "admin-datas/room-db.php";
+include "admin-datas/program-db.php";
 
+$seasons = getLastSeason($conn);
+$teachers = getAllTeachers($conn);
+$programs = getAllPrograms($conn);
 
+$sub_id = $name = $teacher = $program = $season = $semester = $credit = '';
 
-$name = $teacher_id = $season = $semester = $credit = '';
+$sub_id_err = $name_err = $teacher_err = $program_err = $season_err = $semester_err = $credit_err = '';
 
-$name_err = $teacher_id_err = $season_err = $semester_err = $credit_err = '';
-
-$name_red_border = $teacher_id_red_border = $season_red_border =  $semester_red_border = $credit_red_border = '';
+$sub_id_red_border = $name_red_border = $teacher_red_border = $program_red_border = $season_red_border = $semester_red_border = $credit_red_border = '';
 
 if (!isset($_SESSION['admin_login'])) {
     header('location: ../index.php');
@@ -21,61 +21,75 @@ if (!isset($_SESSION['admin_login'])) {
 } else {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $seasons = getAllSeasons($conn);
-        $teachers = getAllTeachers($conn);
+
+        include "admin-datas/subject-db.php";
         $subject = getSubjectById($id, $conn);
-        $rooms = getAllRooms($conn);
 
         // for select teacher name instead teacher_ID
-        $t_id = $subject['teacher_id'];
+        $t_id = $subject['t_id'];
         $teacherByID = getTeacherById($t_id, $conn);
 
-        if (isset($_REQUEST['submit'])) {
 
-            if(empty($_REQUEST['name'])){
+        if (isset($_REQUEST['submit'])) {
+            if (empty($_REQUEST['sub_id'])) {
+                $sub_id_err = 'Subject ID is required!';
+                $sub_id_red_border = 'red_border';
+            } else {
+                $sub_id = $_REQUEST['sub_id'];
+            }
+
+            if (empty($_REQUEST['name'])) {
                 $name_err = 'Subject name is required!';
                 $name_red_border = 'red_border';
-            }else{
+            } else {
                 $name = $_REQUEST['name'];
             }
-    
-            if(empty($_REQUEST['teacher_id'])){
-                $teacher_id_err = 'Teacher is required!';
-                $teacher_id_red_border = 'red_border';
-            }else{
-                $teacher_id = $_REQUEST['teacher_id'];
+
+            if (empty($_REQUEST['teacher'])) {
+                $teacher_err = 'Teacher is required!';
+                $teacher_red_border = 'red_border';
+            } else {
+                $teacher = $_REQUEST['teacher'];
             }
-    
-            if(empty($_REQUEST['season'])){
+
+            if (empty($_REQUEST['program'])) {
+                $program_err = 'Program is required!';
+                $program_red_border = 'red_border';
+            } else {
+                $program = $_REQUEST['program'];
+            }
+
+            if (empty($_REQUEST['season'])) {
                 $season_err = 'Season is required!';
                 $season_red_border = 'red_border';
-            }else{
+            } else {
                 $season = $_REQUEST['season'];
             }
-    
-            if(empty($_REQUEST['semester'])){
+
+            if (empty($_REQUEST['semester'])) {
                 $semester_err = 'Semester is required!';
                 $semester_red_border = 'red_border';
-            }else{
+            } else {
                 $semester = $_REQUEST['semester'];
             }
 
-            if(empty($_REQUEST['credit'])){
+            if (empty($_REQUEST['credit'])) {
                 $credit_err = 'Credit is required!';
                 $credit_red_border = 'red_border';
-            }else{
+            } else {
                 $credit = $_REQUEST['credit'];
             }
-    
-            if(!empty($name) && !empty($teacher_id) && !empty($season) && !empty($semester) && !empty($credit)){
+
+            if(!empty($sub_id) && !empty($name) && !empty($teacher) && !empty($program) && !empty($season) && !empty($credit) && !empty($semester)){
                 try {
 
                     // Update Subject
-                    $sql = "UPDATE subjects SET name=:name, teacher_id=:teacher_id, season=:season, semester=:semester, credit=:credit WHERE id=:id";
+                    $sql = "UPDATE subjects SET t_id=:t_id, name=:name, program=:program, season=:season, semester=:semester, credit=:credit WHERE sub_id=:sub_id";
                     $stmt = $conn->prepare($sql);
-                    $stmt->bindParam(':id', $id);
+                    $stmt->bindParam(':sub_id', $id);
+                    $stmt->bindParam(':t_id', $t_id);
                     $stmt->bindParam(':name', $name);
-                    $stmt->bindParam(':teacher_id', $teacher_id);
+                    $stmt->bindParam(':program', $program);
                     $stmt->bindParam(':season', $season);
                     $stmt->bindParam(':semester', $semester);
                     $stmt->bindParam(':credit', $credit);
@@ -168,7 +182,7 @@ if (!isset($_SESSION['admin_login'])) {
                                         </div>
                                     <?php } ?>
 
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-12">
                                             <h5 class="form-title student-info">Subject Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
                                         </div>
@@ -183,7 +197,7 @@ if (!isset($_SESSION['admin_login'])) {
                                             <div class="form-group local-forms">
                                                 <label>Teacher<span class="login-danger">*</span></label>
                                                 <select class="form-control select <?php echo $teacher_id_red_border ?>" name="teacher_id">
-                                                    <option value="<?php echo $teacherByID['id']?>"><?php echo $teacherByID['fname_en'] . ' ' . $teacherByID['lname_en'] ?></option>
+                                                    <option value="<?php echo $teacherByID['id'] ?>"><?php echo $teacherByID['fname_en'] . ' ' . $teacherByID['lname_en'] ?></option>
                                                     <?php $i = 0;
                                                     foreach ($teachers as $teacher) {
                                                         $i++; ?>
@@ -233,6 +247,99 @@ if (!isset($_SESSION['admin_login'])) {
                                                 <div class="error"><?php echo $credit_err ?></div>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="student-submit">
+                                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h5 class="form-title student-info">Subject Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Subject ID <span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $sub_id_red_border ?>" type="text" name="sub_id" value="<?php echo $subject['sub_id'] ?>" readonly>
+                                                <div class="error"><?php echo $sub_id_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Subject Name <span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $name_red_border ?>" type="text" name="name" value="<?php echo $subject['name'] ?>">
+                                                <div class="error"><?php echo $name_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Teacher<span class="login-danger">*</span></label>
+                                                <select class="form-control select <?php echo $teacher_red_border ?>" name="teacher">
+                                                    <option><?php echo $teacherByID['fname_en'] . ' ' . $teacherByID['lname_en'] ?></option>
+                                                    <?php $i = 0;
+                                                    foreach ($teachers as $teacher) {
+                                                        $i++; ?>
+                                                        <option value="<?php echo $teacher['t_id'] ?>"> <?php echo $teacher['fname_en'] . ' ' . $teacher['lname_en'] ?> </option>
+                                                    <?php } ?>
+                                                </select>
+                                                <div class="error"><?php echo $teacher_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Program<span class="login-danger">*</span></label>
+                                                <select class="form-control select <?php echo $program_red_border ?>" name="program">
+                                                    <option><?php echo $subject['program'] ?></option>
+                                                    <?php $i = 0;
+                                                    foreach ($programs as $program) {
+                                                        $i++; ?>
+                                                        <option> <?php echo $program['program'] ?> </option>
+                                                    <?php } ?>
+                                                </select>
+                                                <div class="error"><?php echo $program_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Season<span class="login-danger">*</span></label>
+                                                <select class="form-control select <?php echo $season_red_border ?>" name="season">
+                                                    <?php $i = 0;
+                                                    foreach ($seasons as $season) {
+                                                        $i++; ?>
+                                                        <option> <?php echo $season['season'] ?> </option>
+                                                    <?php } ?>
+                                                </select>
+                                                <div class="error"><?php echo $season_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Semester<span class="login-danger">*</span></label>
+                                                <select class="form-control select <?php echo $semester_red_border ?>" name="semester">
+                                                    <option><?php echo $subject['semester'] ?></option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                </select>
+                                                <div class="error"><?php echo $semester_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Credit<span class="login-danger">*</span></label>
+                                                <select class="form-control select <?php echo $credit_red_border ?>" name="credit">
+                                                    <option><?php echo $subject['credit'] ?></option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                </select>
+                                                <div class="error"><?php echo $credit_err ?></div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-12">
                                             <div class="student-submit">
                                                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>

@@ -3,22 +3,29 @@ session_start();
 require_once '../config/dbcon.php';
 include "admin-datas/season-db.php";
 include "admin-datas/teacher-db.php";
-include "admin-datas/admin-db.php";
-include "admin-datas/room-db.php";
-$seasons = getAllSeasons($conn);
+include "admin-datas/program-db.php";
+$seasons = getLastSeason($conn);
 $teachers = getAllTeachers($conn);
+$programs = getAllPrograms($conn);
 
-$name = $teacher = $season = $semester = $credit = '';
+$sub_id = $name = $teacher = $program = $season = $semester = $credit = '';
 
-$name_err = $teacher_err = $season_err = $semester_err = $credit_err = '';
+$sub_id_err = $name_err = $teacher_err = $program_err = $season_err = $semester_err = $credit_err = '';
 
-$name_red_border = $teacher_red_border = $season_red_border = $semester_red_border = $credit_red_border = '';
+$sub_id_red_border = $name_red_border = $teacher_red_border = $program_red_border = $season_red_border = $semester_red_border = $credit_red_border = '';
 
 if (!isset($_SESSION['admin_login'])) {
     header('location: ../index.php');
     exit;
 } else {
     if (isset($_REQUEST['submit'])) {
+
+        if(empty($_REQUEST['sub_id'])){
+            $sub_id_err = 'Subject ID is required!';
+            $sub_id_red_border = 'red_border';
+        }else{
+            $sub_id = $_REQUEST['sub_id'];
+        }
 
         if(empty($_REQUEST['name'])){
             $name_err = 'Subject name is required!';
@@ -32,6 +39,13 @@ if (!isset($_SESSION['admin_login'])) {
             $teacher_red_border = 'red_border';
         }else{
             $teacher = $_REQUEST['teacher'];
+        }
+
+        if(empty($_REQUEST['program'])){
+            $program_err = 'Program is required!';
+            $program_red_border = 'red_border';
+        }else{
+            $program = $_REQUEST['program'];
         }
 
         if(empty($_REQUEST['season'])){
@@ -55,15 +69,17 @@ if (!isset($_SESSION['admin_login'])) {
             $credit = $_REQUEST['credit'];
         }
 
-        if(!empty($name) && !empty($teacher) && !empty($season) && !empty($credit) && !empty($semester)){
+        if(!empty($sub_id) && !empty($name) && !empty($teacher) && !empty($program) && !empty($season) && !empty($credit) && !empty($semester)){
             try {
 
                 // Add Student
-                $stmt = $conn->prepare('INSERT INTO subjects(name, teacher_id, season, semester, credit) 
-                                                    VALUES(:name, :teacher_id, :season, :semester, :credit)');
+                $stmt = $conn->prepare('INSERT INTO subjects(sub_id, t_id, name, program, season, semester, credit) 
+                                                    VALUES(:sub_id, :t_id, :name, :program, :season, :semester, :credit)');
 
+                $stmt->bindParam(':sub_id', $sub_id);
+                $stmt->bindParam(':t_id', $teacher);
                 $stmt->bindParam(':name', $name);
-                $stmt->bindParam(':teacher_id', $teacher);
+                $stmt->bindParam(':program', $program);
                 $stmt->bindParam(':season', $season);
                 $stmt->bindParam(':semester', $semester);
                 $stmt->bindParam(':credit', $credit);
@@ -163,6 +179,13 @@ if (!isset($_SESSION['admin_login'])) {
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
+                                                <label>Subject ID <span class="login-danger">*</span> </label>
+                                                <input class="form-control <?php echo $sub_id_red_border ?>" type="text" name="sub_id" value="<?php echo $sub_id ?>">
+                                                <div class="error"><?php echo $sub_id_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
                                                 <label>Subject Name <span class="login-danger">*</span> </label>
                                                 <input class="form-control <?php echo $name_red_border ?>" type="text" name="name" value="<?php echo $name ?>">
                                                 <div class="error"><?php echo $name_err ?></div>
@@ -176,7 +199,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                     <?php $i = 0;
                                                     foreach ($teachers as $teacher) {
                                                         $i++; ?>
-                                                        <option value="<?php echo $teacher['id'] ?>"> <?php echo $teacher['fname_en'] . ' ' . $teacher['lname_en'] ?> </option>
+                                                        <option value="<?php echo $teacher['t_id'] ?>"> <?php echo $teacher['fname_en'] . ' ' . $teacher['lname_en'] ?> </option>
                                                     <?php } ?>
                                                 </select>
                                                 <div class="error"><?php echo $teacher_err ?></div>
@@ -184,9 +207,22 @@ if (!isset($_SESSION['admin_login'])) {
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
+                                                <label>Program<span class="login-danger">*</span></label>
+                                                <select class="form-control select <?php echo $program_red_border ?>" name="program">
+                                                    <option><?php echo $program ?></option>
+                                                    <?php $i = 0;
+                                                    foreach ($programs as $program) {
+                                                        $i++; ?>
+                                                        <option> <?php echo $program['program'] ?> </option>
+                                                    <?php } ?>
+                                                </select>
+                                                <div class="error"><?php echo $program_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
                                                 <label>Season<span class="login-danger">*</span></label>
                                                 <select class="form-control select <?php echo $season_red_border ?>" name="season">
-                                                    <option><?php echo $season ?></option>
                                                     <?php $i = 0;
                                                     foreach ($seasons as $season) {
                                                         $i++; ?>
