@@ -65,6 +65,13 @@
                             <li><a href="../admin/classroom-add.php"  class="<?php if(basename($_SERVER['PHP_SELF']) == "classroom-add.php"){echo "active";} ?> ">Class Room Add</a></li>
                         </ul>
                     </li>
+                    <li class="submenu <?php if(basename($_SERVER['PHP_SELF']) == "classgroup-list.php" || basename($_SERVER['PHP_SELF']) == "classgroup-add.php"){echo "active";} ?>">
+                        <a href="#"><i class="fas fa-book-reader"></i> <span>Class Groups</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="../admin/classgroup-list.php" class="<?php if(basename($_SERVER['PHP_SELF']) == "classgroup-list.php"){echo "active";} ?>">Class Room List</a></li>
+                            <li><a href="../admin/classgroup-add.php"  class="<?php if(basename($_SERVER['PHP_SELF']) == "classgroup-add.php"){echo "active";} ?> ">Class Room Add</a></li>
+                        </ul>
+                    </li>
                     <li class="menu-title">
                         <span>Management</span>
                     </li>

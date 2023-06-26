@@ -87,7 +87,7 @@ if (!isset($_SESSION['admin_login'])) {
                     $sql = "UPDATE subjects SET t_id=:t_id, name=:name, program=:program, season=:season, semester=:semester, credit=:credit WHERE sub_id=:sub_id";
                     $stmt = $conn->prepare($sql);
                     $stmt->bindParam(':sub_id', $id);
-                    $stmt->bindParam(':t_id', $t_id);
+                    $stmt->bindParam(':t_id', $teacher);
                     $stmt->bindParam(':name', $name);
                     $stmt->bindParam(':program', $program);
                     $stmt->bindParam(':season', $season);

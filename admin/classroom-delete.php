@@ -8,7 +8,7 @@
     } else {
         if(isset($_GET['id'])) {
             $id = $_GET['id'];
-            include "data/classroom-db.php";
+            include "admin-datas/classroom-db.php";
             if (removeClassroomByID($id, $conn)) {
                 $_SESSION['success'] = "Successfully deleted!";
                 header('location: classroom-list.php');

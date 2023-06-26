@@ -113,7 +113,7 @@ if (!isset($_SESSION['admin_login'])) {
                                 <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
                                     <thead class="student-thread">
                                         <tr>
-                                            <th>No</th>
+                                            <th>Subject ID</th>
                                             <th>Subject Name</th>
                                             <th>Teacher Name</th>
                                             <th>Program</th>
@@ -135,7 +135,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                 $i++; ?>
 
                                             <tr>
-                                                <td><?php echo $i ?></td>
+                                                <td><?php echo $subject['sub_id'] ?></td>
                                                 <td><?php echo $subject['name'] ?></td>
                                                 <td><?php echo $teacher['fname_en'] . ' ' . $teacher['lname_en'] ?></td>
                                                 <td><?php echo $subject['program'] ?></td>
@@ -144,9 +144,6 @@ if (!isset($_SESSION['admin_login'])) {
                                                 <td><?php echo $subject['credit'] ?></td>
                                                 <td class="text-end">
                                                     <div class="actions ">
-                                                        <a href="javascript:;" class="btn btn-sm bg-success-light me-2 ">
-                                                            <i class="feather-eye"></i>
-                                                        </a>
                                                         <a href="subject-edit.php?id=<?= $subject['sub_id'] ?>" class="btn btn-sm bg-danger-light">
                                                             <i class="feather-edit"></i>
                                                         </a>

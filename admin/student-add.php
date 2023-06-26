@@ -2,15 +2,15 @@
 session_start();
 require_once '../config/dbcon.php';
 include "admin-datas/season-db.php";
-// include "admin-datas/program-db.php";
+include "admin-datas/program-db.php";
 include "admin-datas/student-db.php";
 
 
 $seasons = getLastSeason($conn);
-// $programs = getAllPrograms($conn);
+$programs = getAllPrograms($conn);
 
 // For Student Details
-$u_id = $fname_en = $lname_en = $fname_la = $lname_la = $gender = $status = $tel = $email = $study_program = $part = '';
+$u_id = $fname_en = $lname_en = $fname_la = $lname_la = $gender = $status = $tel = $email = $study_program = $part = $season_start =  '';
 
 
 
@@ -96,6 +96,13 @@ if (!isset($_SESSION['admin_login'])) {
                 $study_program = $_REQUEST['study_program'];
             }
 
+            if (empty($_REQUEST["season_start"])) {
+                $season_start_err = 'season_start is required!';
+                $season_start_red_border = 'red_border';
+            } else {
+                $season_start = $_REQUEST['season_start'];
+            }
+
             if (empty($_REQUEST["part"])) {
                 $part_err = 'Part is required!';
                 $part_red_border = 'red_border';
@@ -148,8 +155,8 @@ if (!isset($_SESSION['admin_login'])) {
                 $stmt1->bindParam(':status', $status);
 
                 // Add Student
-                $stmt2 = $conn->prepare('INSERT INTO students(std_id, u_id, fname_en, lname_en, gender, fname_la, lname_la, program, part, tel, email) 
-                                        VALUES(:std_id, :u_id, :fname_en, :lname_en, :gender, :fname_la, :lname_la, :program, :part, :tel, :email)');
+                $stmt2 = $conn->prepare('INSERT INTO students(std_id, u_id, fname_en, lname_en, gender, fname_la, lname_la, program, season_start, part, tel, email) 
+                                        VALUES(:std_id, :u_id, :fname_en, :lname_en, :gender, :fname_la, :lname_la, :program, :season_start, :part, :tel, :email)');
 
                     $stmt2->bindParam(':std_id', $u_id);
                     $stmt2->bindParam(':u_id', $u_id);
@@ -159,6 +166,7 @@ if (!isset($_SESSION['admin_login'])) {
                     $stmt2->bindParam(':fname_la', $fname_la);
                     $stmt2->bindParam(':lname_la', $lname_la);
                     $stmt2->bindParam(':program', $study_program);
+                    $stmt2->bindParam(':season_start', $season_start);
                     $stmt2->bindParam(':part', $part);
                     $stmt2->bindParam(':tel', $tel);
                     $stmt2->bindParam(':email', $email);
@@ -309,11 +317,26 @@ if (!isset($_SESSION['admin_login'])) {
                                             <div class="form-group local-forms">
                                                 <label>Program Of Studying <span class="login-danger">*</span></label>
                                                 <select class="form-control select <?php echo $study_program_red_border ?>" name="study_program">
-                                                    <option><?php echo $study_program ?></option>
-                                                    <option>Diploma Degree</option>
-                                                    <option>Bachelor Degree</option>
+                                                <option><?php echo $study_program ?></option>
+                                                    <?php $i = 0;
+                                                    foreach ($programs as $program) {
+                                                        $i++; ?>
+                                                        <option> <?php echo $program['program'] ?> </option>
+                                                    <?php } ?>
                                                 </select>
                                                 <div class="error"><?php echo $study_program_err ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Season<span class="login-danger">*</span></label>
+                                                <select class="form-control select" name="season_start">
+                                                    <?php $i = 0;
+                                                    foreach ($seasons as $season) {
+                                                        $i++; ?>
+                                                        <option> <?php echo $season['season'] ?> </option>
+                                                    <?php } ?>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">

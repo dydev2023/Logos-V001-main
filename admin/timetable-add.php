@@ -2,12 +2,11 @@
 session_start();
 require_once '../config/dbcon.php';
 include "admin-datas/season-db.php";
-include "admin-datas/admin-db.php";
-include "admin-datas/room-db.php";
+include "admin-datas/classroom-db.php";
 include "admin-datas/subject-db.php";
 $seasons = getAllSeasons($conn);
 $subjects = getAllSubjects($conn);
-$classrooms = getAllRooms($conn);
+$classrooms = getAllClassrooms($conn);
 
 $season = $semester = $year = $part = '';
 
