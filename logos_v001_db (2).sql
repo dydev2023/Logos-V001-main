@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2023 at 11:22 AM
+-- Generation Time: Jun 27, 2023 at 08:22 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -54,6 +54,7 @@ INSERT INTO `admins` (`am_id`, `u_id`, `fname_en`, `lname_en`, `gender`, `tel`, 
 --
 
 CREATE TABLE `classgroups` (
+  `id` int(15) NOT NULL,
   `class_group_id` varchar(15) NOT NULL,
   `t_id` varchar(15) DEFAULT NULL,
   `std_id` varchar(15) DEFAULT NULL,
@@ -61,6 +62,22 @@ CREATE TABLE `classgroups` (
   `season` varchar(15) DEFAULT NULL,
   `year` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `classgroups`
+--
+
+INSERT INTO `classgroups` (`id`, `class_group_id`, `t_id`, `std_id`, `program`, `season`, `year`) VALUES
+(5, 'aaa001', 't001', '2324BM00001', 'Bachelor Degree', '2022-2023', '1'),
+(6, 'aaa001', 't001', '2324BM00002', 'Bachelor Degree', '2022-2023', '1'),
+(7, 'aaa001', 't001', '2324BM00003', 'Bachelor Degree', '2022-2023', '1'),
+(8, 'aaa001', 't001', '2324BM00004', 'Bachelor Degree', '2022-2023', '1'),
+(9, 'aaa001', 't001', '2324BM00005', 'Bachelor Degree', '2022-2023', '1'),
+(10, 'aaa001', 't001', '2324BM00006', 'Bachelor Degree', '2022-2023', '1'),
+(11, 'aaa001', 't001', '2324BM00007', 'Bachelor Degree', '2022-2023', '1'),
+(12, 'aaa001', 't001', '2324BM00008', 'Bachelor Degree', '2022-2023', '1'),
+(13, 'aaa001', 't001', '2324BM00009', 'Bachelor Degree', '2022-2023', '1'),
+(14, 'aaa001', 't001', '2324BM00010', 'Bachelor Degree', '2022-2023', '1');
 
 -- --------------------------------------------------------
 
@@ -277,6 +294,7 @@ CREATE TABLE `students` (
   `plansforthefuture` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `std_status` varchar(50) NOT NULL DEFAULT 'Studying',
+  `group_status` varchar(15) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -285,39 +303,39 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`std_id`, `u_id`, `fname_en`, `lname_en`, `gender`, `fname_la`, `lname_la`, `program`, `season_start`, `fname_ch`, `lname_ch`, `dob`, `part`, `nation`, `religion`, `ethnicity`, `tel`, `whatsapp`, `email`, `guardian_tel`, `village_birth`, `district_birth`, `province_birth`, `village_current`, `district_current`, `province_current`, `house_unit`, `house_no`, `highschool`, `season_hsc`, `district_study`, `province_study`, `employment_history`, `language_proficiency`, `talent`, `familymatters`, `plansforthefuture`, `image`, `std_status`, `created_at`, `updated_at`) VALUES
-('2324BE00001', '2324BE00001', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050100001', NULL, 'stdBE001@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:44:21'),
-('2324BE00002', '2324BE00002', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050200002', NULL, 'stdBE002@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
-('2324BE00003', '2324BE00003', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050300003', NULL, 'stdBE003@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
-('2324BE00004', '2324BE00004', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050400004', NULL, 'stdBE004@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
-('2324BE00005', '2324BE00005', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050500005', NULL, 'stdBE005@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
-('2324BE00006', '2324BE00006', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050600006', NULL, 'stdBE006@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
-('2324BE00007', '2324BE00007', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050700007', NULL, 'stdBE007@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
-('2324BE00008', '2324BE00008', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050800008', NULL, 'stdBE008@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
-('2324BE00009', '2324BE00009', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050900009', NULL, 'stdBE009@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
-('2324BE00010', '2324BE00010', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051000010', NULL, 'stdBE010@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
-('2324BE00011', '2324BE00011', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051100011', NULL, 'stdBE011@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
-('2324BE00012', '2324BE00012', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051200012', NULL, 'stdBE012@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
-('2324BE00013', '2324BE00013', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051300013', NULL, 'stdBE013@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:52'),
-('2324BE00014', '2324BE00014', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051400014', NULL, 'stdBE014@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:52'),
-('2324BE00015', '2324BE00015', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051500015', NULL, 'stdBE015@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:52'),
-('2324BE00016', '2324BE00016', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051600016', NULL, 'stdBE016@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:45:52'),
-('2324BM00001', '2324BM00001', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000001', NULL, 'stdBM001@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:13:10'),
-('2324BM00002', '2324BM00002', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000002', NULL, 'stdBM002@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:14:16'),
-('2324BM00003', '2324BM00003', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000003', NULL, 'stdBM003@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:14:16'),
-('2324BM00004', '2324BM00004', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000004', NULL, 'stdBM004@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:14:16'),
-('2324BM00005', '2324BM00005', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000005', NULL, 'stdBM005@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:14:16'),
-('2324BM00006', '2324BM00006', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000006', NULL, 'stdBM006@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
-('2324BM00007', '2324BM00007', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000007', NULL, 'stdBM007@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
-('2324BM00008', '2324BM00008', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000008', NULL, 'stdBM008@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
-('2324BM00009', '2324BM00009', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000009', NULL, 'stdBM009@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
-('2324BM00010', '2324BM00010', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000010', NULL, 'stdBM010@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
-('2324BM00011', '2324BM00011', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000011', NULL, 'stdB011@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
-('2324BM00012', '2324BM00012', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000012', NULL, 'stdBM012@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
-('2324BM00013', '2324BM00013', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000013', NULL, 'stdBM013@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
-('2324BM00014', '2324BM00014', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000014', NULL, 'stdBM014@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
-('2324BM00015', '2324BM00015', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000015', NULL, 'stdB015@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
-('2324BM00016', '2324BM00016', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000016', NULL, 'stdBM016@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', '2023-06-26 07:29:21', '2023-06-26 08:15:25');
+INSERT INTO `students` (`std_id`, `u_id`, `fname_en`, `lname_en`, `gender`, `fname_la`, `lname_la`, `program`, `season_start`, `fname_ch`, `lname_ch`, `dob`, `part`, `nation`, `religion`, `ethnicity`, `tel`, `whatsapp`, `email`, `guardian_tel`, `village_birth`, `district_birth`, `province_birth`, `village_current`, `district_current`, `province_current`, `house_unit`, `house_no`, `highschool`, `season_hsc`, `district_study`, `province_study`, `employment_history`, `language_proficiency`, `talent`, `familymatters`, `plansforthefuture`, `image`, `std_status`, `group_status`, `created_at`, `updated_at`) VALUES
+('2324BE00001', '2324BE00001', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050100001', NULL, 'stdBE001@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:44:21'),
+('2324BE00002', '2324BE00002', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050200002', NULL, 'stdBE002@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
+('2324BE00003', '2324BE00003', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050300003', NULL, 'stdBE003@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
+('2324BE00004', '2324BE00004', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050400004', NULL, 'stdBE004@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
+('2324BE00005', '2324BE00005', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050500005', NULL, 'stdBE005@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
+('2324BE00006', '2324BE00006', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050600006', NULL, 'stdBE006@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
+('2324BE00007', '2324BE00007', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050700007', NULL, 'stdBE007@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
+('2324BE00008', '2324BE00008', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050800008', NULL, 'stdBE008@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
+('2324BE00009', '2324BE00009', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02050900009', NULL, 'stdBE009@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
+('2324BE00010', '2324BE00010', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051000010', NULL, 'stdBE010@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
+('2324BE00011', '2324BE00011', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051100011', NULL, 'stdBE011@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
+('2324BE00012', '2324BE00012', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051200012', NULL, 'stdBE012@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:51'),
+('2324BE00013', '2324BE00013', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051300013', NULL, 'stdBE013@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:52'),
+('2324BE00014', '2324BE00014', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051400014', NULL, 'stdBE014@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:52'),
+('2324BE00015', '2324BE00015', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051500015', NULL, 'stdBE015@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:52'),
+('2324BE00016', '2324BE00016', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Evening', NULL, NULL, NULL, '02051600016', NULL, 'stdBE016@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:45:52'),
+('2324BM00001', '2324BM00001', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000001', NULL, 'stdBM001@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', 'aaa001', '2023-06-26 07:29:21', '2023-06-27 03:39:19'),
+('2324BM00002', '2324BM00002', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000002', NULL, 'stdBM002@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', 'aaa001', '2023-06-26 07:29:21', '2023-06-27 03:39:19'),
+('2324BM00003', '2324BM00003', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000003', NULL, 'stdBM003@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', 'aaa001', '2023-06-26 07:29:21', '2023-06-27 03:39:19'),
+('2324BM00004', '2324BM00004', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000004', NULL, 'stdBM004@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', 'aaa001', '2023-06-26 07:29:21', '2023-06-27 03:39:19'),
+('2324BM00005', '2324BM00005', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000005', NULL, 'stdBM005@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', 'aaa001', '2023-06-26 07:29:21', '2023-06-27 03:39:19'),
+('2324BM00006', '2324BM00006', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000006', NULL, 'stdBM006@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', 'aaa001', '2023-06-26 07:29:21', '2023-06-27 03:39:19'),
+('2324BM00007', '2324BM00007', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000007', NULL, 'stdBM007@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', 'aaa001', '2023-06-26 07:29:21', '2023-06-27 04:31:48'),
+('2324BM00008', '2324BM00008', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000008', NULL, 'stdBM008@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', 'aaa001', '2023-06-26 07:29:21', '2023-06-27 04:31:48'),
+('2324BM00009', '2324BM00009', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000009', NULL, 'stdBM009@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', 'aaa001', '2023-06-26 07:29:21', '2023-06-27 04:31:48'),
+('2324BM00010', '2324BM00010', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000010', NULL, 'stdBM010@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', 'aaa001', '2023-06-26 07:29:21', '2023-06-27 04:31:48'),
+('2324BM00011', '2324BM00011', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000011', NULL, 'stdB011@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
+('2324BM00012', '2324BM00012', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000012', NULL, 'stdBM012@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
+('2324BM00013', '2324BM00013', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000013', NULL, 'stdBM013@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
+('2324BM00014', '2324BM00014', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000014', NULL, 'stdBM014@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
+('2324BM00015', '2324BM00015', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000015', NULL, 'stdB015@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:15:25'),
+('2324BM00016', '2324BM00016', 'std', 'Student', 'Male', 'std', 'Student', 'Bachelor Degree', '2022-2023', NULL, NULL, NULL, 'Morning', NULL, NULL, NULL, '02050000016', NULL, 'stdBM016@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Studying', NULL, '2023-06-26 07:29:21', '2023-06-26 08:15:25');
 
 -- --------------------------------------------------------
 
@@ -527,11 +545,12 @@ ALTER TABLE `admins`
 -- Indexes for table `classgroups`
 --
 ALTER TABLE `classgroups`
-  ADD PRIMARY KEY (`class_group_id`) USING BTREE,
+  ADD PRIMARY KEY (`id`),
   ADD KEY `t_class_id` (`t_id`),
   ADD KEY `std_id` (`std_id`),
   ADD KEY `season` (`season`),
-  ADD KEY `program` (`program`);
+  ADD KEY `program` (`program`),
+  ADD KEY `class_group_id` (`class_group_id`) USING BTREE;
 
 --
 -- Indexes for table `classrooms`
@@ -639,6 +658,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `classgroups`
+--
+ALTER TABLE `classgroups`
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `classrooms`
