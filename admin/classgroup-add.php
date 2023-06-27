@@ -45,12 +45,28 @@ if (!isset($_SESSION['admin_login'])) {
 
             include "admin-datas/teacher-db.php";
             $teachers = getAllTeachers($conn);
-
-            
         }
     }
-
     if (isset($_POST['submit'])) {
+
+        if (empty($_REQUEST['program'])) {
+            $program_err = 'Program is required!';
+            $program_red_border = 'red_border';
+        } else {
+            $program = $_REQUEST['program'];
+        }
+        if (empty($_REQUEST['season'])) {
+            $season_err = 'Season ID is required!';
+            $season_red_border = 'red_border';
+        } else {
+            $season = $_REQUEST['season'];
+        }
+        if (empty($_REQUEST['part'])) {
+            $part_err = 'Part is required!';
+            $part_red_border = 'red_border';
+        } else {
+            $part = $_REQUEST['part'];
+        }
 
         if (empty($_REQUEST['classgroup_id'])) {
             $classgroup_id_err = 'Classgroup ID is required!';
@@ -78,14 +94,31 @@ if (!isset($_SESSION['admin_login'])) {
         }
 
         if (!empty($classgroup_id) and !empty($teacher) and !empty($year) and !empty($amount)) {
-            $_SESSION['success'] = 'Success!';
-            header('location: classgroup-add.php');
-            exit;
+
+            try {
+                $sql = mysqli_connect("localhost", "root", "", "logos_v001_db");
+
+                for ($i = 1; $i <= $amount; $i++) {
+
+                    $studentID = $_REQUEST[$i . 'studentID'];
+
+                    // For Group student's class
+                    mysqli_query($sql, "INSERT INTO classgroups (class_group_id, t_id, std_id, program, season, year)
+                                VALUES ('$classgroup_id', '$teacher', '$studentID', '$program', '$season', '$year')");
+
+
+                    // For Student group's status
+                    mysqli_query($sql, "UPDATE students SET group_status='$classgroup_id' WHERE std_id='$studentID'");
+                }
+                // $_SESSION['success'] = 'Success!' . $season . $program . $part . $classgroup_id . $teacher . $year . $amount;
+                $_SESSION['success'] = 'Group student successfuly!';
+                header('location: classgroup-add.php');
+                exit;
+            } catch (PDOException $e) {
+                $e->getMessage();
+            }
         }
     }
-
-
-
 }
 
 
@@ -148,9 +181,9 @@ if (!isset($_SESSION['admin_login'])) {
                     </div>
                 </div>
             </div>
+            <form method="post" action="" enctype="multipart/form-data">
+                <div class="student-group-form">
 
-            <div class="student-group-form">
-                <form method="post" action="" enctype="multipart/form-data">
 
                     <div class="row">
                         <div class="col-12">
@@ -201,30 +234,30 @@ if (!isset($_SESSION['admin_login'])) {
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card card-table comman-shadow">
-                        <div class="card-body">
+                </div>
 
-                            <?php if (isset($_SESSION['success'])) { ?>
-                                <div class="alert alert-success" role="alert">
-                                    <?php
-                                    echo $_SESSION['success'];
-                                    unset($_SESSION['success']);
-                                    ?>
-                                </div>
-                            <?php } ?>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card card-table comman-shadow">
+                            <div class="card-body">
 
-                            <div class="table-responsive">
-                                <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
-                                    <?php
-                                    if (isset($_POST['search'])) {
-                                        if (!empty($program) and !empty($season) and !empty($part)) { ?>
-                                            <div class="student-group-form">
-                                                <form method="post" action="" enctype="multipart/form-data">
+                                <?php if (isset($_SESSION['success'])) { ?>
+                                    <div class="alert alert-success" role="alert">
+                                        <?php
+                                        echo $_SESSION['success'];
+                                        unset($_SESSION['success']);
+                                        ?>
+                                    </div>
+                                <?php } ?>
+
+                                <div class="table-responsive">
+                                    <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                                        <?php
+                                        if (isset($_POST['search'])) {
+                                            if (!empty($program) and !empty($season) and !empty($part)) { ?>
+                                                <div class="student-group-form">
+
 
                                                     <div class="row">
                                                         <div class="col-12">
@@ -245,7 +278,7 @@ if (!isset($_SESSION['admin_login'])) {
                                                                     <?php $i = 0;
                                                                     foreach ($teachers as $teacher) {
                                                                         $i++; ?>
-                                                                        <option> <?php echo $teacher['fname_en'] ?> </option>
+                                                                        <option value="<?php echo $teacher['t_id'] ?>"> <?php echo $teacher['fname_en'] ?> </option>
                                                                     <?php } ?>
                                                                 </select>
                                                                 <div class="error"><?php echo $teacher_err ?></div>
@@ -277,67 +310,66 @@ if (!isset($_SESSION['admin_login'])) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
-                                            </div>
-                                            <thead class="student-thread">
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Student ID</th>
-                                                    <th>Full Name</th>
-                                                    <th>Program</th>
-                                                    <th>Season start</th>
-                                                    <th>Part</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $i = 0;
-                                                foreach ($students as $student) {
-                                                    $i++; ?>
 
+                                                </div>
+                                                <thead class="student-thread">
                                                     <tr>
-                                                        <td><?php echo $i ?></td>
-                                                        <td><?php echo $student['std_id'] ?></td>
-                                                        <td>
-                                                            <h2 class="table-avatar">
-                                                                <?php
-                                                                $student_image = $student['image'];
-
-                                                                if ($student_image == '') { ?>
-                                                                    <a href="student-detail.php?$id=<? $student['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/profile.png" ?>" alt="User Image"></a>
-                                                                <?php } else { ?>
-                                                                    <a href="student-detail.php?$id=<? $student['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/student_profile/$student_image" ?>" alt="User Image"></a>
-                                                                <?php } ?>
-
-
-
-                                                                <?php
-                                                                if ($student['gender'] == 'Male') { ?>
-                                                                    <a>Mr <?php echo $student['fname_en'] . " " . $student['lname_en'] ?></a>
-                                                                <?php } else { ?>
-                                                                    <a>Miss <?php echo $student['fname_en'] . " " . $student['lname_en'] ?></a>
-                                                                <?php }
-                                                                ?>
-                                                            </h2>
-                                                        </td>
-                                                        <td><?php echo $student['program'] ?></td>
-                                                        <td><?php echo $student['season_start'] ?></td>
-                                                        <td><?php echo $student['part'] ?></td>
+                                                        <th>No</th>
+                                                        <th>Student ID</th>
+                                                        <th>Full Name</th>
+                                                        <th>Program</th>
+                                                        <th>Season start</th>
+                                                        <th>Part</th>
                                                     </tr>
-                                                <?php  } ?>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $i = 0;
+                                                    foreach ($students as $student) {
+                                                        if ($student['group_status'] == '') {
+                                                        $i++; ?>
 
-                                            </tbody>
+                                                        <tr>
+                                                            <td><?php echo $i ?></td>
+                                                            <td><?php echo $student['std_id'] ?></td>
+                                                            <input type="text" name="<?php echo $i . 'studentID' ?>" value="<?php echo $student['std_id'] ?>">
+                                                            <td>
+                                                                <h2 class="table-avatar">
+                                                                    <?php
+                                                                    $student_image = $student['image'];
+
+                                                                    if ($student_image == '') { ?>
+                                                                        <a href="student-detail.php?$id=<? $student['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/profile.png" ?>" alt="User Image"></a>
+                                                                    <?php } else { ?>
+                                                                        <a href="student-detail.php?$id=<? $student['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/student_profile/$student_image" ?>" alt="User Image"></a>
+                                                                    <?php } ?>
+
+
+
+                                                                    <?php
+                                                                    if ($student['gender'] == 'Male') { ?>
+                                                                        <a>Mr <?php echo $student['fname_en'] . " " . $student['lname_en'] ?></a>
+                                                                    <?php } else { ?>
+                                                                        <a>Miss <?php echo $student['fname_en'] . " " . $student['lname_en'] ?></a>
+                                                                    <?php }
+                                                                    ?>
+                                                                </h2>
+                                                            </td>
+                                                            <td><?php echo $student['program'] ?></td>
+                                                            <td><?php echo $student['season_start'] ?></td>
+                                                            <td><?php echo $student['part'] ?></td>
+                                                        </tr>
+                                                    <?php  } }?>
+
+                                                </tbody>
                                         <?php }
-                                    } else { ?>
-                                        <tr>
-                                            <td>No Student!</td>
-                                        </tr>
-                                    <?php } ?>
-                                </table>
+                                        } ?>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
