@@ -4,9 +4,10 @@ require_once '../config/dbcon.php';
 if (!isset($_SESSION['admin_login'])) {
     header('location: ../index.php');
 } else {
-    $program = $season = $part = '';
-    $program_err = $season_err = $part_err = '';
-    $program_red_border = $season_red_border = $part_red_border = '';
+
+    $program = $season = $part = $classgroup_id = $teacher = $year = $amount = '';
+    $program_err = $season_err = $part_err = $classgroup_id_err = $teacher_err = $year_err = $amount_err = '';
+    $program_red_border = $season_red_border = $part_red_border = $classgroup_id_red_border = $teacher_red_border = $year_red_border = $amount_red_border = '';
 
     include "admin-datas/student-db.php";
     include "admin-datas/program-db.php";
@@ -41,8 +42,50 @@ if (!isset($_SESSION['admin_login'])) {
             $students->bindParam(':part', $part);
             $students->bindParam(':season_start', $season);
             $students->execute();
+
+            include "admin-datas/teacher-db.php";
+            $teachers = getAllTeachers($conn);
+
+            
         }
     }
+
+    if (isset($_POST['submit'])) {
+
+        if (empty($_REQUEST['classgroup_id'])) {
+            $classgroup_id_err = 'Classgroup ID is required!';
+            $classgroup_id_red_border = 'red_border';
+        } else {
+            $classgroup_id = $_REQUEST['classgroup_id'];
+        }
+        if (empty($_REQUEST['teacher'])) {
+            $teacher_err = 'Teacher is required!';
+            $teacher_red_border = 'red_border';
+        } else {
+            $teacher = $_REQUEST['teacher'];
+        }
+        if (empty($_REQUEST['year'])) {
+            $year_err = 'Year is required!';
+            $year_red_border = 'red_border';
+        } else {
+            $year = $_REQUEST['year'];
+        }
+        if (empty($_REQUEST['amount'])) {
+            $amount_err = 'amount is required!';
+            $amount_red_border = 'red_border';
+        } else {
+            $amount = $_REQUEST['amount'];
+        }
+
+        if (!empty($classgroup_id) and !empty($teacher) and !empty($year) and !empty($amount)) {
+            $_SESSION['success'] = 'Success!';
+            header('location: classgroup-add.php');
+            exit;
+        }
+    }
+
+
+
 }
 
 
@@ -77,6 +120,8 @@ if (!isset($_SESSION['admin_login'])) {
     <link rel="stylesheet" href="../assets/css/style.css">
 
     <link rel="stylesheet" href="../assets/css/validate-form.css">
+
+    <link rel="stylesheet" href="../assets/plugins/alertify/alertify.min.css">
 </head>
 
 <body>
@@ -159,10 +204,6 @@ if (!isset($_SESSION['admin_login'])) {
                 </form>
             </div>
 
-
-
-
-
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card card-table comman-shadow">
@@ -177,20 +218,67 @@ if (!isset($_SESSION['admin_login'])) {
                                 </div>
                             <?php } ?>
 
-                            <div class="page-header">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h3 class="page-title">All Students</h3> 
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="table-responsive">
                                 <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
                                     <?php
                                     if (isset($_POST['search'])) {
                                         if (!empty($program) and !empty($season) and !empty($part)) { ?>
+                                            <div class="student-group-form">
+                                                <form method="post" action="" enctype="multipart/form-data">
 
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <h5 class="form-title student-info">All Students:</h5>
+                                                        </div>
+                                                        <div class="col-12 col-sm-2">
+                                                            <div class="form-group local-forms">
+                                                                <label>Group ID <span class="login-danger">*</span></label>
+                                                                <input class="form-control select <?php echo $classgroup_id_red_border ?>" type="text" name="classgroup_id" value="<?php echo $classgroup_id ?>">
+                                                                <div class="error"><?php echo $classgroup_id_err ?></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-2">
+                                                            <div class="form-group local-forms">
+                                                                <label>Teacher <span class="login-danger">*</span></label>
+                                                                <select class="form-control select <?php echo $teacher_red_border ?>" name="teacher">
+                                                                    <option><?php echo $teacher ?></option>
+                                                                    <?php $i = 0;
+                                                                    foreach ($teachers as $teacher) {
+                                                                        $i++; ?>
+                                                                        <option> <?php echo $teacher['fname_en'] ?> </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <div class="error"><?php echo $teacher_err ?></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-2"> <!-- New element -->
+                                                            <div class="form-group local-forms">
+                                                                <label>Year <span class="login-danger">*</span></label>
+                                                                <select class="form-control select <?php echo $year_red_border ?>" name="year">
+                                                                    <option><?php echo $year ?></option>
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                </select>
+                                                                <div class="error"><?php echo $year_err ?></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-2">
+                                                            <div class="form-group local-forms">
+                                                                <label>Amount<span class="login-danger">*</span></label>
+                                                                <input class="form-control select <?php echo $amount_red_border ?>" type="text" name="amount" value="<?php echo $amount ?>">
+                                                                <div class="error"><?php echo $amount_err ?></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-2">
+                                                            <div class="search-student-btn">
+                                                                <button type="submit" name="submit" class="btn btn-primary">Group</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
                                             <thead class="student-thread">
                                                 <tr>
                                                     <th>No</th>
@@ -253,6 +341,8 @@ if (!isset($_SESSION['admin_login'])) {
         </div>
     </div>
 
+
+
     <script src="../assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -262,6 +352,9 @@ if (!isset($_SESSION['admin_login'])) {
     <script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <script src="../assets/plugins/datatables/datatables.min.js"></script>
+
+    <script src="../assets/plugins/alertify/alertify.min.js"></script>
+    <script src="../assets/plugins/alertify/custom-alertify.min.js"></script>
 
     <script src="../assets/js/script.js"></script>
 
