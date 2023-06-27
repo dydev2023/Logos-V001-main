@@ -39,7 +39,8 @@ if (!isset($_SESSION['admin_login'])) {
                         $stmt->bindParam(':id', $id);
                         $stmt->execute();
                         $_SESSION['success'] = "Successfully Updated classroom year!";
-                        header("refresh:1; classroom-list.php");
+                        header("location: classroom-list.php");
+                        exit;
                     } catch (PDOException $e) {
                         echo $e->getMessage();
                     }

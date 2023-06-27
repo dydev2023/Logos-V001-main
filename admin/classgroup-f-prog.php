@@ -1,0 +1,243 @@
+<?php
+session_start();
+require_once '../config/dbcon.php';
+
+
+$program = $program_Err = $program_redborder = '';
+if (!isset($_SESSION['admin_login'])) {
+    header('location: ../index.php');
+} else {
+    if (isset($_REQUEST['submit'])) {
+
+        if (empty($_POST["program"])) {
+            $program_Err = "Please Enter User ID!";
+            $program_redborder = "red_border";
+        } else {
+            $program = $_REQUEST['program'];
+            $program_redborder = "green_border";
+        }
+
+        if (!empty($_POST["program"])) {
+            try {
+                $check_data = $conn->prepare("SELECT * FROM users WHERE program = :program");
+                $check_data->bindParam(":program", $program);
+                $check_data->execute();
+                $row = $check_data->fetch(PDO::FETCH_ASSOC);
+                if ($check_data->rowCount() > 0) {
+                    if ($program == $row['program']) {
+                        if ($row['status'] == 'Officer') {
+                            $_SESSION['officerInfo'] = $row['program'];
+                            header("location: classgroup-add.php.php");
+                            exit;
+                        } else {
+                            $program_Err = "Wrong Program!";
+                            $program_redborder = "red_border";
+                        }
+                    } else {
+                        $program_Err = "Wrong Program!";
+                        $program_redborder = "red_border";
+                    }
+                } else {
+                    $program_Err = "Wrong Program!";
+                    $program_redborder = "red_border";
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+        }
+    }
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logos Institute of Foreign Language </title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="shortcut icon" href="../assets/img/logo_logos.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/plugins/feather/feather.css">
+    <link rel="stylesheet" href="../assets/plugins/icons/flags/flags.css">
+    <link rel="stylesheet" href="../assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/validate-form.css">
+
+</head>
+
+<body>
+
+    <?php
+    include_once("../include/header.php");
+    include_once("../include/sidebar.php");
+    ?>
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-sub-header">
+                            <h3 class="page-title">Students</h3>
+
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="student-list.php">Student</a></li>
+                                <li class="breadcrumb-item active">All Students</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="student-group-form">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search by ID ...">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search by Name ...">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search by Phone ...">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="search-student-btn">
+                            <button type="btn" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table comman-shadow">
+                        <div class="card-body">
+
+                            <?php if (isset($_SESSION['success'])) { ?>
+                                <div class="alert alert-success" role="alert">
+                                    <?php
+                                    echo $_SESSION['success'];
+                                    unset($_SESSION['success']);
+                                    ?>
+                                </div>
+                            <?php } ?>
+
+                            <div class="page-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h3 class="page-title">Students</h3>
+                                    </div>
+                                    <div class="col-auto text-end float-end ms-auto download-grp">
+                                        <a href="student-add.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                                    <thead class="student-thread">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Student ID</th>
+                                            <th>Full Name</th>
+                                            <th>Study Program</th>
+                                            <th>Part</th>
+                                            <th>Status</th>
+                                            <th>Tel</th>
+                                            <th>Email Address</th>
+                                            <th class="text-end">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 0;
+                                        if ($students == "No Student!") {  ?>
+                                            <tr>
+                                                <td>No Student!</td>
+                                            </tr>
+                                            <?php } else {
+                                            foreach ($students as $student) {
+                                                $i++; ?>
+
+                                                <tr>
+                                                    <td><?php echo $i ?></td>
+                                                    <td><?php echo $student['std_id'] ?></td>
+                                                    <td>
+                                                        <h2 class="table-avatar">
+                                                            <?php
+                                                            $student_image = $student['image'];
+
+                                                            if ($student_image == '') { ?>
+                                                                <a href="student-detail.php?$id=<? $student['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/profile.png" ?>" alt="User Image"></a>
+                                                            <?php } else { ?>
+                                                                <a href="student-detail.php?$id=<? $student['id'] ?>" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="<?php echo "upload/student_profile/$student_image" ?>" alt="User Image"></a>
+                                                            <?php } ?>
+
+
+
+                                                            <?php
+                                                            if ($student['gender'] == 'Male') { ?>
+                                                                <a>Mr <?php echo $student['fname_en'] . " " . $student['lname_en'] ?></a>
+                                                            <?php } else { ?>
+                                                                <a>Miss <?php echo $student['fname_en'] . " " . $student['lname_en'] ?></a>
+                                                            <?php }
+                                                            ?>
+                                                        </h2>
+                                                    </td>
+                                                    <td><?php echo $student['program'] ?></td>
+                                                    <td><?php echo $student['part'] ?></td>
+                                                    <td><?php echo $student['std_status'] ?></td>
+                                                    <td><?php echo $student['tel'] ?></td>
+                                                    <td><?php echo $student['email'] ?></td>
+                                                    <td class="text-end">
+                                                        <div class="actions ">
+                                                            <a href="student-detail.php?id=<?= $student['std_id'] ?>" class="btn btn-sm bg-success-light me-2 ">
+                                                                <i class="feather-eye"></i>
+                                                            </a>
+                                                            <a href="student-edit.php?id=<?= $student['std_id'] ?>" class="btn btn-sm bg-danger-light">
+                                                                <i class="feather-edit"></i>
+                                                            </a>
+                                                            <a href="student-delete.php?id=<?= $student['std_id'] ?>" class="btn btn-sm bg-danger-light" onclick="return confirm('Do you want to delete this item?')">
+                                                                <i class="feather-delete"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                        <?php  }
+                                        } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../assets/js/feather.min.js"></script>
+
+    <script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="../assets/plugins/datatables/datatables.min.js"></script>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+
+</html>
